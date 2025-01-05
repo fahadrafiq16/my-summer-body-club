@@ -1,0 +1,483 @@
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@100..900&display=swap');
+
+body {
+  font-family: "Heebo", serif;
+}
+
+.App {}
+
+.radio-group-label {
+  padding: 20px 10px;
+  background: #fff;
+  margin: 25px 0px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  font-size: 20px;
+  font-weight: 600;
+  border-radius: 10px;
+}
+
+.radio-group-label input[type="radio"] {
+  height: 20px;
+  width: 20px;
+  margin-right: 15px;
+}
+
+.radio-group-label:hover {
+  cursor: pointer;
+  background: #E6FFE6;
+  border: 2px solid #1CC31C;
+}
+
+/* Add this to your CSS */
+.loader {
+  border: 4px solid #f3f3f3;
+  /* Light gray */
+  border-top: 4px solid #3498db;
+  /* Blue */
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+  text-align: center;
+  margin: 0 auto;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.payment-boxes {
+  width: 100%;
+  min-height: 400px;
+  margin-bottom: 30px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  padding: 30px 30px;
+}
+
+.first-payment-radio {
+  text-align: left;
+}
+
+.payment-boxes p {
+  margin-bottom: 0.9rem;
+}
+
+p.pp {
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.active-details {
+  display: flex;
+  justify-content: space-between;
+}
+
+.active-details h4 {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.active-details h4.bg {
+  background: #f04d17;
+  color: #fff;
+  padding: 5px 10px;
+  font-size: 18px;
+}
+
+p.pg {
+  color: #5A5A5A;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+div.bottom-border {
+  padding-bottom: 0px;
+  border-bottom: 1px solid #D3D3D3;
+}
+
+.pt-form-group-total-amount {
+  font-size: 20px;
+  font-weight: 600;
+  font-family: 'Heebo';
+}
+
+.pt-form-group {
+  margin-bottom: 15px;
+}
+
+h5 {
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 50px;
+}
+
+.kosten p:first-child {
+  margin-bottom: 0;
+}
+
+/* Progress bar container */
+.progress-container {
+  width: 100%;
+  max-width: 400px;
+  margin: 20px auto;
+}
+
+/* Styling the progress element */
+.custom-progress {
+  width: 100%;
+  height: 20px;
+  /* Adjust the height of the progress bar */
+  appearance: none;
+  /* Remove default browser styles */
+  border-radius: 10px;
+  /* Optional: Rounded corners */
+  background-color: #e0e0e0;
+  /* Light gray background for the track */
+  overflow: hidden;
+}
+
+/* Styling the progress value (progress bar color) */
+.custom-progress::-webkit-progress-bar {
+  background-color: #e0e0e0;
+  /* Track color */
+}
+
+.custom-progress::-webkit-progress-value {
+  background-color: #F04D17;
+  /* Green color for progress */
+  border-radius: 10px;
+  /* Optional: Rounded corners for the progress */
+}
+
+.custom-progress::-moz-progress-bar {
+  background-color: #F04D17;
+  /* Firefox progress bar color */
+}
+
+.form-border {
+  border: 6px solid #ef4d16 !important;
+  width: 10% !important;
+  margin-top: 40px;
+}
+
+.form-h3 {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 38px;
+  margin-top: 10px;
+  text-align: left;
+}
+
+.select-gender .text-left {
+  display: flex;
+}
+
+.select-gender .radio-group-label {
+  box-shadow: none;
+  margin: 0;
+}
+
+.select-gender span {
+  display: none;
+}
+
+.select-gender .radio-group-label:hover {
+  border: none;
+  background-color: #fff;
+}
+
+select {
+  border: 1.3px solid #f04d17;
+  min-height: 52.58px;
+  background: #fdede8;
+  margin: 0;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+select option {
+  font-size: 16px;
+  background: #fdede8;
+}
+
+@media only screen and (min-width: 600px) {
+  .payment-form-title-area {
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+    margin-bottom: 50px;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+}
+
+h3.payment-form-title-top {
+  color: red;
+  border-radius: 50%;
+  padding: 20px;
+  background: #fff;
+  color: #ef4d16;
+  text-align: center;
+}
+
+.payment-form-title-area h3 {
+  font-weight: 900;
+  font-size: 20px;
+}
+
+@media only screen and (min-width: 600px) {
+  .training-title {
+    margin-right: 250px;
+  }
+}
+
+.fact {
+  border: 1px solid #DEE2E6;
+  padding: 30px 5px;
+  position: relative;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  text-align: center;
+  margin: 60px 0px 20px;
+}
+
+.fact .landing-icon {
+  color: #357ca3;
+  font-size: 3em;
+  z-index: 1000;
+  position: absolute;
+  padding-left: 0px;
+  padding-right: 0px;
+  top: -40px;
+  right: 0;
+  bottom: 0;
+  width: 50px;
+  left: 0;
+  height: 50px;
+  margin: 0 auto;
+}
+
+.fact svg {
+  background: #f04d17;
+  color: #fff;
+  font-size: 20px;
+  padding: 10px;
+  border-radius: 50%;
+  font-weight: 900;
+}
+
+.fact p {
+  font-size: 17px;
+  font-style: italic;
+}
+
+.training-features {
+  border: 1.7px solid #ef4d16;
+  color: #000;
+  border-radius: 15px;
+  padding: 20px;
+  padding-bottom: 20px;
+  padding-bottom: 5px;
+  font-size: 16px;
+  margin-bottom: 30px;
+}
+
+@media only screen and (min-width: 600px) {
+  .training-features {
+    width: 50%;
+  }
+}
+
+.training-features p {
+  line-height: 20px;
+  font-weight: 500;
+  margin-bottom: 0.9rem;
+}
+
+.training-features p::before,
+.point p::before {
+  content: '\2713';
+  display: inline-block;
+  font-weight: 700;
+  padding: 0 10px 0 0;
+}
+
+.our-trainers {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 25px;
+  grid-template-rows: auto;
+  grid-row-gap: 35px;
+}
+
+.training-box {
+  border: 1px solid #DEE2E6;
+  border-radius: 0px 0px 5px 5px;
+}
+
+.training-content {
+  padding: 10px;
+  margin-top: 5px;
+}
+
+.price-area {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 5px 0px;
+}
+
+.price-area p {
+  font-size: 24px;
+  line-height: 20px;
+  font-weight: 700;
+}
+
+.training-title-area {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 5px 0px;
+}
+
+span a {
+  text-decoration: none;
+  color: #000;
+  font-size: 18px;
+  line-height: 22px;
+  font-weight: 700;
+}
+
+p.vanaf {
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.61);
+  font-weight: 600;
+}
+
+.popularity {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.popularity p.main {
+  font-size: 14px;
+  line-height: 14px;
+  color: #fff;
+  margin-left: 30px;
+  font-weight: 600;
+  padding: 5px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  background-color: #f04d17;
+}
+
+.training-points {
+  background: #FDEDE8;
+  padding: 10px;
+  border-bottom: 2px solid #EF3D01;
+  border-radius: 0px 0px 5px 5px;
+}
+
+.point {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.training-title-area i {
+  margin-right: 10px;
+  color: #D3D3D3;
+  font-size: 20px;
+}
+
+.section-title h2 {
+  text-align: center;
+  font-size: 25px;
+  line-height: 25px;
+  font-weight: 700;
+  padding-bottom: 40px;
+}
+
+.section-title span {
+  color: #ef4d16;
+}
+
+img {
+  width: 100%;
+}
+
+#msbc_maak_je .msbc_ben_je_content_area {
+  grid-column-gap: 60px;
+}
+
+.msbc_ben_je_content_area {
+  display: grid;
+  grid-template-columns: 1.75fr 1fr;
+  align-items: center;
+  justify-content: center;
+  grid-column-gap: 35px;
+}
+
+.msbc_ben_je_left h3 {
+  font-size: 25px;
+  line-height: 25px;
+  color: #000;
+  font-weight: 700;
+}
+
+.msbc_span {
+  color: #ef4d16;
+}
+
+.msbc_normal_p {
+  color: #414141;
+  font-size: 16px;
+  line-height: 30px;
+  text-align: justify;
+  margin-top: 15px;
+}
+
+#msbc_maak_je button {
+  margin-top: 50px;
+}
+
+.msbc_ben_button {
+  color: #ef4d16;
+  border: 2px solid #ef4d16;
+  font-size: 20px;
+  background: #fff;
+  line-height: 34px;
+  padding: 10px 15px;
+  font-family: 'Heebo', sans-serif;
+  margin-top: 30px;
+}
+
+#page-title-banner {
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url('../src/images/titleBg.jpg');
+  background-position-x: 0%;
+  background-position-y: 0%;
+  background-repeat: repeat;
+  background-size: auto;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  color: #fff;
+}
+
+#page-title-banner h2 {
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 33px;
+}
