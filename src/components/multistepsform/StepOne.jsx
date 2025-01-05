@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { useForm } from 'react-hook-form';
 import TextField from '../common/TextField';
 import { useFormContext } from '../../contex/FormContex'
@@ -45,6 +45,10 @@ const months = [
 const years = Array.from({ length: 2004 - 1940 + 1 }, (_, i) => 1940 + i);
 
 const StepOne = ({ trainingDescription }) => {
+
+    useEffect(() => {
+        window.scrollTo(0,0);
+    }, [])
 
     console.log(trainingDescription);
 
