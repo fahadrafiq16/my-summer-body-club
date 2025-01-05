@@ -4,6 +4,7 @@ console.log(PersonalImage);
 
 export const paymentOptions = [
     {
+        trainingTitle:'Afvallen Training',
         amount: '65.00',
         quantity: '1',
         title: 'per uur | Training - 1 op 1',
@@ -15,6 +16,7 @@ export const paymentOptions = [
         extra: false,
     },
     {
+        trainingTitle:'Afvallen Training',
         amount: '499.00',
         quantity: '3',
         title: 'p.m. | 3 maanden | Start Pakket | 2 x week trainen | incl.. vetmetingen | p.p.',
@@ -26,6 +28,7 @@ export const paymentOptions = [
         extra: true,
     },
     {
+        trainingTitle:'Afvallen Training',
         amount: '540.00',
         quantity: '3',
         title: 'p.m. | 3 maanden | Start Pakket | 2 x week trainen | incl.. vetmetingen | p.p.',
@@ -37,6 +40,7 @@ export const paymentOptions = [
         extra: true,
     },
     {
+        trainingTitle:'Afvallen Training',
         amount: '399.00',
         quantity: '3',
         title: 'p.m. | 3 maanden | Start Pakket | 2 x week trainen | incl.. vetmetingen | p.p.',
@@ -48,6 +52,7 @@ export const paymentOptions = [
         extra: true,
     },
     {
+        trainingTitle:'Afvallen Training',
         amount: '300.00',
         quantity: '1',
         title: '| 5 Rittenkaart *| p.p.',
@@ -59,6 +64,7 @@ export const paymentOptions = [
         extra: false,
     },
     {
+        trainingTitle:'Afvallen Training',
         amount: '550.00',
         quantity: '1',
         title: '| 10 Rittenkaart** | p.p.',
@@ -71,6 +77,7 @@ export const paymentOptions = [
         extra: false,
     },
     {
+        trainingTitle:'Afvallen Training',
         amount: '1020.00',
         quantity: '1',
         title: '| 20 Rittenkaart *** | p.p.',

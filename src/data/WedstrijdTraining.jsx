@@ -4,6 +4,7 @@ console.log(PersonalImage);
 
 export const paymentOptions = [
     {
+        trainingTitle:'Wedstrijd Training',
         amount: '80.00',
         quantity: '1',
         title: '| per 1.5 uur | Training – 1 op 1',
@@ -15,6 +16,7 @@ export const paymentOptions = [
         extra: false,
     },
     {
+        trainingTitle:'Wedstrijd Training',
         amount: '945.00',
         quantity: '3',
         title: '| 3 maanden | Start Pakket | 3 x week trainen | incl.. vetmetingen',
@@ -26,6 +28,7 @@ export const paymentOptions = [
         extra: true,
     },
     {
+        trainingTitle:'Wedstrijd Training',
         amount: '1170.00',
         quantity: '3',
         title: 'p.m. | 6 maanden | Start Pakket | 4 x week trainen | incl.. vetmetingen',
@@ -37,6 +40,7 @@ export const paymentOptions = [
         extra: true,
     },
     {
+        trainingTitle:'Wedstrijd Training',
         amount: '800.00',
         quantity: '1',
         title: '| 10 Rittenkaart* | 1.5 uur | v.a. p.p.',
@@ -48,6 +52,7 @@ export const paymentOptions = [
         extra: false,
     },
     {
+        trainingTitle:'Wedstrijd Training',
         amount: '1500.00',
         quantity: '1',
         title: '| 20 Rittenkaart** | 1.5 uur | v.a. p.p.',
