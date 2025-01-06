@@ -100,9 +100,9 @@ export const extraOptions = [
 
 export const clubAmount = [
     {
-        amount:'15',
+        amount:'0',
         title:'Clubpas/ QR-code',
-        status:true,
+        status:false,
     }
 ];
 
