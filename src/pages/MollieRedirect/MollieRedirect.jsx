@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PaymentFormHeader from '../../components/common/PaymentFormHeader'
 import { useLocation } from 'react-router-dom'
 
@@ -12,6 +12,8 @@ const MollieRedirect = () => {
     const selectedOption = queryParams.get('selectedOption');
     const subTitle = queryParams.get('subTitle');
     const email = queryParams.get('email');
+
+  
 
     return (
         <>
