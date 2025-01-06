@@ -64,7 +64,7 @@ const StepThree = ({ paymentOptions, extraOptions, clubAmount }) => {
 
         console.log(totalAmount);
         try {
-            const response = await axios.post('http://localhost:5000/api/create-payment', {
+            const response = await axios.post('https://1171-39-55-119-111.ngrok-free.app/api/create-payment', {
                 amount: totalAmount,
                 userInfo: {
                     ...formData,
