@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/home/Home'
 import Abonnement from './pages/abonnement/Abonnement';
 import GroepPTTraining from './pages/paymentForms/GroepPT';
+import MollieRedirect from './pages/MollieRedirect/MollieRedirect';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/trainingprograms/afvallen-training/payment-form" element={<AfvallenTraining />} />
           <Route path="/trainingprograms/wedstrijd-training/payment-form" element={<WedstrijdTraining />} />
           <Route path="/trainingprograms/groeppt-training/payment-form" element={<GroepPTTraining />} />
+          <Route path="/mollie-redirect" element={<MollieRedirect />} />
         </Routes>
       </div>
     </Router>

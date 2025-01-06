@@ -481,3 +481,19 @@ img {
   font-size: 30px;
   line-height: 33px;
 }
+
+#page-title-banner-child {
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url('./images/payment-header-bg.jpg');
+  background-position-x: 0%;
+  background-position-y: 0%;
+  background-repeat: repeat;
+  background-size: auto;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  color: #fff;
+}
