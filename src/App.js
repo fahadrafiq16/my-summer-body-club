@@ -7,6 +7,7 @@ import Home from './pages/home/Home'
 import Abonnement from './pages/abonnement/Abonnement';
 import GroepPTTraining from './pages/paymentForms/GroepPT';
 import MollieRedirect from './pages/MollieRedirect/MollieRedirect';
+import RecurringRedirect from './pages/MollieRedirect/RecurringRedirect';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/trainingprograms/wedstrijd-training/payment-form" element={<WedstrijdTraining />} />
           <Route path="/trainingprograms/groeppt-training/payment-form" element={<GroepPTTraining />} />
           <Route path="/mollie-redirect" element={<MollieRedirect />} />
+          <Route path="/recurring-redirect" element={<RecurringRedirect />} />
         </Routes>
       </div>
     </Router>

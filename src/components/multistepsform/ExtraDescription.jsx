@@ -12,7 +12,7 @@ const ExtraDescription = () => {
                 className="pp"
             >
                 * 5 rittenkaart = 3 maanden geldig | ** 10 rittenkaart = 5 maanden
-                geldig | *** 20 rittenkaart = 7 maanden geldig
+                geldig
             </p>
 
             <h4 style={{ fontSize: "26px", fontWeight:600 }}>

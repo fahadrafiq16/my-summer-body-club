@@ -113,7 +113,7 @@ const StepOne = ({ trainingDescription }) => {
             </div>
 
             <div className="text-left mt-4 mb-2">
-                <label className="mt-[20px] text-left font-bold">Tussen Voegsel</label>
+                <label className="mt-[20px] text-left font-bold">Geboorte datum</label>
             </div>
             <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-4">
 

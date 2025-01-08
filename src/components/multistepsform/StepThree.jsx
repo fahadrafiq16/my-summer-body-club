@@ -54,36 +54,65 @@ const StepThree = ({ paymentOptions, extraOptions, clubAmount }) => {
 
     const onSubmit = async (data) => {
         updateFormData(data);
-        
-       
-        
+
+
+
         const totalAmount = (parseFloat(data.paymentOption) + parseFloat(clubAmount[0].amount) + parseFloat(extraOption.amount)).toFixed(2);
-        
-        setFormData((prev) => ({ ...prev, loading: true, totalAmount:totalAmount }));
-        console.log('form',formData);
+
+
 
         console.log(totalAmount);
-        try {
-            const response = await axios.post('https://1171-39-55-119-111.ngrok-free.app/api/create-payment', {
-                amount: totalAmount,
-                userInfo: {
-                    ...formData,
-                    selectedOption: selectedOption,
-                    extraOption: extraOption,
-                    totalAmount:totalAmount,
-                    clubAmount:parseFloat(clubAmount[0].amount),
-                },
-            });
 
-            if (response.data.paymentUrl) {
-                window.location.href = response.data.paymentUrl;
-            } else {
-                alert('Error fetching Mollie API');
+        if (!selectedOption.recurring) {
+
+            setFormData((prev) => ({ ...prev, loading: true, totalAmount: totalAmount }));
+            console.log('form', formData);
+
+            try {
+                const response = await axios.post('https://1171-39-55-119-111.ngrok-free.app/api/create-payment', {
+                    amount: totalAmount,
+                    userInfo: {
+                        ...formData,
+                        selectedOption: selectedOption,
+                        extraOption: extraOption,
+                        totalAmount: totalAmount,
+                        clubAmount: parseFloat(clubAmount[0].amount),
+                    },
+                });
+
+                if (response.data.paymentUrl) {
+                    window.location.href = response.data.paymentUrl;
+                } else {
+                    alert('Error fetching Mollie API');
+                }
+            } catch (error) {
+                console.error('Error creating payment:', error);
+
             }
-        } catch (error) {
-            console.error('Error creating payment:', error);
+        } else {
+            try {
 
+                const response = await axios.post('http://localhost:5000/api/create-recurring-payment', {
+                    email: data.email,
+                    name: data.voornaam,
+                    userInfo: {
+                        ...formData,
+                        selectedOption: selectedOption,
+                        extraOption: extraOption,
+                        totalAmount: totalAmount,
+                        clubAmount: parseFloat(clubAmount[0].amount),
+                    },
+                });
+
+                if (response.data.paymentUrl) {
+                    window.location.href = response.data.paymentUrl;
+                }
+
+            } catch (error) {
+                console.error('Error initiating recurring payment:', error);
+            }
         }
+
     };
 
     return (
@@ -97,8 +126,6 @@ const StepThree = ({ paymentOptions, extraOptions, clubAmount }) => {
                     options={paymentOptions}
 
                 />
-
-
 
 
                 {/* Conditionally render Extra Option if selectedOption.extra is true */}

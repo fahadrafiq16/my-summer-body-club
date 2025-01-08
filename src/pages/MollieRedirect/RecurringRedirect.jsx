@@ -3,19 +3,19 @@ import PaymentFormHeader from '../../components/common/PaymentFormHeader'
 import { useLocation } from 'react-router-dom'
 import axios from 'axios'
 
-const MollieRedirect = () => {
+
+const RecurringRedirect = () => {
+
+    const [allPayments, setAllPayments] = useState([]);
+    const [matchedPayment, setMatchedPayment] = useState(null);
+    const [paymentCreated, setPaymentCreated] = useState(false);
 
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
 
     // Extract parameters from the query string
     const name = queryParams.get('name');
-    const selectedOption = queryParams.get('selectedOption');
-    const subTitle = queryParams.get('subTitle');
     const email = queryParams.get('email');
-
-    const [allPayments, setAllPayments] = useState([]);
-    const [matchedPayment, setMatchedPayment] = useState(null);
 
     useEffect(() => {
         const fetchPayments = async () => {
@@ -29,27 +29,51 @@ const MollieRedirect = () => {
                     payment.metadata?.userInfo?.email === email
                 );
 
+                if (match) {
 
-                setMatchedPayment(match); // Set the matched payment
-                console.log('Matched Payment:', match);
-                console.log('Status:', match.status);
+                    setMatchedPayment(match); // Set the matched payment
+                    // console.log('Matched Payment:', match.metadata);
 
+                    // Trigger subscription creation
+                    await createSubscription(match.customerId, match.metadata.userInfo);
+                }
 
-                console.log('All Payments', response.data);
             } catch (error) {
                 console.error('Error fetching payments:', error);
             }
         }
 
+        const createSubscription = async (customerId, userInfo) => {
+            try {
+                const response = await axios.post('http://localhost:5000/api/create-subscription', { customerId, userInfo, });
+                console.log('Subscription created successfully:', response.data);
+                if (response.data) {
+                    setPaymentCreated(true);
+                    console.log('Matched', userInfo);
+
+                    try {
+
+                        // Call the recurring email API
+                        const emailResponse = await axios.post('http://localhost:5000/api/recurring-email', { userInfo });
+                        console.log('Email sent successfully:', emailResponse.data);
+
+                    } catch (emailError) {
+                        console.error('Error sending email:', emailError);
+                    }
+
+                }
+            } catch (error) {
+                console.error('Error creating subscription:', error);
+            }
+        };
+
         fetchPayments();
 
     }, [name, email]);
 
-
     return (
         <>
             <PaymentFormHeader />
-
             <div className="max-w-lg mx-auto p-6 bg-white shadow-md rounded-lg mt-10">
                 <h1 className="text-2xl font-bold text-center text-secondary border-b-2 border-primary pb-2 mb-6">
                     Payment Status: {matchedPayment?.status}
@@ -69,4 +93,4 @@ const MollieRedirect = () => {
     )
 }
 
-export default MollieRedirect
+export default RecurringRedirect
