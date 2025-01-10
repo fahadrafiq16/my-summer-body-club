@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form';
 import TextField from '../common/TextField';
 import { useFormContext } from '../../contex/FormContex'
@@ -7,14 +7,19 @@ import PrevButton from './PrevButton';
 import NextButton from './NextButton';
 import StepProgress from './StepProgress';
 import BorderedHeader from './BorderedHeader';
+import axios from 'axios'
+
+const ADRES_API_KEY = process.env.REACT_APP_ADRES_API_KEY;
 
 const StepTwo = () => {
+   
+
 
     const { formData, updateFormData } = useFormContext();
 
     const { next, prev } = useSteps();
 
-    const { register, handleSubmit, formState: { errors } } = useForm({
+    const { register, handleSubmit, watch, formState: { errors } } = useForm({
         defaultValues: formData,
     });
 
@@ -22,6 +27,7 @@ const StepTwo = () => {
         updateFormData(data);
         next(); // Move to the next step
     };
+
 
     return (
         <>

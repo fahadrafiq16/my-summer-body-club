@@ -14,6 +14,7 @@ export const paymentOptions = [
         kosten: ['Kosten:'],
         totalKosten: ['Totaal Kosten'],
         extra: false,
+        recurring:false,
     },
     {
         trainingTitle:'Afvallen Training',
@@ -26,6 +27,7 @@ export const paymentOptions = [
         kosten: ['Pakket kosten: 3 x € 499,00', 'Kosten per maand: € 499,00'],
         totalKosten: ['Kosten 1e maand', 'Daarna maandelijkse kosten: € 499,00'],
         extra: true,
+        recurring:true,
     },
     {
         trainingTitle:'Afvallen Training',
@@ -38,6 +40,7 @@ export const paymentOptions = [
         kosten: ['Pakket kosten: 3 x € 540,00', 'Kosten per maand: € 540,00'],
         totalKosten: ['Kosten 1e maand', 'Daarna maandelijkse kosten: € 540,00'],
         extra: true,
+        recurring:true,
     },
     {
         trainingTitle:'Afvallen Training',
@@ -50,6 +53,7 @@ export const paymentOptions = [
         kosten: [' Pakket kosten: 6 x € 399,00 ', 'Kosten per maand: € 399,00 '],
         totalKosten: ['Kosten 1e maand', 'Daarna maandelijkse kosten: € 399,00'],
         extra: true,
+        recurring:true,
     },
     {
         trainingTitle:'Afvallen Training',
@@ -62,6 +66,7 @@ export const paymentOptions = [
         kosten: ['Kosten:'],
         totalKosten: ['Totaal Kosten'],
         extra: false,
+        recurring:false,
     },
     {
         trainingTitle:'Afvallen Training',
@@ -72,9 +77,9 @@ export const paymentOptions = [
         abonnementType: '10 Rittenkaart',
         abonnementTitle: 'Training 1 op 1',
         kosten: ['Kosten:'],
-    
         totalKosten: ['Totaal Kosten'],
         extra: false,
+        recurring:false,
     },
     {
         trainingTitle:'Afvallen Training',
@@ -87,6 +92,7 @@ export const paymentOptions = [
         kosten: ['Kosten:'],
         totalKosten: ['Kosten 1e maand', 'Daarna maandelijkse kosten: € 1020,00'],
         extra: true,
+        recurring:false,
     },
 ];
 

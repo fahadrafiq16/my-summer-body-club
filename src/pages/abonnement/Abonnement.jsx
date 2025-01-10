@@ -9,27 +9,28 @@ import TrainingBox from '../../components/abonnement/TrainingBox';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCoffee } from "@fortawesome/free-solid-svg-icons";
 import TitleHeader from '../../components/common/TitleHeader';
+import AllTrainings from '../../components/abonnement/AllTrainings';
 
 const Abonnement = () => {
     return (
         <>
-        <TitleHeader title={'Abonnementen'} />
-        <Banner />
-        <section id="our-trainings" className="my-[100px]">
-            <div className="container max-w-[1110px] mx-auto">
-                <div className="section-title">
-                    <h2>Groups &amp; PT <span>Abonnementen</span></h2>
+            <TitleHeader title={'Abonnementen'} />
+            <Banner />
+            <section id="our-trainings" className="my-[100px]">
+                <div className="container max-w-[1110px] mx-auto">
+                    <div className="section-title">
+                        <h2>Groups &amp; PT <span>Abonnementen</span></h2>
+                    </div>
+                    <div className="our-trainers">
+                        <AllTrainings
+                            trainingDescription={trainingDescription}
+                            afvallenTrainingDescription={afvallenTrainingDescription}
+                            wedstrijdTrainingDescription={wedstrijdTrainingDescription}
+                            groepPtTrainingDescription={groepPtTrainingDescription}
+                        />
+                    </div>
                 </div>
-                <div className="our-trainers">
-
-                    <TrainingBox trainingDescription={trainingDescription} />
-                    <TrainingBox trainingDescription={afvallenTrainingDescription} />
-                    <TrainingBox trainingDescription={wedstrijdTrainingDescription} />
-                    <TrainingBox trainingDescription={groepPtTrainingDescription} />
-
-                </div>
-            </div>
-        </section>
+            </section>
         </>
     );
 };

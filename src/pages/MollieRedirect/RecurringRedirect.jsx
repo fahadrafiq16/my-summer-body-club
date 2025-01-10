@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react'
 import PaymentFormHeader from '../../components/common/PaymentFormHeader'
 import { useLocation } from 'react-router-dom'
 import axios from 'axios'
-
+const BASE_FRONTEND_URL = process.env.REACT_APP_BASE_FRONTEND_URL;
+const BASE_BACKEND_URL = process.env.REACT_APP_BASE_BACKEND_URL;
+const BASE_NGROK_URL = process.env.REACT_APP_NGROK_BACKEND_URL;
 
 const RecurringRedirect = () => {
 
@@ -20,7 +22,13 @@ const RecurringRedirect = () => {
     useEffect(() => {
         const fetchPayments = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/fetch-payments');
+                const response = await axios.get(`${BASE_NGROK_URL}/api/fetch-payments`, {
+                    headers: {
+                        'ngrok-skip-browser-warning': 'true', // Skip the ngrok warning page
+                        'Accept': 'application/json', // Ensure the response is in JSON format
+                    }
+                });
+                console.log('Ngore', response);
                 setAllPayments(response.data);
 
                 // Find the payment where name and email match
@@ -45,7 +53,7 @@ const RecurringRedirect = () => {
 
         const createSubscription = async (customerId, userInfo) => {
             try {
-                const response = await axios.post('http://localhost:5000/api/create-subscription', { customerId, userInfo, });
+                const response = await axios.post(`${BASE_BACKEND_URL}/api/create-subscription`, { customerId, userInfo, });
                 console.log('Subscription created successfully:', response.data);
                 if (response.data) {
                     setPaymentCreated(true);
@@ -54,7 +62,7 @@ const RecurringRedirect = () => {
                     try {
 
                         // Call the recurring email API
-                        const emailResponse = await axios.post('http://localhost:5000/api/recurring-email', { userInfo });
+                        const emailResponse = await axios.post(`${BASE_BACKEND_URL}/api/recurring-email`, { userInfo });
                         console.log('Email sent successfully:', emailResponse.data);
 
                     } catch (emailError) {

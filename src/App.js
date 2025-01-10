@@ -10,6 +10,7 @@ import MollieRedirect from './pages/MollieRedirect/MollieRedirect';
 import RecurringRedirect from './pages/MollieRedirect/RecurringRedirect';
 
 function App() {
+
   return (
     <Router>
       <div className="App">

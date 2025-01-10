@@ -14,6 +14,7 @@ export const paymentOptions = [
         kosten: ['Kosten:'],
         totalKosten: ['Totaal Kosten'],
         extra: false,
+        recurring:false,
     },
     {
         trainingTitle:'Wedstrijd Training',
@@ -26,11 +27,12 @@ export const paymentOptions = [
         kosten: ['Pakket kosten: 3x € 945,00', 'Kosten per maand: € 945,00'],
         totalKosten: ['Kosten 1e maand', 'Daarna maandelijkse kosten: € 945,00'],
         extra: true,
+        recurring:true,
     },
     {
         trainingTitle:'Wedstrijd Training',
         amount: '1170.00',
-        quantity: '3',
+        quantity: '6',
         title: 'p.m. | 6 maanden | Start Pakket | 4 x week trainen | incl.. vetmetingen',
         subTitle: 'Je Wedstrijd Training abonnement bij My Summerbody Club',
         abonnementType: '6 maanden | Start Pakket | Per maand',
@@ -38,6 +40,7 @@ export const paymentOptions = [
         kosten: ['Pakket kosten: 6x € 1.170,00', 'Kosten per maand: € 1.170,00'],
         totalKosten: ['Kosten 1e maand', 'Daarna maandelijkse kosten: € 1170,00'],
         extra: true,
+        recurring:true,
     },
     {
         trainingTitle:'Wedstrijd Training',
@@ -50,6 +53,7 @@ export const paymentOptions = [
         kosten: ['Kosten:'],
         totalKosten: ['Totaal Kosten'],
         extra: false,
+        recurring:false,
     },
     {
         trainingTitle:'Wedstrijd Training',
@@ -62,6 +66,7 @@ export const paymentOptions = [
         kosten: ['Kosten:'],
         totalKosten: ['Kosten 1e maand', 'Daarna maandelijkse kosten: € 1500,00'],
         extra: true,
+        recurring:false,
     },
 
 

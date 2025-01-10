@@ -14,6 +14,7 @@ export const paymentOptions = [
         kosten: ['Kosten:'],
         totalKosten: ['Totaal Kosten'],
         extra: false,
+        recurring:false,
     },
     {
         trainingTitle:'Groep PT',
@@ -26,6 +27,7 @@ export const paymentOptions = [
         kosten: ['Pakket kosten: 3 x € 200,00', 'Kosten per maand: € 200,00'],
         totalKosten: ['Kosten 1e maand', 'Daarna maandelijkse kosten: € 200,00'],
         extra: true,
+        recurring:true,
     },
     {
         trainingTitle:'Groep PT',
@@ -38,6 +40,7 @@ export const paymentOptions = [
         kosten: ['Pakket kosten: 3 x € 175,00', 'Kosten per maand: € 175,00'],
         totalKosten: ['Kosten 1e maand', 'Daarna maandelijkse kosten: € 175,00'],
         extra: true,
+        recurring:true,
     },
     {
         trainingTitle:'Groep PT',
@@ -50,6 +53,7 @@ export const paymentOptions = [
         kosten: [' Pakket kosten: 3 x € 250,00 ', 'Kosten per maand: € 250,00 '],
         totalKosten: ['Kosten 1e maand', 'Daarna maandelijkse kosten: € 250,00'],
         extra: true,
+        recurring:true,
     },
     {
         trainingTitle:'Groep PT',
@@ -62,6 +66,7 @@ export const paymentOptions = [
         kosten: ['Kosten per maand: € 280,00'],
         totalKosten: ['Maandelijkse kosten: € 280,00'],
         extra: false,
+        recurring:false,
     },
     {
         trainingTitle:'Groep PT',
@@ -74,6 +79,7 @@ export const paymentOptions = [
         kosten: ['Kosten:'],
         totalKosten: ['Totaal Kosten'],
         extra: false,
+        recurring:false,
     },
     {
         trainingTitle:'Groep PT',
@@ -86,6 +92,7 @@ export const paymentOptions = [
         kosten: ['Kosten:'],
         totalKosten: ['Kosten 1e maand', 'Daarna maandelijkse kosten: € 1020,00'],
         extra: true,
+        recurring:false,
     },
 ];
 

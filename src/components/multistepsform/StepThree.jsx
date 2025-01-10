@@ -9,7 +9,8 @@ import NextButton from './NextButton';
 import StepProgress from './StepProgress';
 import PaymentBox from '../common/PaymentBox';
 import ExtraDescription from './ExtraDescription';
-
+const BASE_FRONTEND_URL = process.env.REACT_APP_BASE_FRONTEND_URL;
+const BASE_BACKEND_URL = process.env.REACT_APP_BASE_BACKEND_URL;
 
 const StepThree = ({ paymentOptions, extraOptions, clubAmount }) => {
 
@@ -69,7 +70,7 @@ const StepThree = ({ paymentOptions, extraOptions, clubAmount }) => {
             console.log('form', formData);
 
             try {
-                const response = await axios.post('https://1171-39-55-119-111.ngrok-free.app/api/create-payment', {
+                const response = await axios.post(`${BASE_BACKEND_URL}/api/create-payment`, {
                     amount: totalAmount,
                     userInfo: {
                         ...formData,
@@ -90,9 +91,10 @@ const StepThree = ({ paymentOptions, extraOptions, clubAmount }) => {
 
             }
         } else {
+            setFormData((prev) => ({ ...prev, loading: true, totalAmount: totalAmount }));
             try {
 
-                const response = await axios.post('http://localhost:5000/api/create-recurring-payment', {
+                const response = await axios.post(`${BASE_BACKEND_URL}/api/create-recurring-payment`, {
                     email: data.email,
                     name: data.voornaam,
                     userInfo: {
