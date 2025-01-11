@@ -8,12 +8,14 @@ import Abonnement from './pages/abonnement/Abonnement';
 import GroepPTTraining from './pages/paymentForms/GroepPT';
 import MollieRedirect from './pages/MollieRedirect/MollieRedirect';
 import RecurringRedirect from './pages/MollieRedirect/RecurringRedirect';
+import Header from './components/header/Header';
 
 function App() {
 
   return (
     <Router>
       <div className="App">
+        <Header />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/abonnement" element={<Abonnement />} />

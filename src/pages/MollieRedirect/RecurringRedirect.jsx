@@ -11,6 +11,7 @@ const RecurringRedirect = () => {
     const [allPayments, setAllPayments] = useState([]);
     const [matchedPayment, setMatchedPayment] = useState(null);
     const [paymentCreated, setPaymentCreated] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
@@ -21,6 +22,7 @@ const RecurringRedirect = () => {
 
     useEffect(() => {
         const fetchPayments = async () => {
+            setLoading(true);
             try {
                 const response = await axios.get(`${BASE_NGROK_URL}/api/fetch-payments`, {
                     headers: {
@@ -65,6 +67,7 @@ const RecurringRedirect = () => {
                         const emailResponse = await axios.post(`${BASE_BACKEND_URL}/api/recurring-email`, { userInfo });
                         console.log('Email sent successfully:', emailResponse.data);
 
+
                     } catch (emailError) {
                         console.error('Error sending email:', emailError);
                     }
@@ -73,6 +76,7 @@ const RecurringRedirect = () => {
             } catch (error) {
                 console.error('Error creating subscription:', error);
             }
+            setLoading(false);
         };
 
         fetchPayments();
@@ -82,19 +86,27 @@ const RecurringRedirect = () => {
     return (
         <>
             <PaymentFormHeader />
+            
             <div className="max-w-lg mx-auto p-6 bg-white shadow-md rounded-lg mt-10">
                 <h1 className="text-2xl font-bold text-center text-secondary border-b-2 border-primary pb-2 mb-6">
-                    Payment Status: {matchedPayment?.status}
+
+                    {
+                        loading ? <div className="loader-mega w-4 h-4 border-2 border-white rounded-full animate-spin"></div> : ''
+                    }
                 </h1>
-                <div className="space-y-4">
-                    <p className="text-lg">
-                        <strong className="text-secondary">Voornaam</strong>{' '}
-                        <span className="text-gray-700">{name}</span>
-                    </p>
-                    <p className="text-gray-700">
-                        BEDANKT VOOR JE INSCHRIJVING Welkom als nieuw lid van My Summerbody Club.  Wij nemen zo snel mogelijk contact met je op en je bevestiging wordt per e-mail gestuurd. Tot ziens, Team-My Summerbody Club
-                    </p>
-                </div>
+                {
+                    !loading && (
+                        <div className="space-y-4">
+                            <p className="text-lg">
+                                <strong className="text-secondary">Beste</strong>{' '}
+                                <span className="text-gray-700">{name}</span>
+                            </p>
+                            <p className="text-gray-700">
+                                BEDANKT VOOR JE INSCHRIJVING Welkom als nieuw lid van My Summerbody Club.  Wij nemen zo snel mogelijk contact met je op en je bevestiging wordt per e-mail gestuurd. Tot ziens, Team-My Summerbody Club
+                            </p>
+                        </div>
+                    )
+                }
             </div>
 
         </>

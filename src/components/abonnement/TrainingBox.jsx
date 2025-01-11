@@ -17,7 +17,7 @@ const TrainingBox = ({ trainingDescription }) => {
                     <div>
                         <span>
                             <Link to={trainingDescription[0].trainingLink}>
-                                <i className="fa fa-circle"></i> {trainingDescription[0].title}
+                                <i className="far fa-circle"></i> {trainingDescription[0].title}
                             </Link>
                         </span>
                     </div>
