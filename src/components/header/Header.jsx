@@ -1,10 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Link } from 'react-router-dom'
 
 const Header = () => {
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
     const hamburgerClicked = () => {
-        const nav = document.getElementById('nav-ul');
-        nav.classList.toggle('show'); // Example of toggling a class
+      const nav = document.getElementById('nav-ul');
+      nav.classList.toggle('show'); // Example of toggling a class
+      setIsMenuOpen((prevState) => !prevState); // Toggle the state
     };
 
     return (
@@ -27,8 +30,8 @@ const Header = () => {
             <div className="middle-area">
                 <div className="container">
                     <div className="logo-area">
-                        <a
-                            href="https://mysummerbodyclub.nl/"
+                        <Link
+                            to="/"
                             className="custom-logo-link"
                             rel="home"
                             aria-current="page"
@@ -41,14 +44,10 @@ const Header = () => {
                                 alt="My Summer Body Club"
                                 decoding="async"
                             />
-                        </a>
+                        </Link>
                     </div>
-                    <button
-                        className="hamburger"
-                        id="hamburger"
-                        onClick={hamburgerClicked}
-                    >
-                        <i className="fas fa-bars"></i>
+                    <button className="hamburger" id="hamburger" onClick={hamburgerClicked}>
+                        <i className={`fas ${isMenuOpen ? 'fa-times' : 'fa-bars'}`}></i>
                     </button>
                     <div className="contact-area">
                         <div className="email-area">

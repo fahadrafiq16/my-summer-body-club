@@ -786,7 +786,10 @@ hr {
   .padding-top {
     padding: 50px 20px 0px;
   }
-
+a.custom-logo-link {
+  display: flex;
+  justify-content: end;
+}
   h2.blog-left-heading {
     font-size: 40px !important;
   }

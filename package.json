@@ -17,7 +17,6 @@
     "react-router-dom": "^7.1.1",
     "react-scripts": "5.0.1",
     "react-step-builder": "^3.0.6",
-    "ultimate-react-multilevel-menu": "^3.4.9",
     "web-vitals": "^4.2.4"
   },
   "scripts": {
