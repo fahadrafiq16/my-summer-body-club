@@ -1,9 +1,6 @@
 import React from 'react';
 import 'font-awesome/css/font-awesome.min.css';
-import { trainingDescription } from '../../data/PersonalTraining';
-import { afvallenTrainingDescription } from '../../data/AfvallenTraining';
-import { wedstrijdTrainingDescription } from '../../data/WedstrijdTraining';
-import { groepPtTrainingDescription } from '../../data/GroepPT';
+
 import Banner from '../../components/abonnement/Banner';
 import TrainingBox from '../../components/abonnement/TrainingBox';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -23,10 +20,7 @@ const Abonnement = () => {
                     </div>
                     <div className="our-trainers">
                         <AllTrainings
-                            trainingDescription={trainingDescription}
-                            afvallenTrainingDescription={afvallenTrainingDescription}
-                            wedstrijdTrainingDescription={wedstrijdTrainingDescription}
-                            groepPtTrainingDescription={groepPtTrainingDescription}
+                         
                         />
                     </div>
                 </div>

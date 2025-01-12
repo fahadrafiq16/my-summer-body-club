@@ -1,6 +1,11 @@
-import React from 'react'
+import React, {useState} from 'react'
+import VideoModal from '../../components/home/VideoModal'
+
 
 const PopUpVideoArea = () => {
+
+
+
     return (
         <section id="popup-video-area">
             <div className="container grid-3-custom">
@@ -21,16 +26,10 @@ const PopUpVideoArea = () => {
                 {/* Main Video Area */}
                 <div className="main-video-area">
                     <div id="video-button" className="video-button">
-                        <a
-                            href="https://www.youtube.com/embed/3A8X8O4dT5E"
-                            data-youtube="<iframe width='560' height='315' src='https://www.youtube.com/embed/3A8X8O4dT5E' frameborder='0' allowfullscreen></iframe>"
-                            className="youtube-demo"
-                        >
-                            <i className="btn-icon button-after fa fa-play"></i>
-                        </a>
-                        <div id="vidBox"></div>
+                        <VideoModal />
                     </div>
                 </div>
+       
 
                 {/* Right Video Banner */}
                 <div className="video-banner">

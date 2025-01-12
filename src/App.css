@@ -1071,6 +1071,7 @@ Two Banners Area Section
   .two-banners-area {
     margin-top: -244px;
     position: relative;
+    z-index: 1;
   }
 }
 
@@ -2610,7 +2611,7 @@ h2.post-title {
   grid-template-columns: 45% 10% 45%;
   align-items: center;
   justify-content: center;
-  grid-gap: 20px;
+  grid-gap: 0;
 }
 
 
@@ -2903,4 +2904,12 @@ h3#reply-title {
 }
 .email-area img {
   width: auto;
+}
+.ReactModal__Content {
+  max-height: 370px;
+}
+/* Change the arrow color */
+.swiper-button-next,
+.swiper-button-prev {
+  color: #fff !important; /* Set your desired color */
 }

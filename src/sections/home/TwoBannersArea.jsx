@@ -2,14 +2,14 @@ import React from 'react'
 
 const TwoBannersArea = () => {
     return (
-        <section id="two-banners-area" className="padding-top mt-[200px]">
+        <section id="two-banners-area" className="padding-top ]">
             <div className="container">
                 <div className="two-banners-area">
                     {/* Banner Left */}
                     <div className="banner-left banner">
                         <p className="sub-heading">Start Vandaag Je Nieuwe Life Style</p>
                         <p className="bold-heading">
-                            Voor Meer<span> Informatie</span>
+                            Voor Meer<span> Proefles</span>
                         </p>
                         <a
                             className="bordered-button"

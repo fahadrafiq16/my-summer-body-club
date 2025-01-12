@@ -1,7 +1,11 @@
 import React from 'react'
 import TrainingBox from './TrainingBox'
+import { trainingDescription } from '../../data/PersonalTraining';
+import { afvallenTrainingDescription } from '../../data/AfvallenTraining';
+import { wedstrijdTrainingDescription } from '../../data/WedstrijdTraining';
+import { groepPtTrainingDescription } from '../../data/GroepPT';
 
-const AllTrainings = ({trainingDescription,afvallenTrainingDescription,wedstrijdTrainingDescription,groepPtTrainingDescription}) => {
+const AllTrainings = () => {
     return (
         <>
             <TrainingBox trainingDescription={trainingDescription} />

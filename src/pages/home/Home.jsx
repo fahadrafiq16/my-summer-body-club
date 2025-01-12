@@ -1,9 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import 'font-awesome/css/font-awesome.min.css';
-import { trainingDescription } from '../../data/PersonalTraining';
-import { afvallenTrainingDescription } from '../../data/AfvallenTraining';
-import { wedstrijdTrainingDescription } from '../../data/WedstrijdTraining';
-import { groepPtTrainingDescription } from '../../data/GroepPT';
+import Gallery from '../../sections/home/Gallery';
 import LifeStyle from '../../components/home/LifeStyle';
 import AllTrainings from '../../components/abonnement/AllTrainings';
 import GreopImg from '../../images/img-4.png';
@@ -13,6 +10,8 @@ import OurTrainers from '../../sections/home/OurTrainers';
 import StyleWant from '../../sections/home/StyleWant';
 import TwoBannersArea from '../../sections/home/TwoBannersArea';
 import PopUpVideoArea from '../../sections/home/PopUpVideoArea';
+import VideoModal from '../../components/home/VideoModal';
+import Slider from '../../sections/home/Slider';
 
 const BASE_FRONTEND_URL = process.env.REACT_APP_BASE_FRONTEND_URL;
 const BASE_BACKEND_URL = process.env.REACT_APP_BASE_BACKEND_URL;
@@ -25,13 +24,13 @@ const lifeStyle = [
   },
   {
     img: GewichtsverliesImg,
-    title: 'Groeps Training',
-    description: 'Geen motivatie om fit te blijven of vind je alleen sporten saai? Kom en probeer onze groepstraining! Ontmoet een groep gezellige mensen en onze instructeur zorgt ervoor dat je fit blijft.',
+    title: 'Gewichtsverlies',
+    description: 'Wil je wat extra kilo’s kwijt raken? Volg onze trainingsprogramma. Wij helpen je graag op weg met de juiste training en voedingsplan.',
   },
   {
     img: personalImg,
-    title: 'Groeps Training',
-    description: 'Geen motivatie om fit te blijven of vind je alleen sporten saai? Kom en probeer onze groepstraining! Ontmoet een groep gezellige mensen en onze instructeur zorgt ervoor dat je fit blijft.',
+    title: 'Personal Trainer',
+    description: 'Ben je gericht op het bereiken van een optimale fysieke fitheid? Zit je op een sportschool, maar kun je wel persoonlijke begeleiding gebruiken? Dan is wellicht personal training wat voor jou.',
   },
 ]
 
@@ -39,6 +38,7 @@ const Home = () => {
 
   return (
     <>
+      <Slider />
       <TwoBannersArea />
       <StyleWant />
       <section id="begin-lifestyle" className="pt-[50px]">
@@ -63,6 +63,9 @@ const Home = () => {
                     src="https://mysummerbodyclub.nl/wp-content/uploads/2023/09/bootcamp-banner-image.png"
                     alt="bootcamp video"
                   />
+                </div>
+                <div className="my-[20px]">
+                  <VideoModal />
                 </div>
                 <a href="https://mysummerbodyclub.nl/bootcamp-page/">
                   <img
@@ -94,10 +97,7 @@ const Home = () => {
           </div>
           <div className="our-trainers">
             <AllTrainings
-              trainingDescription={trainingDescription}
-              afvallenTrainingDescription={afvallenTrainingDescription}
-              wedstrijdTrainingDescription={wedstrijdTrainingDescription}
-              groepPtTrainingDescription={groepPtTrainingDescription}
+
             />
           </div>
         </div>
@@ -106,6 +106,8 @@ const Home = () => {
 
       <OurTrainers />
       <PopUpVideoArea />
+      <Gallery />
+
 
     </>
 
