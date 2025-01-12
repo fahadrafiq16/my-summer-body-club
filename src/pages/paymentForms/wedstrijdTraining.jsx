@@ -9,16 +9,17 @@ import StepOne from '../../components/multistepsform/StepOne';
 import StepTwo from '../../components/multistepsform/StepTwo';
 import StepThree from '../../components/multistepsform/StepThree';
 import { paymentOptions,extraOptions, clubAmount, wedstrijdTrainingDescription } from '../../data/WedstrijdTraining';
-
+import PaymentFormHeader from '../../components/common/PaymentFormHeader';
 
 
 const WedstrijdTraining = () => {
    
     return (
         <>
+        <PaymentFormHeader />
             <FormProvider>
                 <StepsProvider>
-                    <div className="max-w-[850px] mx-auto my-[50px]">
+                    <div className="max-w-[850px] mx-auto my-[100px]">
                         <Steps>
                             <StepOne trainingDescription={wedstrijdTrainingDescription}/>
                             <StepTwo />

@@ -9,6 +9,7 @@ import BorderedHeader from './BorderedHeader';
 import RadioGroup from '../common/RadioGroup';
 import SelectField from '../common/SelectField';
 import StepOneHeader from '../common/StepOneHeader';
+import PaymentFormHeader from '../common/PaymentFormHeader';
 
 const geslachtoOptions = [
     {
@@ -66,6 +67,7 @@ const StepOne = ({ trainingDescription }) => {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
+           
             <StepProgress />
             <StepOneHeader trainingDescription={trainingDescription} />
             <BorderedHeader heading={'Persoonlijke gegevens'} />
