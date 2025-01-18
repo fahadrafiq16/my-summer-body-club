@@ -1,6 +1,6 @@
 import React from "react";
 
-const SelectField = ({ name, label, options, register, validation, errors }) => {
+const SelectField = ({ name, label, options, register, validation, errors, placeholder }) => {
   return (
     <div className="form-group text-left flex flex-col">
       <label htmlFor={name}>{label}</label>
@@ -9,7 +9,7 @@ const SelectField = ({ name, label, options, register, validation, errors }) => 
         {...register(name, validation)}
         className={`form-control ${errors[name] ? "is-invalid" : ""}`}
       >
-        <option className="ml-2" value="">Select a value</option>
+        <option className="ml-2" value="">{placeholder}</option>
         {options.map((option) => (
           <option key={option} value={option}>
             {option}

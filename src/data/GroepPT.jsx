@@ -4,7 +4,7 @@ console.log(PersonalImage);
 
 export const paymentOptions = [
     {
-        trainingTitle:'Groep PT',
+        trainingTitle:'Groep PT Trainingen',
         amount: '45.00',
         quantity: '1',
         title: '| per uur | 1 Op 2 training | p.p',
@@ -17,7 +17,7 @@ export const paymentOptions = [
         recurring:false,
     },
     {
-        trainingTitle:'Groep PT',
+        trainingTitle:'Groep PT Trainingen',
         amount: '200.00',
         quantity: '3',
         title: 'p.m. | 1 Op 2 training | 3 maanden | Start Pakket | 2 x week trainen | p.p.',
@@ -30,7 +30,7 @@ export const paymentOptions = [
         recurring:true,
     },
     {
-        trainingTitle:'Groep PT',
+        trainingTitle:'Groep PT Trainingen',
         amount: '175.00',
         quantity: '3',
         title: 'p.m. | 1 Op 3 training | 3 maanden | Start Pakket | 2 x week trainen | p.p.',
@@ -43,7 +43,7 @@ export const paymentOptions = [
         recurring:true,
     },
     {
-        trainingTitle:'Groep PT',
+        trainingTitle:'Groep PT Trainingen',
         amount: '250.00',
         quantity: '3',
         title: 'p.m. | 1 Op 2 training | 3 maanden | Start Pakket | 3 x week trainen | p.p.',
@@ -56,7 +56,7 @@ export const paymentOptions = [
         recurring:true,
     },
     {
-        trainingTitle:'Groep PT',
+        trainingTitle:'Groep PT Trainingen',
         amount: '280.00',
         quantity: '1',
         title: 'p.m. | 1 Op 2 training | per maand | 2x week trainen | p.p.',
@@ -69,7 +69,7 @@ export const paymentOptions = [
         recurring:false,
     },
     {
-        trainingTitle:'Groep PT',
+        trainingTitle:'Groep PT Trainingen',
         amount: '175.00',
         quantity: '1',
         title: '| 1 Op 2 training | 5 Rittenkaart * | p.p.',
@@ -82,7 +82,7 @@ export const paymentOptions = [
         recurring:false,
     },
     {
-        trainingTitle:'Groep PT',
+        trainingTitle:'Groep PT Trainingen',
         amount: '350.00',
         quantity: '1',
         title: '| 1 Op 2 training | 10 Rittenkaart * | p.p.',

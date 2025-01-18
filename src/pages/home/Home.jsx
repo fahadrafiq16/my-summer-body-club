@@ -12,6 +12,7 @@ import TwoBannersArea from '../../sections/home/TwoBannersArea';
 import PopUpVideoArea from '../../sections/home/PopUpVideoArea';
 import VideoModal from '../../components/home/VideoModal';
 import Slider from '../../sections/home/Slider';
+import ClubTrainings from '../../sections/home/ClubTrainings';
 
 const BASE_FRONTEND_URL = process.env.REACT_APP_BASE_FRONTEND_URL;
 const BASE_BACKEND_URL = process.env.REACT_APP_BASE_BACKEND_URL;
@@ -90,19 +91,7 @@ const Home = () => {
       </section>
 
 
-      <section id="our-trainings" className="my-[100px]">
-        <div className="container max-w-[1110px] mx-auto">
-          <div className="section-title">
-            <h2>Groups &amp; PT <span>Abonnementen</span></h2>
-          </div>
-          <div className="our-trainers">
-            <AllTrainings
-
-            />
-          </div>
-        </div>
-      </section>
-
+      <AllTrainings />
 
       <OurTrainers />
       <PopUpVideoArea />

@@ -32,7 +32,7 @@ const StepTwo = () => {
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <StepProgress />
+                <StepProgress title={'Adres & Contactgegevens'} />
 
                 <BorderedHeader heading={'Adresgegevens'} />
                 <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-4">
@@ -121,8 +121,8 @@ const StepTwo = () => {
                 />
 
                 <div className="flex gap-4">
-                    <PrevButton />
-                    <NextButton title={'Next'} />
+                    <PrevButton title={'Terug'} />
+                    <NextButton title={'Volgende'} />
                 </div>
             </form>
 

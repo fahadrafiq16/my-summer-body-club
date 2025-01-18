@@ -120,7 +120,7 @@ const StepThree = ({ paymentOptions, extraOptions, clubAmount }) => {
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <StepProgress />
+                <StepProgress title={'Looptijd abonnement kiezen'} />
 
                 <RadioGroup
                     name="paymentOption"
@@ -154,7 +154,7 @@ const StepThree = ({ paymentOptions, extraOptions, clubAmount }) => {
                 }
 
                 <div className="flex gap-4">
-                    <PrevButton />
+                    <PrevButton title={'Terug'} />
                     <button
                         type="submit"
                         className="bg-[#F04D17] text-white px-4 py-2 mt-4 flex-1"

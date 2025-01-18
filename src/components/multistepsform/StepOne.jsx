@@ -68,7 +68,7 @@ const StepOne = ({ trainingDescription }) => {
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
            
-            <StepProgress />
+            <StepProgress title={'Persoonlijke gegevens'} />
             <StepOneHeader trainingDescription={trainingDescription} />
             <BorderedHeader heading={'Persoonlijke gegevens'} />
             <TextField
@@ -126,6 +126,7 @@ const StepOne = ({ trainingDescription }) => {
                     register={register}
                     // validation={{ required: "This field is required" }}
                     errors={errors}
+                    placeholder={'Dag'}
                 />
 
                 <SelectField
@@ -135,6 +136,7 @@ const StepOne = ({ trainingDescription }) => {
                     register={register}
                     //   validation={{ required: "This field is required" }}
                     errors={errors}
+                    placeholder={'Maand'}
                 />
 
                 <SelectField
@@ -144,6 +146,7 @@ const StepOne = ({ trainingDescription }) => {
                     register={register}
                     //validation={{ required: "This field is required" }}
                     errors={errors}
+                    placeholder={'Jaar'}
                 />
             </div>
 
@@ -151,7 +154,7 @@ const StepOne = ({ trainingDescription }) => {
 
 
             <div className="flex">
-                <NextButton title={'Next'} />
+                <NextButton title={'Volgende'} />
             </div>
 
         </form>

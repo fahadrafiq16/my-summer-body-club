@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSteps } from 'react-step-builder';
 
-const PrevButton = () => {
+const PrevButton = ({title}) => {
 
     const { next, prev } = useSteps();
 
@@ -11,7 +11,7 @@ const PrevButton = () => {
             onClick={prev}
             className="bg-[#2D3A8E] text-white px-4 py-2 mt-4 flex-1"
         >
-            Go Back
+            {title}
         </button>
     )
 }

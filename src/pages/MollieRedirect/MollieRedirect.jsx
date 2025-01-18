@@ -53,17 +53,32 @@ const MollieRedirect = () => {
         <>
             <PaymentFormHeader />
 
-            <div className="max-w-lg mx-auto p-6 bg-white shadow-md rounded-lg mt-10">
+            <div className="max-w-lg mx-auto p-6 bg-white shadow-md rounded-lg my-10">
                 <h1 className="text-2xl font-bold text-center text-secondary border-b-2 border-primary pb-2 mb-6">
-                    Payment Status: {matchedPayment?.status}
+                    Bedankt voor je inschrijving!
                 </h1>
                 <div className="space-y-4">
                     <p className="text-lg">
-                        <strong className="text-secondary">Voornaam</strong>{' '}
-                        <span className="text-gray-700">{name}</span>
+                        <strong className="text-secondary">Beste</strong>{' '}
+                        <span className="text-gray-700">{name},</span>
                     </p>
                     <p className="text-gray-700">
-                        BEDANKT VOOR JE INSCHRIJVING Welkom als nieuw lid van My Summerbody Club.  Wij nemen zo snel mogelijk contact met je op en je bevestiging wordt per e-mail gestuurd. Tot ziens, Team-My Summerbody Club
+                        Welkom bij My Summerbody Club! We zijn blij je als nieuw lid te verwelkomen. Binnenkort nemen we contact met je op voor het inplannen van je trainingen.
+                    </p>
+                    <p className="text-gray-700">
+                        De bevestiging van je betaling ontvang je ook per e-mail.
+                    </p>
+                    <p className="text-gray-700">
+                        Heb je vragen of speciale verzoeken, aarzel dan niet om contact met ons op te nemen. We staan altijd voor je klaar!
+                    </p>
+                    <p className="text-gray-700">
+                        Tot snel!
+                    </p>
+                    <p className="text-gray-700">
+                        Met vriendelijke groet,
+                    </p>
+                    <p className="text-gray-700 mt-[0px]">
+                        Team My Summerbody Club
                     </p>
                 </div>
             </div>
