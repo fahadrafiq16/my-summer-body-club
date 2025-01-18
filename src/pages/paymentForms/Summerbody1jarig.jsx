@@ -19,7 +19,7 @@ const PersonalTraining = () => {
             <PaymentFormHeader />
             <FormProvider>
                 <StepsProvider>
-                    <div className="max-w-[850px] mx-auto my-[100px]">
+                    <div className="payment-form-page max-w-[850px] mx-auto my-[100px]">
                         <Steps>
                             <StepOne trainingDescription={summerBodyTrainingDescription } />
                             <StepTwo />

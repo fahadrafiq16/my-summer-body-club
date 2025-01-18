@@ -14,7 +14,7 @@ const FitnessEn = () => {
                                 Fitness en <span>Gezondheid</span>
                             </h2>
                         </div>
-                        <div style={{ marginRight: "150px" }}>
+                        <div className="popup-btn" style={{ marginRight: "150px" }}>
                             
                                 <div id="video-button" className="video-button">
                                   <VideoModal />

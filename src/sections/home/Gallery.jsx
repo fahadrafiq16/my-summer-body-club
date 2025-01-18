@@ -1,4 +1,9 @@
 import React from 'react'
+import Gallery1 from '../../images/gallery-1.jpg'
+import Gallery2 from '../../images/gallery-2.jpg'
+import Gallery3 from '../../images/gallery-3.jpg'
+import Gallery4 from '../../images/gallery-4.jpg'
+import Gallery5 from '../../images/gallery-5.jpg'
 
 const Gallery = () => {
     return (
@@ -24,7 +29,7 @@ const Gallery = () => {
                             <div className="div1">
                                 <a href="https://mysummerbodyclub.nl/trainingfotos/meeting-the-best-2/">
                                     <img
-                                        src="https://mysummerbodyclub.nl/wp-content/uploads/2023/07/Image20230310213026.jpg"
+                                        src={Gallery1}
                                         alt="image 1"
                                     />
                                 </a>
@@ -32,7 +37,7 @@ const Gallery = () => {
                             <div className="div2">
                                 <a href="https://mysummerbodyclub.nl/trainingfotos/naomy-burnet-sap-cup-2108/">
                                     <img
-                                        src="https://mysummerbodyclub.nl/wp-content/uploads/2023/07/Image20230310213024.jpg"
+                                        src={Gallery2}
                                         alt="image 2"
                                     />
                                 </a>
@@ -40,7 +45,7 @@ const Gallery = () => {
                             <div className="div3">
                                 <a href="https://mysummerbodyclub.nl/trainingfotos/gabrielle-golds-gym-classic-2018/">
                                     <img
-                                        src="https://mysummerbodyclub.nl/wp-content/uploads/2023/07/Image20230310213021.jpg"
+                                        src={Gallery3}
                                         alt="image 3"
                                     />
                                 </a>
@@ -48,7 +53,7 @@ const Gallery = () => {
                             <div className="div4">
                                 <a href="https://mysummerbodyclub.nl/trainingfotos/de-nieuwe-lichting/">
                                     <img
-                                        src="https://mysummerbodyclub.nl/wp-content/uploads/2023/07/Image20230310213019.jpg"
+                                        src={Gallery4}
                                         alt="image 4"
                                     />
                                 </a>
@@ -56,7 +61,7 @@ const Gallery = () => {
                             <div className="div5">
                                 <a href="https://mysummerbodyclub.nl/trainingfotos/de-nieuwe-lichting/">
                                     <img
-                                        src="https://mysummerbodyclub.nl/wp-content/uploads/2023/07/1273655_605482522836261_1303951595_o.jpg"
+                                        src={Gallery5}
                                         alt="image 5"
                                     />
                                 </a>

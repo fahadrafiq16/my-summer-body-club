@@ -1593,8 +1593,44 @@ Blog Posts Home Section
     padding: 0 20px !important;
   }
 
+  .video-area-life {
+    display: block;
+  }
+
   .main-video-area {
-    padding: 40px 0 !important;
+    padding: 0px 0 !important;
+    margin:0 0;
+  }
+  #begin-lifestyle {
+    padding:50px 20px 0;
+  }
+  .video-area-life h2 {
+    margin-bottom: 30px;
+    line-height: 32px;
+  }
+  #our-trainings {
+    padding:0 20px 0;
+    margin-top: 60px;
+  }
+  #page-title-banner {
+    padding:0 20px;
+  }
+  #msbc_maak_je {
+    padding:60px 20px;
+  }
+  .msbc_ben_je_left h3 {
+    line-height: 34px !important;
+  }
+  .popup-btn {
+    margin:0 !important;
+    display: flex;
+    justify-content: center;
+  }
+  .trainer-page{
+    padding-top:60px;
+  }
+  .main-video-area {
+    margin:30px 0;
   }
 }
 
@@ -1670,6 +1706,13 @@ Blog Posts Home Section
   ul#menu-footer-menu-2 {
     flex-direction: column;
     justify-content: flex-start;
+  }
+  #home-gallery {
+    padding-bottom: 60px;
+    margin-top: 60px;
+  }
+  #our-trainings {
+    margin-bottom: 60px;
   }
 
 }
@@ -2817,6 +2860,22 @@ h3#reply-title {
   .parent1,
   .right-area {
     padding: 0 20px;
+  }
+  .payment-form-page {
+    padding:60px 20px;
+  }
+  .fact p {
+    font-size: 15px;
+    padding:0 10px;
+  }
+  .payment-form-title-area h3 {
+    font-size: 18px;
+  }
+  .form-h3 {
+    font-size: 28px !important;
+  }
+  .radio-group-label {
+    font-size:16px;
   }
 }
 

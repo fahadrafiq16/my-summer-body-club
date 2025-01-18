@@ -6,7 +6,7 @@ const Trainers = () => {
     return (
         <>
             <TitleHeader title={'Trainers'} />
-            <div className="py-[100px]">
+            <div className="trainer-page sm:py-[60px] md:py-[100px]">
                 <OurTrainers />
             </div>
         </>

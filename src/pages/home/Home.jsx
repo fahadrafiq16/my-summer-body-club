@@ -13,6 +13,8 @@ import PopUpVideoArea from '../../sections/home/PopUpVideoArea';
 import VideoModal from '../../components/home/VideoModal';
 import Slider from '../../sections/home/Slider';
 import ClubTrainings from '../../sections/home/ClubTrainings';
+import BootCampImg from '../../images/bootcamp-banner-image.png';
+import BootCampHome from '../../images/bootcamp-home-button.png'
 
 const BASE_FRONTEND_URL = process.env.REACT_APP_BASE_FRONTEND_URL;
 const BASE_BACKEND_URL = process.env.REACT_APP_BASE_BACKEND_URL;
@@ -55,13 +57,13 @@ const Home = () => {
               <div className="main-video-area">
                 <div className="video-area-logo flex align-center justify-center">
                   <img
-                    src="https://mysummerbodyclub.nl/wp-content/uploads/2023/09/bootcamp-banner-image.png"
+                    src={BootCampImg}
                     alt="video area logo"
                   />
                 </div>
                 <div className="video-image">
                   <img
-                    src="https://mysummerbodyclub.nl/wp-content/uploads/2023/09/bootcamp-banner-image.png"
+                    src={BootCampImg}
                     alt="bootcamp video"
                   />
                 </div>
@@ -71,7 +73,7 @@ const Home = () => {
                 <a href="https://mysummerbodyclub.nl/bootcamp-page/">
                   <img
                     className="bootcamp-link"
-                    src="https://mysummerbodyclub.nl/wp-content/uploads/2023/09/bootcamp-home-button.png"
+                    src={BootCampHome}
                     alt="bootcamp-link"
                   />
                 </a>
