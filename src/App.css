@@ -2308,12 +2308,14 @@ p.pg {
 .checkboxes-area {
   background: #FDEDE8;
 
-  padding: 25px 30px 5px 30px;
+  padding: 25px 30px;
   border: 1px solid #000 !important;
   margin-bottom: 20px;
   border-radius: 10px;
 }
-
+.checkboxes-area input {
+  margin-right: 10px;
+}
 @media only screen and (min-width: 600px) {
   .training-features {
     width: 50%;
@@ -2876,6 +2878,19 @@ h3#reply-title {
   }
   .radio-group-label {
     font-size:16px;
+  }
+  .swiper-slide h2, .swiper-slide p {
+    font-size:28px !important;
+    margin-top: 60px;
+  }
+  .custom-swiper-slide-class {
+    height: 20vh !important;
+  }
+  .swiper-button-prev,.swiper-button-next {
+    display: none !important;
+  }
+  .payment-form-page {
+    margin:0;
   }
 }
 

@@ -1,5 +1,8 @@
 import React, {useState} from 'react';
 import { Link } from 'react-router-dom'
+import Logo from '../../images/logo.png'
+import EmailIcon from '../../images/email.png'
+import PhoneIcon from '../../images/mobile-phone.png'
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -39,10 +42,10 @@ const Header = () => {
                             <img
                                 width="246"
                                 height="227"
-                                src="https://mysummerbodyclub.nl/wp-content/uploads/2023/06/Image20230617095400.png"
+                                src={Logo}
                                 className="custom-logo"
                                 alt="My Summer Body Club"
-                                decoding="async"
+                            
                             />
                         </Link>
                     </div>
@@ -52,7 +55,7 @@ const Header = () => {
                     <div className="contact-area">
                         <div className="email-area">
                             <img
-                                src="https://mysummerbodyclub.nl/wp-content/themes/my-summer-body-club/assets/img-23.png"
+                                src={EmailIcon}
                                 alt="Email"
                             />
                             <div className="header-content">
@@ -63,7 +66,7 @@ const Header = () => {
 
                         <div className="email-area">
                             <img
-                                src="https://mysummerbodyclub.nl/wp-content/themes/my-summer-body-club/assets/img-2.png"
+                                src={PhoneIcon}
                                 alt="Mobile"
                             />
                             <div className="header-content">

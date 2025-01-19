@@ -45,6 +45,7 @@ export default () => {
       effect="fade" // Use the fade effect for smooth transitions
       fadeEffect={{ crossFade: true }} // Ensure smooth crossfade
       style={{ width: "100%", height: "87vh" }}
+      className="custom-swiper-slide-class"
     >
       {slides.map((slide, index) => (
         <SwiperSlide
@@ -55,6 +56,8 @@ export default () => {
             backgroundPosition: "center",
             height: "100vh",
           }}
+          className="custom-swiper-slide-class"
+          
         >
           <div
             style={{
@@ -62,7 +65,7 @@ export default () => {
               flexDirection: "row",
               justifyContent: "space-between",
               alignItems: "center",
-              width: "1030px",
+              width: "83%",
               margin: "0 auto",
               height: "100%",
               textAlign: "center",

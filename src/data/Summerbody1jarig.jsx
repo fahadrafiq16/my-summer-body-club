@@ -14,6 +14,7 @@ export const paymentOptions = [
         totalKosten: ['Totaal Kosten'],
         extra: false,
         recurring:true,
+        programType:'club',
     },
 
 ];

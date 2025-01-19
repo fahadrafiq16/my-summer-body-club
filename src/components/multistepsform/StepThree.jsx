@@ -9,6 +9,8 @@ import NextButton from './NextButton';
 import StepProgress from './StepProgress';
 import PaymentBox from '../common/PaymentBox';
 import ExtraDescription from './ExtraDescription';
+import CheckboxField from '../common/CheckboxField';
+
 const BASE_FRONTEND_URL = process.env.REACT_APP_BASE_FRONTEND_URL;
 const BASE_BACKEND_URL = process.env.REACT_APP_BASE_BACKEND_URL;
 
@@ -151,6 +153,52 @@ const StepThree = ({ paymentOptions, extraOptions, clubAmount }) => {
                     <div className="payment-boxes">
                         <PaymentBox selectedOption={selectedOption} extraOption={extraOption} clubAmount={clubAmount} />
                     </div>
+                }
+
+                {
+                    selectedOption?.programType !== 'club' && (
+                        <div className="checkboxes-area">
+                            <CheckboxField
+                                name="generalPtTerms"
+                                title="Ik ga akkoord met de algemene voorwaarden en de huisregels van My Summerbody Club."
+                                control={control}
+                                rules={{
+                                    required: "U moet de algemene voorwaarden accepteren om verder te kunnen gaan.",
+                                }}
+                            />
+                        </div>
+                    )
+                }
+
+                {
+                    selectedOption?.programType === 'club' && (
+                        <>
+                            <div className="notice-payment mb-4">
+                                <p className="notice">Je hebt gekozen voor een contract met betaling per 4 weken, de eerste betaling zal online of per kaart plaatsvinden.</p>
+
+                            </div>
+
+                            <div className="checkboxes-area">
+                                <CheckboxField
+                                    name="acceptTerms1"
+                                    title="Ik machtig hierbij My Summerbody Club om de abonnementsgelden daarna automatisch te incasseren SEPA-betalingen."
+                                    control={control}
+                                    rules={{
+                                        required: "U moet de algemene voorwaarden accepteren om verder te kunnen gaan.",
+                                    }}
+                                />
+
+                                <CheckboxField
+                                    name="acceptTerms2"
+                                    title="Ik ga akkoord met de Algemene voorwaarden, Privacyverklaring en de Huisregels van My Summerbody Club."
+                                    control={control}
+                                    rules={{
+                                        required: "U moet de algemene voorwaarden accepteren om verder te kunnen gaan.",
+                                    }}
+                                />
+                            </div>
+                        </>
+                    )
                 }
 
                 <div className="flex gap-4">
