@@ -155,20 +155,7 @@ const StepThree = ({ paymentOptions, extraOptions, clubAmount }) => {
                     </div>
                 }
 
-                {
-                    selectedOption?.programType !== 'club' && (
-                        <div className="checkboxes-area">
-                            <CheckboxField
-                                name="generalPtTerms"
-                                title="Ik ga akkoord met de algemene voorwaarden en de huisregels van My Summerbody Club."
-                                control={control}
-                                rules={{
-                                    required: "U moet de algemene voorwaarden accepteren om verder te kunnen gaan.",
-                                }}
-                            />
-                        </div>
-                    )
-                }
+
 
                 {
                     selectedOption?.programType === 'club' && (
@@ -201,6 +188,21 @@ const StepThree = ({ paymentOptions, extraOptions, clubAmount }) => {
                     )
                 }
 
+                {
+                    selectedOption?.programType !== 'club' && (
+                        <div className="checkboxes-area">
+                            <CheckboxField
+                                name="generalPtTerms"
+                                title="Ik ga akkoord met de algemene voorwaarden en de huisregels van My Summerbody Club."
+                                control={control}
+                                rules={{
+                                    required: "U moet de algemene voorwaarden accepteren om verder te kunnen gaan.",
+                                }}
+                            />
+                        </div>
+                    )
+                }
+
                 <div className="flex gap-4">
                     <PrevButton title={'Terug'} />
                     <button
@@ -215,6 +217,7 @@ const StepThree = ({ paymentOptions, extraOptions, clubAmount }) => {
                         )}
                     </button>
                 </div>
+                <h4 className="text-center font-bold mt-4">Geen zorgen! Je hebt altijd 14 dagen bedenktijd na het afsluiten van je abonnement.</h4>
             </form>
         </>
     )
