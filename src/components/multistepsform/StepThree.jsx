@@ -165,25 +165,7 @@ const StepThree = ({ paymentOptions, extraOptions, clubAmount }) => {
 
                             </div>
 
-                            <div className="checkboxes-area">
-                                <CheckboxField
-                                    name="acceptTerms1"
-                                    title="Ik machtig hierbij My Summerbody Club om de abonnementsgelden daarna automatisch te incasseren SEPA-betalingen."
-                                    control={control}
-                                    rules={{
-                                        required: "U moet de algemene voorwaarden accepteren om verder te kunnen gaan.",
-                                    }}
-                                />
 
-                                <CheckboxField
-                                    name="acceptTerms2"
-                                    title="Ik ga akkoord met de Algemene voorwaarden, Privacyverklaring en de Huisregels van My Summerbody Club."
-                                    control={control}
-                                    rules={{
-                                        required: "U moet de algemene voorwaarden accepteren om verder te kunnen gaan.",
-                                    }}
-                                />
-                            </div>
                         </>
                     )
                 }
@@ -202,6 +184,26 @@ const StepThree = ({ paymentOptions, extraOptions, clubAmount }) => {
                         </div>
                     )
                 }
+
+                <div className="checkboxes-area">
+                    <CheckboxField
+                        name="acceptTerms1"
+                        title="Ik machtig hierbij My Summerbody Club om de abonnementsgelden daarna automatisch te incasseren SEPA-betalingen."
+                        control={control}
+                        rules={{
+                            required: "U moet de algemene voorwaarden accepteren om verder te kunnen gaan.",
+                        }}
+                    />
+
+                    <CheckboxField
+                        name="acceptTerms2"
+                        title="Ik ga akkoord met de Algemene voorwaarden, Privacyverklaring en de Huisregels van My Summerbody Club."
+                        control={control}
+                        rules={{
+                            required: "U moet de algemene voorwaarden accepteren om verder te kunnen gaan.",
+                        }}
+                    />
+                </div>
 
                 <div className="flex gap-4">
                     <PrevButton title={'Terug'} />

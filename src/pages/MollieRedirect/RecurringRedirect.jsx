@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import PaymentFormHeader from '../../components/common/PaymentFormHeader'
 import { useLocation } from 'react-router-dom'
 import axios from 'axios'
+import FailedPaymentHeader from '../../components/common/FailedPaymentHeader'
+
 const BASE_FRONTEND_URL = process.env.REACT_APP_BASE_FRONTEND_URL;
 const BASE_BACKEND_URL = process.env.REACT_APP_BASE_BACKEND_URL;
 const BASE_NGROK_URL = process.env.REACT_APP_NGROK_BACKEND_URL;
@@ -12,6 +14,7 @@ const RecurringRedirect = () => {
     const [matchedPayment, setMatchedPayment] = useState(null);
     const [paymentCreated, setPaymentCreated] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [paymentStatus, setPaymentStatus] = useState(null);
 
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
@@ -30,7 +33,7 @@ const RecurringRedirect = () => {
                         'Accept': 'application/json', // Ensure the response is in JSON format
                     }
                 });
-                console.log('Ngore', response);
+                //console.log('Ngore', response);
                 setAllPayments(response.data);
 
                 // Find the payment where name and email match
@@ -42,10 +45,16 @@ const RecurringRedirect = () => {
                 if (match) {
 
                     setMatchedPayment(match); // Set the matched payment
-                    // console.log('Matched Payment:', match.metadata);
+                    console.log('Matched Payment:', match.status);
 
-                    // Trigger subscription creation
-                    await createSubscription(match.customerId, match.metadata.userInfo);
+                    if (match.status !== 'failed') {
+                        // Trigger subscription creation
+                        setPaymentStatus(true);
+                        await createSubscription(match.customerId, match.metadata.userInfo);
+                    } else {
+                        setLoading(false);
+                        setPaymentStatus(false);
+                    }
                 }
 
             } catch (error) {
@@ -66,7 +75,7 @@ const RecurringRedirect = () => {
                         // Call the recurring email API
                         const emailResponse = await axios.post(`${BASE_BACKEND_URL}/api/recurring-email`, { userInfo });
                         console.log('Email sent successfully:', emailResponse.data);
-                            
+
 
                     } catch (emailError) {
                         console.error('Error sending email:', emailError);
@@ -85,7 +94,22 @@ const RecurringRedirect = () => {
 
     return (
         <>
-            <PaymentFormHeader />
+            {
+                !loading && paymentStatus && (
+                    <PaymentFormHeader />
+                )
+            }
+
+            {
+                !loading && !paymentStatus && (
+
+                    <>
+                        <FailedPaymentHeader />
+
+
+                    </>
+                )
+            }
 
             <div className=" max-w-lg mx-auto p-6 bg-white shadow-md rounded-lg my-16 border border-[#ef4d16]">
                 <h1 className="text-2xl font-bold text-center text-secondary border-b-2 border-primary pb-2 mb-6">
@@ -95,7 +119,7 @@ const RecurringRedirect = () => {
                     }
                 </h1>
                 {
-                    !loading && (
+                    !loading && paymentStatus && (
                         <>
                             <h1 className="text-2xl font-bold text-center text-secondary border-b-2 border-primary pb-2 mb-6">
                                 Bedankt voor je inschrijving!
@@ -165,6 +189,69 @@ const RecurringRedirect = () => {
                         </>
                     )
                 }
+
+                {
+                    !loading && !paymentStatus && (
+                        <>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 200 200"
+                                width="100px"
+                                height="100px"
+                            >
+                                {/* Background Circle */}
+                                <circle cx="100" cy="100" r="95" fill="#ef4d16" stroke="#2d3994" strokeWidth="4" />
+
+                                {/* Eyes */}
+                                <circle cx="70" cy="80" r="10" fill="#2d3994" />
+                                <circle cx="130" cy="80" r="10" fill="#2d3994" />
+
+                                {/* Sad Mouth */}
+                                <path
+                                    d="M60 140 Q100 100, 140 140"
+                                    fill="none"
+                                    stroke="#2d3994"
+                                    strokeWidth="5"
+                                    strokeLinecap="round"
+                                />
+
+                                {/* Stars */}
+                                <polygon
+                                    points="20,30 25,40 35,40 27,47 30,57 20,50 10,57 13,47 5,40 15,40"
+                                    fill="#2d3994"
+                                />
+                                <polygon
+                                    points="180,30 185,40 195,40 187,47 190,57 180,50 170,57 173,47 165,40 175,40"
+                                    fill="#2d3994"
+                                />
+
+                                {/* Confetti */}
+                                <rect x="30" y="160" width="10" height="10" fill="#2d3994" transform="rotate(45 35 165)" />
+                                <rect x="160" y="160" width="10" height="10" fill="#2d3994" transform="rotate(-45 165 165)" />
+                            </svg>
+                            <p className="text-lg mt-4">
+                                <strong className="text-secondary">Beste</strong>{' '}
+                                <span className="text-gray-700">{name}</span>
+                            </p>
+                            <p className="text-gray-700 mt-4">
+                                Je betaling en inschrijving voor is helaas niet gelukt.
+                            </p>
+                            <p className="text-gray-700">
+                                Er is geen bedrag van je rekening argeschreven.
+                            </p>
+                            <p className="text-gray-700 mt-4">
+                                Wij raden je aan om je gegevens en e-mailadres nogmaals te controleren en vervolgens opnieuw te proberen je in te schrijven.
+                            </p>
+                            <p className="text-gray-700 mt-4">
+                                Met vriendelijke groet,
+                            </p>
+                            <p className="text-gray-700 mt-[0px]">
+                                Team My Summerbody Club
+                            </p>
+                        </>
+                    )
+                }
+
             </div>
 
         </>
