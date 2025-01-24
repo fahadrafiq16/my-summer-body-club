@@ -2967,7 +2967,7 @@ h3#reply-title {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: url('./images/failed-payment.png');
+  background: url('./images/failed-payment-img.png');
   background-position-x: 0%;
   background-position-y: 0%;
   background-repeat: repeat;

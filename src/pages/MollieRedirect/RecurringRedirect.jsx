@@ -54,6 +54,7 @@ const RecurringRedirect = () => {
                     } else {
                         setLoading(false);
                         setPaymentStatus(false);
+                        await failedPaymentEmail(match.customerId, match.metadata.userInfo);
                     }
                 }
 
@@ -87,6 +88,15 @@ const RecurringRedirect = () => {
             }
             setLoading(false);
         };
+
+        const failedPaymentEmail = async (customerId, userInfo) => {
+            try {
+                const emailResponse = await axios.post(`${BASE_BACKEND_URL}/api/failed-email`, { userInfo });
+                console.log('Failed Email sent successfully:', emailResponse.data);
+            } catch (emailError) {
+                console.error('Error sending email:', emailError);
+            }
+        }
 
         fetchPayments();
 
