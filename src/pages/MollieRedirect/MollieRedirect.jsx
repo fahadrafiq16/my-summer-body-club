@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import PaymentFormHeader from '../../components/common/PaymentFormHeader'
 import { useLocation } from 'react-router-dom'
 import axios from 'axios'
+import { useNavigate } from "react-router-dom";
+
 const BASE_FRONTEND_URL = process.env.REACT_APP_BASE_FRONTEND_URL;
 const BASE_BACKEND_URL = process.env.REACT_APP_BASE_BACKEND_URL;
 
@@ -47,6 +49,18 @@ const MollieRedirect = () => {
         fetchPayments();
 
     }, [name, email]);
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        // Set a timer for 10 seconds
+        const timer = setTimeout(() => {
+            navigate("/"); // Redirect to the home page
+        }, 10000); // 10000ms = 10 seconds
+
+        // Cleanup the timer when the component unmounts
+        return () => clearTimeout(timer);
+    }, [navigate]);
 
 
     return (

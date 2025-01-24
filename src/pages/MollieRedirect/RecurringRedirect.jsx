@@ -3,6 +3,7 @@ import PaymentFormHeader from '../../components/common/PaymentFormHeader'
 import { useLocation } from 'react-router-dom'
 import axios from 'axios'
 import FailedPaymentHeader from '../../components/common/FailedPaymentHeader'
+import { useNavigate } from "react-router-dom";
 
 const BASE_FRONTEND_URL = process.env.REACT_APP_BASE_FRONTEND_URL;
 const BASE_BACKEND_URL = process.env.REACT_APP_BASE_BACKEND_URL;
@@ -22,6 +23,8 @@ const RecurringRedirect = () => {
     // Extract parameters from the query string
     const name = queryParams.get('name');
     const email = queryParams.get('email');
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchPayments = async () => {
@@ -60,6 +63,11 @@ const RecurringRedirect = () => {
 
             } catch (error) {
                 console.error('Error fetching payments:', error);
+            } finally {
+                // Start the 10-second timer for redirection
+                setTimeout(() => {
+                    navigate("/"); // Redirect to the home page
+                }, 10000);
             }
         }
 
@@ -80,6 +88,11 @@ const RecurringRedirect = () => {
 
                     } catch (emailError) {
                         console.error('Error sending email:', emailError);
+                    } finally {
+                        // Start the 10-second timer for redirection
+                        setTimeout(() => {
+                            navigate("/"); // Redirect to the home page
+                        }, 10000);
                     }
 
                 }

@@ -146,7 +146,7 @@ const StepThree = ({ paymentOptions, extraOptions, clubAmount }) => {
                 )}
 
                 {errors.paymentOption && (
-                    <p className="text-red-500">{errors.paymentOption.message}</p>
+                    <p className="text-red-500 mb-2">{errors.paymentOption.message}</p>
                 )}
                 {
                     selectedOption &&
