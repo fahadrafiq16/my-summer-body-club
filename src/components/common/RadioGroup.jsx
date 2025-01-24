@@ -1,7 +1,7 @@
 import React from 'react'
 import { Controller } from "react-hook-form";
 
-const RadioGroup = ({ name, control, options, required='Please select an option' }) => {
+const RadioGroup = ({ name, control, options, required='Abonnement keuze is vereist' }) => {
     return (
         <Controller
             name={name}

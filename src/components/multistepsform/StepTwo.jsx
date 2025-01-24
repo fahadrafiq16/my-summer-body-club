@@ -59,7 +59,7 @@ const StepTwo = () => {
                     />
 
                     <TextField
-                        label="Toevoeging:"
+                        label="Toevoeging (Optioneel):"
                         name="toevoeging"
                         register={register}
                         validation={{

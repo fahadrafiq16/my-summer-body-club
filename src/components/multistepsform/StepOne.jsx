@@ -83,7 +83,7 @@ const StepOne = ({ trainingDescription }) => {
             />
 
             <TextField
-                label="Tussen Voegsel"
+                label="Tussen Voegsel (Optioneel):"
                 name="tussenvoegsel"
                 register={register}
                 validation={{}}

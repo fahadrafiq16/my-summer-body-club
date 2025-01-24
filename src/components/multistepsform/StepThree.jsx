@@ -122,7 +122,7 @@ const StepThree = ({ paymentOptions, extraOptions, clubAmount }) => {
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <StepProgress title={'Looptijd abonnement kiezen'} />
+                <StepProgress title={'Looptijd abonnement & betalingsmethode kiezen'} />
 
                 <RadioGroup
                     name="paymentOption"
@@ -178,7 +178,7 @@ const StepThree = ({ paymentOptions, extraOptions, clubAmount }) => {
                                 title="Ik ga akkoord met de algemene voorwaarden en de huisregels van My Summerbody Club."
                                 control={control}
                                 rules={{
-                                    required: "U moet de algemene voorwaarden accepteren om verder te kunnen gaan.",
+                                    required: "Akkoord te gaan met de algemene voorwaarden en de huisregels is verplicht",
                                 }}
                             />
                         </div>
@@ -191,7 +191,7 @@ const StepThree = ({ paymentOptions, extraOptions, clubAmount }) => {
                         title="Ik machtig hierbij My Summerbody Club om de abonnementsgelden daarna automatisch te incasseren SEPA-betalingen."
                         control={control}
                         rules={{
-                            required: "U moet de algemene voorwaarden accepteren om verder te kunnen gaan.",
+                            required: "Akkoord te gaan met de algemene voorwaarden en de huisregels is verplicht",
                         }}
                     />
 
@@ -200,7 +200,7 @@ const StepThree = ({ paymentOptions, extraOptions, clubAmount }) => {
                         title="Ik ga akkoord met de Algemene voorwaarden, Privacyverklaring en de Huisregels van My Summerbody Club."
                         control={control}
                         rules={{
-                            required: "U moet de algemene voorwaarden accepteren om verder te kunnen gaan.",
+                            required: "Akkoord te gaan met de algemene voorwaarden en de huisregels is verplicht",
                         }}
                     />
                 </div>
