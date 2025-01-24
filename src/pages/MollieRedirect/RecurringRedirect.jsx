@@ -17,6 +17,7 @@ const RecurringRedirect = () => {
     const [loading, setLoading] = useState(false);
     const [paymentStatus, setPaymentStatus] = useState(null);
 
+
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
 
