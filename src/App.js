@@ -15,6 +15,7 @@ import OverMSBC from './pages/OverMSBC/OverMSBC';
 import Trainers from './pages/trainers/Trainers';
 
 import AfvallenIntro from './pages/formsIntroduction/AfvallenIntro';
+import PersonalIntro from './pages/formsIntroduction/PersonalIntro';
 
 function App() {
 
@@ -29,6 +30,7 @@ function App() {
           <Route path="/trainers" element={<Trainers />} />
 
           <Route path="/trainingprograms/afvallen-training" element={<AfvallenIntro />} />
+          <Route path="/trainingprograms/personal-training" element={<PersonalIntro />} />
 
           <Route path="/trainingprograms/my-summerbody-1-jaar/payment-form" element={<SummerBody1Jarig />} />
           <Route path="/trainingprograms/personal-training/payment-form" element={<PersonalTraining />} />
