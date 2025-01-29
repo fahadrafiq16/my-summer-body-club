@@ -8,11 +8,17 @@ import NextButton from './NextButton';
 import StepProgress from './StepProgress';
 import BorderedHeader from './BorderedHeader';
 import axios from 'axios'
+import { useLocation } from "react-router-dom";
 
 const ADRES_API_KEY = process.env.REACT_APP_ADRES_API_KEY;
 
 const StepTwo = () => {
-   
+    const location = useLocation();
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+        
+    }, [location.pathname]);
 
 
     const { formData, updateFormData } = useFormContext();

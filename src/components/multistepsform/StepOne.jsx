@@ -49,7 +49,7 @@ const StepOne = ({ trainingDescription }) => {
 
     useEffect(() => {
         window.scrollTo(0,0);
-    }, [])
+    }, []);
 
     console.log(trainingDescription);
 

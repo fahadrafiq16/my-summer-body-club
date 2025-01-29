@@ -16,6 +16,10 @@ const BASE_BACKEND_URL = process.env.REACT_APP_BASE_BACKEND_URL;
 
 const StepThree = ({ paymentOptions, extraOptions, clubAmount }) => {
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     const { formData, updateFormData, setFormData } = useFormContext();
     const [selectedOption, setSelectedOption] = useState(null);
     const [extraOption, setExtraOption] = useState({
@@ -188,10 +192,10 @@ const StepThree = ({ paymentOptions, extraOptions, clubAmount }) => {
                 <div className="checkboxes-area">
                     <CheckboxField
                         name="acceptTerms1"
-                        title="Ik machtig hierbij My Summerbody Club om de abonnementsgelden daarna automatisch te incasseren SEPA-betalingen."
+                        title="Ik machtig My Summerbody Club om na de eerste betaling, de abonnementsgelden maandelijks via SEPA-incasso van mijn rekening af te schrijven. Deze machtiging blijft van kracht tot het einde van het abonnement of contract."
                         control={control}
                         rules={{
-                            required: "Akkoord te gaan met de algemene voorwaarden en de huisregels is verplicht",
+                            required: "Akkoord voor toestemming om de abonnementsgelden automatisch te incasseren via SEPA-betalingen is verplicht.",
                         }}
                     />
 

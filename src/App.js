@@ -7,6 +7,8 @@ import SummerBody1Jarig from './pages/paymentForms/Summerbody1jarig'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/home/Home'
 import Abonnement from './pages/abonnement/Abonnement';
+import Footer from './components/header/Footer';
+import ScrollToTop from './components/common/ScrollToTop';
 
 import MollieRedirect from './pages/MollieRedirect/MollieRedirect';
 import RecurringRedirect from './pages/MollieRedirect/RecurringRedirect';
@@ -16,6 +18,8 @@ import Trainers from './pages/trainers/Trainers';
 
 import AfvallenIntro from './pages/formsIntroduction/AfvallenIntro';
 import PersonalIntro from './pages/formsIntroduction/PersonalIntro';
+import GroepPTIntro from './pages/formsIntroduction/GroepPTIntro';
+import WedstrijdIntro from './pages/formsIntroduction/WedstrijdIntro';
 
 function App() {
 
@@ -23,6 +27,7 @@ function App() {
     <Router>
       <div className="App">
         <Header />
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/over-msbc" element={<OverMSBC />} />
@@ -31,6 +36,8 @@ function App() {
 
           <Route path="/trainingprograms/afvallen-training" element={<AfvallenIntro />} />
           <Route path="/trainingprograms/personal-training" element={<PersonalIntro />} />
+          <Route path="/trainingprograms/groeppt-training/" element={<GroepPTIntro />} />
+          <Route path="/trainingprograms/wedstrijd-training/" element={<WedstrijdIntro />} />
 
           <Route path="/trainingprograms/my-summerbody-1-jaar/payment-form" element={<SummerBody1Jarig />} />
           <Route path="/trainingprograms/personal-training/payment-form" element={<PersonalTraining />} />
@@ -41,6 +48,7 @@ function App() {
           <Route path="/mollie-redirect" element={<MollieRedirect />} />
           <Route path="/recurring-redirect" element={<RecurringRedirect />} />
         </Routes>
+        <Footer />
       </div>
     </Router>
   );

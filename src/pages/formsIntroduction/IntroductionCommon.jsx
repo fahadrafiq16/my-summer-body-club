@@ -1,7 +1,13 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
+import React, {useEffect} from 'react'
+import { Link } from 'react-router-dom'
 
-const IntroductionCommon = ({title,img1,img2,video,quote,description}) => {
+const IntroductionCommon = ({ title, img1, img2, video, quote, description, link }) => {
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
+
     return (
         <>
             <div id="page-title-banner">
@@ -49,9 +55,9 @@ const IntroductionCommon = ({title,img1,img2,video,quote,description}) => {
                         <p>{description}</p>
                         <div className="button-area">
                             <button>
-                                 <Link to="/trainingprograms/afvallen-training/payment-form" className="button-area">
-      LID WORDEN
-    </Link>
+                                <Link to={`/trainingprograms/${link}/payment-form` }className="button-area">
+                                    LID WORDEN
+                                </Link>
                             </button>
                         </div>
                     </div>
