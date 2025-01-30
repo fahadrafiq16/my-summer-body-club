@@ -174,8 +174,10 @@ const StepThree = ({ paymentOptions, extraOptions, clubAmount }) => {
                     )
                 }
 
-                {
-                    selectedOption?.programType !== 'club' && (
+{
+                   /**
+                    * 
+                    *  selectedOption?.programType !== 'club' && (
                         <div className="checkboxes-area">
                             <CheckboxField
                                 name="generalPtTerms"
@@ -187,6 +189,8 @@ const StepThree = ({ paymentOptions, extraOptions, clubAmount }) => {
                             />
                         </div>
                     )
+                    * 
+                    */
                 }
 
                 <div className="checkboxes-area">
