@@ -15,6 +15,7 @@ import Slider from '../../sections/home/Slider';
 import ClubTrainings from '../../sections/home/ClubTrainings';
 import BootCampImg from '../../images/bootcamp-banner-image.png';
 import BootCampHome from '../../images/bootcamp-home-button.png'
+import Testimonials from '../../components/home/Testimonials';
 
 const BASE_FRONTEND_URL = process.env.REACT_APP_BASE_FRONTEND_URL;
 const BASE_BACKEND_URL = process.env.REACT_APP_BASE_BACKEND_URL;
@@ -97,6 +98,7 @@ const Home = () => {
 
       <OurTrainers />
       <PopUpVideoArea />
+      <Testimonials />
       <Gallery />
 
 

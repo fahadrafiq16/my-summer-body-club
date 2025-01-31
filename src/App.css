@@ -786,10 +786,12 @@ hr {
   .padding-top {
     padding: 50px 20px 0px;
   }
-a.custom-logo-link {
-  display: flex;
-  justify-content: end;
-}
+
+  a.custom-logo-link {
+    display: flex;
+    justify-content: end;
+  }
+
   h2.blog-left-heading {
     font-size: 40px !important;
   }
@@ -1599,38 +1601,47 @@ Blog Posts Home Section
 
   .main-video-area {
     padding: 0px 0 !important;
-    margin:0 0;
+    margin: 0 0;
   }
+
   #begin-lifestyle {
-    padding:50px 20px 0;
+    padding: 50px 20px 0;
   }
+
   .video-area-life h2 {
     margin-bottom: 30px;
     line-height: 32px;
   }
+
   #our-trainings {
-    padding:0 20px 0;
+    padding: 0 20px 0;
     margin-top: 60px;
   }
+
   #page-title-banner {
-    padding:0 20px;
+    padding: 0 20px;
   }
+
   #msbc_maak_je {
-    padding:60px 20px;
+    padding: 60px 20px;
   }
+
   .msbc_ben_je_left h3 {
     line-height: 34px !important;
   }
+
   .popup-btn {
-    margin:0 !important;
+    margin: 0 !important;
     display: flex;
     justify-content: center;
   }
-  .trainer-page{
-    padding-top:60px;
+
+  .trainer-page {
+    padding-top: 60px;
   }
+
   .main-video-area {
-    margin:30px 0;
+    margin: 30px 0;
   }
 }
 
@@ -1707,10 +1718,12 @@ Blog Posts Home Section
     flex-direction: column;
     justify-content: flex-start;
   }
+
   #home-gallery {
     padding-bottom: 60px;
     margin-top: 60px;
   }
+
   #our-trainings {
     margin-bottom: 60px;
   }
@@ -2313,9 +2326,11 @@ p.pg {
   margin-bottom: 20px;
   border-radius: 10px;
 }
+
 .checkboxes-area input {
   margin-right: 10px;
 }
+
 @media only screen and (min-width: 600px) {
   .training-features {
     width: 50%;
@@ -2863,34 +2878,45 @@ h3#reply-title {
   .right-area {
     padding: 0 20px;
   }
+
   .payment-form-page {
-    padding:60px 20px;
+    padding: 60px 20px;
   }
+
   .fact p {
     font-size: 15px;
-    padding:0 10px;
+    padding: 0 10px;
   }
+
   .payment-form-title-area h3 {
     font-size: 18px;
   }
+
   .form-h3 {
     font-size: 28px !important;
   }
+
   .radio-group-label {
-    font-size:16px;
+    font-size: 16px;
   }
-  .swiper-slide h2, .swiper-slide p {
-    font-size:28px !important;
+
+  .swiper-slide h2,
+  .swiper-slide p {
+    font-size: 28px !important;
     margin-top: 60px;
   }
+
   .custom-swiper-slide-class {
     height: 20vh !important;
   }
-  .swiper-button-prev,.swiper-button-next {
+
+  .swiper-button-prev,
+  .swiper-button-next {
     display: none !important;
   }
+
   .payment-form-page {
-    margin:0;
+    margin: 0;
   }
 }
 
@@ -2962,6 +2988,7 @@ h3#reply-title {
   background-repeat: no-repeat;
   color: #fff;
 }
+
 #page-title-banner-failed {
   min-height: 200px;
   display: flex;
@@ -2991,14 +3018,34 @@ h3#reply-title {
   text-align: center;
   margin: 0 auto;
 }
+
 .email-area img {
   width: auto;
 }
+
 .ReactModal__Content {
   max-height: 370px;
 }
+
 /* Change the arrow color */
 .swiper-button-next,
 .swiper-button-prev {
-  color: #fff !important; /* Set your desired color */
+  color: #fff !important;
+  /* Set your desired color */
 }
+
+.section-title-testimonial h2 {
+  margin: 60px auto 35px;
+  max-width: 1110px;
+}
+
+.section-title-testimonial h2 {
+  text-align: left;
+  font-size: 22px;
+  line-height: 31px;
+  font-weight: 900;
+  font-family: 'Heebo', sans-serif;
+  border-left: 7px solid #ef4d16;
+  padding: 0px 0px 0px 15px;
+}
+
