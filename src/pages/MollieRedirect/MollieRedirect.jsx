@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 const BASE_FRONTEND_URL = process.env.REACT_APP_BASE_FRONTEND_URL;
 const BASE_BACKEND_URL = process.env.REACT_APP_BASE_BACKEND_URL;
-
+const BASE_NGROK_URL = process.env.REACT_APP_NGROK_BACKEND_URL;
 
 const MollieRedirect = () => {
 
@@ -25,8 +25,9 @@ const MollieRedirect = () => {
     useEffect(() => {
         const fetchPayments = async () => {
             try {
-                const response = await axios.get(`${BASE_BACKEND_URL}/api/fetch-payments`);
+                const response = await axios.get(`${BASE_NGROK_URL}/api/fetch-payments`);
                 setAllPayments(response.data);
+                
 
                 // Find the payment where name and email match
                 const match = response.data.find(payment =>
