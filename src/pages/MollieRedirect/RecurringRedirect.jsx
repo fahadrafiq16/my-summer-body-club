@@ -48,6 +48,20 @@ const RecurringRedirect = () => {
 
                 if (match) {
 
+                    try {
+                        const dataToSend = {
+                            ...match.metadata?.userInfo,
+                            status: match.status,
+                        }
+                        const response = await axios.post(`http://localhost:5000/api/add-user`, dataToSend, {
+                            headers: { "Content-Type": "application/json" },
+                        });
+                        console.log("✅ User added successfully:", response.data);
+                        return response.data;
+                    } catch (error) {
+                        console.error("❌ Error adding user:", error.response?.data || error.message);
+                    }
+
                     setMatchedPayment(match); // Set the matched payment
                     console.log('Matched Payment:', match.status);
 

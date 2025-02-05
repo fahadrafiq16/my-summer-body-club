@@ -25,9 +25,14 @@ const MollieRedirect = () => {
     useEffect(() => {
         const fetchPayments = async () => {
             try {
-                const response = await axios.get(`${BASE_NGROK_URL}/api/fetch-payments`);
+                const response = await axios.get(`${BASE_NGROK_URL}/api/fetch-payments`, {
+                    headers: {
+                        'ngrok-skip-browser-warning': 'true', // Skip the ngrok warning page
+                        'Accept': 'application/json', // Ensure the response is in JSON format
+                    }
+                });
                 setAllPayments(response.data);
-                
+
 
                 // Find the payment where name and email match
                 const match = response.data.find(payment =>
@@ -38,10 +43,24 @@ const MollieRedirect = () => {
 
                 setMatchedPayment(match); // Set the matched payment
                 console.log('Matched Payment:', match);
-                console.log('Status:', match.status);
+                //console.log('Status:', match.status);
+                //console.log('All Payments', response.data);
+
+                try {
+                    const dataToSend = {
+                        ...match.metadata?.userInfo,
+                        status:match.status,
+                    }
+                    const response = await axios.post(`http://localhost:5000/api/add-user`, dataToSend, {
+                        headers: { "Content-Type": "application/json" },
+                    });
+                    console.log("✅ User added successfully:", response.data);
+                    return response.data;
+                } catch (error) {
+                    console.error("❌ Error adding user:", error.response?.data || error.message);
+                }
 
 
-                console.log('All Payments', response.data);
             } catch (error) {
                 console.error('Error fetching payments:', error);
             }
@@ -53,7 +72,9 @@ const MollieRedirect = () => {
 
     const navigate = useNavigate();
 
-    useEffect(() => {
+    /**
+     * 
+     * useEffect(() => {
         // Set a timer for 10 seconds
         const timer = setTimeout(() => {
             navigate("/"); // Redirect to the home page
@@ -62,6 +83,8 @@ const MollieRedirect = () => {
         // Cleanup the timer when the component unmounts
         return () => clearTimeout(timer);
     }, [navigate]);
+     * 
+     */
 
 
     return (
