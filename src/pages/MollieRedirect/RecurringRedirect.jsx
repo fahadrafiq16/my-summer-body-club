@@ -48,7 +48,6 @@ const RecurringRedirect = () => {
 
                 if (match) {
 
-                    try {
                         const dataToSend = {
                             ...match.metadata?.userInfo,
                             status: match.status,
@@ -57,10 +56,8 @@ const RecurringRedirect = () => {
                             headers: { "Content-Type": "application/json" },
                         });
                         console.log("✅ User added successfully:", response.data);
-                        return response.data;
-                    } catch (error) {
-                        console.error("❌ Error adding user:", error.response?.data || error.message);
-                    }
+                        
+                   
 
                     setMatchedPayment(match); // Set the matched payment
                     console.log('Matched Payment:', match.status);
@@ -82,7 +79,8 @@ const RecurringRedirect = () => {
                 // Start the 10-second timer for redirection
                 setTimeout(() => {
                     navigate("/"); // Redirect to the home page
-                }, 10000);
+                }, 20000);
+                 
             }
         }
 
@@ -107,7 +105,7 @@ const RecurringRedirect = () => {
                         // Start the 10-second timer for redirection
                         setTimeout(() => {
                             navigate("/"); // Redirect to the home page
-                        }, 10000);
+                        }, 20000);
                     }
 
                 }

@@ -3049,3 +3049,38 @@ h3#reply-title {
   padding: 0px 0px 0px 15px;
 }
 
+.rc-table-tbody td{
+  padding:10px;
+}
+th {
+  padding:15px;
+}
+.dashboard-logo img {
+  max-width: 80%;
+}
+.dashboard-navigation {
+  padding:15px 10px;
+}
+.dashboard-navigation li {
+  border:none;
+  padding:0 5px;
+  margin-bottom: 5px;
+  color:#fff;
+}
+.dashboard-navigation li a {
+  display: flex;
+  align-items: center;
+}
+.dashboard-navigation li:hover {
+  border:none;
+  background: #2d3a91;
+  color:#fff;
+  border-radius: 30px;
+}
+.search-header input {
+  margin: 0;
+  padding:10px;
+}
+.search-header > div > div > div {
+  margin:0;
+}
