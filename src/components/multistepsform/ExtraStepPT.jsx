@@ -45,9 +45,7 @@ const months = [
 
 const years = Array.from({ length: 2004 - 1940 + 1 }, (_, i) => 1940 + i);
 
-const StepOne = ({ trainingDescription }) => {
-
-    console.log(trainingDescription[0].title);
+const ExtraStepPT = ({ trainingDescription }) => {
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -71,30 +69,62 @@ const StepOne = ({ trainingDescription }) => {
         <form onSubmit={handleSubmit(onSubmit)}>
 
             <StepProgress title={'Persoonlijke gegevens'} />
-
-            {
-
-                trainingDescription[0].title !== 'Aanvraag verhuur PT ruimte'
-                    ? <StepOneHeader trainingDescription={trainingDescription} />
-                    : null
-            }
-
-
-
+            <StepOneHeader trainingDescription={trainingDescription} />
             <BorderedHeader heading={'Persoonlijke gegevens'} />
             <TextField
-                label="Voornaam:"
-                name="voornaam"
+                label="Bedrijfsnaam:"
+                name="bedrijfsnaam"
                 register={register}
                 validation={{
-                    required: 'Voornaam is required',
+                    required: 'Bedrijfsnaam is required',
                 }}
                 errors={errors}
                 placeholder=""
             />
 
+
+            <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-4">
+
+                <TextField
+                    label="KVK nummer:"
+                    name="kvk nummer"
+                    register={register}
+                    validation={{
+                        required: 'KVK nummer is required',
+                    }}
+                    errors={errors}
+                    placeholder=""
+                />
+                <TextField
+                    label="BTW nummer:"
+                    name="BTW nummer"
+                    register={register}
+                    validation={{
+                        required: 'BTW nummer is required',
+                    }}
+                    errors={errors}
+                    placeholder=""
+                />
+
+                <TextField
+                    label="Bedrijfs e-mail:"
+                    name="bedrijfs-email"
+                    register={register}
+                    validation={{
+                        required: 'Bedrijfs Email is required',
+                        pattern: {
+                            value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+                            message: 'Invalid email address',
+                        },
+                    }}
+                    errors={errors}
+                    placeholder=""
+                />
+
+            </div>
+
             <TextField
-                label="Tussen Voegsel (Optioneel):"
+                label="Heb je nog vragen?:"
                 name="tussenvoegsel"
                 register={register}
                 validation={{}}
@@ -102,64 +132,10 @@ const StepOne = ({ trainingDescription }) => {
                 placeholder=""
             />
 
-            <TextField
-                label="Achternaam:"
-                name="achternaam"
-                register={register}
-                validation={{}}
-                errors={errors}
-                placeholder=""
-            />
+
+           
 
 
-            <div className="select-gender">
-                <label className="mt-[20px] text-left font-bold">Tussen Voegsel</label>
-                <RadioGroup
-                    name="geslachtooptions"
-                    control={control}
-                    options={geslachtoOptions}
-
-                />
-                {errors.geslachtooptions && (
-                    <p className="text-red-500 text-left">{"This field is required"}</p>
-                )}
-            </div>
-
-            <div className="text-left mt-4 mb-2">
-                <label className="mt-[20px] text-left font-bold">Geboorte datum</label>
-            </div>
-            <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-4">
-
-                <SelectField
-                    name="dayOfMonth"
-                    label=""
-                    options={daysOfMonth}
-                    register={register}
-                    // validation={{ required: "This field is required" }}
-                    errors={errors}
-                    placeholder={'Dag'}
-                />
-
-                <SelectField
-                    name="month"
-                    label=""
-                    options={months}
-                    register={register}
-                    //   validation={{ required: "This field is required" }}
-                    errors={errors}
-                    placeholder={'Maand'}
-                />
-
-                <SelectField
-                    name="years"
-                    label=""
-                    options={years}
-                    register={register}
-                    //validation={{ required: "This field is required" }}
-                    errors={errors}
-                    placeholder={'Jaar'}
-                />
-            </div>
 
 
 
@@ -172,4 +148,4 @@ const StepOne = ({ trainingDescription }) => {
     )
 }
 
-export default StepOne
+export default ExtraStepPT
