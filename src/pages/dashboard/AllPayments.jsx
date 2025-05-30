@@ -14,7 +14,7 @@ const AllPayments = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/get-userinfos/")
+    axios.get("https://msbc-backend.vercel.app/api/get-userinfos/")
       .then((response) => {
         setUserData(response.data);
         setLoading(false);
@@ -31,7 +31,7 @@ const AllPayments = () => {
 
   const handleDeleteClick = async (key) => {
     try {
-      const response = await axios.delete(`http://localhost:5000/api/delete-userinfo/${key}`);
+      const response = await axios.delete(`https://msbc-backend.vercel.app/api/delete-userinfo/${key}`);
       console.log(response.data);
       setRefreshTrigger((prev) => !prev);
       alert('User deleted successfully');
