@@ -51,7 +51,7 @@ const MollieRedirect = () => {
                         ...match.metadata?.userInfo,
                         status:match.status,
                     }
-                    const response = await axios.post(`http://localhost:5000/api/add-user`, dataToSend, {
+                    const response = await axios.post(`https://msbc-backend.vercel.app/api/add-user`, dataToSend, {
                         headers: { "Content-Type": "application/json" },
                     });
                     console.log("✅ User added successfully:", response.data);
