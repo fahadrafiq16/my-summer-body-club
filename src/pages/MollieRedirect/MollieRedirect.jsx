@@ -25,9 +25,8 @@ const MollieRedirect = () => {
     useEffect(() => {
         const fetchPayments = async () => {
             try {
-                const response = await axios.get(`${BASE_NGROK_URL}/api/fetch-payments`, {
+                const response = await axios.get('https://msbc-backend.vercel.app/api/fetch-payments', {
                     headers: {
-                        'ngrok-skip-browser-warning': 'true', // Skip the ngrok warning page
                         'Accept': 'application/json', // Ensure the response is in JSON format
                     }
                 });
@@ -43,8 +42,7 @@ const MollieRedirect = () => {
 
                 setMatchedPayment(match); // Set the matched payment
                 console.log('Matched Payment:', match);
-                //console.log('Status:', match.status);
-                //console.log('All Payments', response.data);
+   
 
                 try {
                     const dataToSend = {
