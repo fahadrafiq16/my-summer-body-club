@@ -61,11 +61,7 @@ const StepThree = ({ paymentOptions, extraOptions, clubAmount }) => {
     const onSubmit = async (data) => {
         updateFormData(data);
 
-
-
         const totalAmount = (parseFloat(data.paymentOption) + parseFloat(clubAmount[0].amount) + parseFloat(extraOption.amount)).toFixed(2);
-
-
 
         console.log(totalAmount);
 
@@ -75,7 +71,7 @@ const StepThree = ({ paymentOptions, extraOptions, clubAmount }) => {
             console.log('form', formData);
 
             try {
-                const response = await axios.post('https://msbc-backend.vercel.app//api/create-payment', {
+                const response = await axios.post('https://msbc-backend.vercel.app/api/create-payment', {
                     amount: totalAmount,
                     userInfo: {
                         ...formData,
