@@ -6,8 +6,8 @@ import FailedPaymentHeader from '../../components/common/FailedPaymentHeader'
 import { useNavigate } from "react-router-dom";
 
 const BASE_FRONTEND_URL = process.env.REACT_APP_BASE_FRONTEND_URL;
-const BASE_BACKEND_URL = process.env.REACT_APP_BASE_BACKEND_URL;
-const BASE_NGROK_URL = process.env.REACT_APP_NGROK_BACKEND_URL;
+const BASE_BACKEND_URL = 'https://msbc-backend.vercel.app';
+
 
 const RecurringRedirect = () => {
 
@@ -31,9 +31,8 @@ const RecurringRedirect = () => {
         const fetchPayments = async () => {
             setLoading(true);
             try {
-                const response = await axios.get(`${BASE_NGROK_URL}/api/fetch-payments`, {
+                const response = await axios.get('https://msbc-backend.vercel.app/api/fetch-payments', {
                     headers: {
-                        'ngrok-skip-browser-warning': 'true', // Skip the ngrok warning page
                         'Accept': 'application/json', // Ensure the response is in JSON format
                     }
                 });
@@ -52,7 +51,7 @@ const RecurringRedirect = () => {
                             ...match.metadata?.userInfo,
                             status: match.status,
                         }
-                        const response = await axios.post(`http://localhost:5000/api/add-user`, dataToSend, {
+                        const response = await axios.post(`https://msbc-backend.vercel.app/api/add-user`, dataToSend, {
                             headers: { "Content-Type": "application/json" },
                         });
                         console.log("✅ User added successfully:", response.data);
@@ -86,7 +85,7 @@ const RecurringRedirect = () => {
 
         const createSubscription = async (customerId, userInfo) => {
             try {
-                const response = await axios.post(`${BASE_BACKEND_URL}/api/create-subscription`, { customerId, userInfo, });
+                const response = await axios.post('https://msbc-backend.vercel.app/api/create-subscription', { customerId, userInfo, });
                 console.log('Subscription created successfully:', response.data);
                 if (response.data) {
                     setPaymentCreated(true);
@@ -95,7 +94,7 @@ const RecurringRedirect = () => {
                     try {
 
                         // Call the recurring email API
-                        const emailResponse = await axios.post(`${BASE_BACKEND_URL}/api/recurring-email`, { userInfo });
+                        const emailResponse = await axios.post('https://msbc-backend.vercel.app/api/recurring-email', { userInfo });
                         console.log('Email sent successfully:', emailResponse.data);
 
 
