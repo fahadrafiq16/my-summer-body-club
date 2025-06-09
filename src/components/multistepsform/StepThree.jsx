@@ -61,9 +61,7 @@ const StepThree = ({ paymentOptions, extraOptions, clubAmount }) => {
     const onSubmit = async (data) => {
         updateFormData(data);
 
-        //const totalAmount = (parseFloat(data.paymentOption) + parseFloat(clubAmount[0].amount) + parseFloat(extraOption.amount)).toFixed(2);
-
-        const totalAmount = 200;
+        const totalAmount = (parseFloat(data.paymentOption) + parseFloat(clubAmount[0].amount) + parseFloat(extraOption.amount)).toFixed(2);
 
         console.log(totalAmount);
 
