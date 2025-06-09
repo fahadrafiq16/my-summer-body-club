@@ -18,6 +18,13 @@ export const paymentOptions = [
     },
 ];
 
+export const clubAmount = [
+    {
+        amount:'0',
+        title:'Clubpas/ QR-code',
+        status:false,
+    }
+];
 
 
 
