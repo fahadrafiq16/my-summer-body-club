@@ -18,6 +18,11 @@ export const paymentOptions = [
     },
 ];
 
+export const extraOptions = [
+   
+    {}
+];
+
 export const clubAmount = [
     {
         amount:'0',
