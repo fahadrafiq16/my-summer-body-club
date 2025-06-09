@@ -169,23 +169,8 @@ const StepThree = ({ paymentOptions, extraOptions, clubAmount }) => {
                     )
                 }
 
-{
-                   /**
-                    * 
-                    *  selectedOption?.programType !== 'club' && (
-                        <div className="checkboxes-area">
-                            <CheckboxField
-                                name="generalPtTerms"
-                                title="Ik ga akkoord met de algemene voorwaarden en de huisregels van My Summerbody Club."
-                                control={control}
-                                rules={{
-                                    required: "Akkoord te gaan met de algemene voorwaarden en de huisregels is verplicht",
-                                }}
-                            />
-                        </div>
-                    )
-                    * 
-                    */
+                {
+
                 }
 
                 <div className="checkboxes-area">
@@ -218,7 +203,7 @@ const StepThree = ({ paymentOptions, extraOptions, clubAmount }) => {
                         {formData.loading ? (
                             <div className="loader w-4 h-4 border-2 border-white rounded-full animate-spin"></div>
                         ) : (
-                            'Submit'
+                            'Nu Betalen'
                         )}
                     </button>
                 </div>

@@ -4,9 +4,6 @@ import { useLocation } from 'react-router-dom'
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 
-const BASE_FRONTEND_URL = process.env.REACT_APP_BASE_FRONTEND_URL;
-const BASE_BACKEND_URL = process.env.REACT_APP_BASE_BACKEND_URL;
-const BASE_NGROK_URL = process.env.REACT_APP_NGROK_BACKEND_URL;
 
 const MollieRedirect = () => {
 
@@ -70,19 +67,7 @@ const MollieRedirect = () => {
 
     const navigate = useNavigate();
 
-    /**
-     * 
-     * useEffect(() => {
-        // Set a timer for 10 seconds
-        const timer = setTimeout(() => {
-            navigate("/"); // Redirect to the home page
-        }, 10000); // 10000ms = 10 seconds
-
-        // Cleanup the timer when the component unmounts
-        return () => clearTimeout(timer);
-    }, [navigate]);
-     * 
-     */
+ 
 
 
     return (

@@ -5,8 +5,6 @@ import axios from 'axios'
 import FailedPaymentHeader from '../../components/common/FailedPaymentHeader'
 import { useNavigate } from "react-router-dom";
 
-const BASE_FRONTEND_URL = process.env.REACT_APP_BASE_FRONTEND_URL;
-const BASE_BACKEND_URL = 'https://msbc-backend.vercel.app';
 
 
 const RecurringRedirect = () => {
@@ -116,7 +114,7 @@ const RecurringRedirect = () => {
 
         const failedPaymentEmail = async (customerId, userInfo) => {
             try {
-                const emailResponse = await axios.post(`${BASE_BACKEND_URL}/api/failed-email`, { userInfo });
+                const emailResponse = await axios.post('https://msbc-backend.vercel.app/api/failed-email', { userInfo });
                 console.log('Failed Email sent successfully:', emailResponse.data);
             } catch (emailError) {
                 console.error('Error sending email:', emailError);

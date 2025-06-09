@@ -113,7 +113,7 @@ const StepOne = ({ trainingDescription }) => {
 
 
             <div className="select-gender">
-                <label className="mt-[20px] text-left font-bold">Tussen Voegsel</label>
+                <label className="mt-[20px] text-left font-bold">Geslacht</label>
                 <RadioGroup
                     name="geslachtooptions"
                     control={control}
