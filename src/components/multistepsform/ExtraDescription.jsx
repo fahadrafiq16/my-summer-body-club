@@ -11,8 +11,8 @@ const ExtraDescription = () => {
                 }}
                 className="pp"
             >
-                * 5 rittenkaart = 3 maanden geldig | ** 10 rittenkaart = 5 maanden
-                geldig
+                Let op! PT trainingen dienen 14 degen vooraf ingepland te worden.<br/>
+* 5 rittenkaart = 1.5 maand geldig | ** 10 rittenkaart = 2.5 maand geldig | *** 20 rittenkaart = 3 maanden geldig.
             </p>
 
             <h4 style={{ fontSize: "26px", fontWeight:600 }}>
