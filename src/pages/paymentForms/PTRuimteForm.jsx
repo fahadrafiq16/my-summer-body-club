@@ -8,7 +8,7 @@ import { FormProvider } from '../../contex/FormContex'
 import StepOne from '../../components/multistepsform/StepOne';
 import StepTwo from '../../components/multistepsform/StepTwo';
 import StepThree from '../../components/multistepsform/StepThree';
-import { paymentOptions, ptRuimteTrainingDescription } from '../../data/PTRuimteTraining';
+import { paymentOptions, extraOptions, clubAmount, ptRuimteTrainingDescription } from '../../data/PTRuimteTraining';
 import PaymentFormHeader from '../../components/common/PaymentFormHeader';
 import ExtraStepPT from '../../components/multistepsform/ExtraStepPT';
 
@@ -25,7 +25,7 @@ const AfvallenTraining = () => {
                             <ExtraStepPT trainingDescription={ptRuimteTrainingDescription} />
                             <StepOne trainingDescription={ptRuimteTrainingDescription}/>
                             <StepTwo />
-                            <StepThree paymentOptions={paymentOptions} extraOptions={''} clubAmount={''} />    
+                           <StepThree paymentOptions={paymentOptions} extraOptions={extraOptions} clubAmount={clubAmount} />    
                         </Steps>
                     </div>            
                 </StepsProvider>
