@@ -36,7 +36,7 @@ export const paymentOptions = [
         title: 'p.m. | 1 Op 3 training | 3 maanden | Start Pakket | 2 x week trainen | p.p.',
         subTitle: 'Je Groep PT Training abonnement bij My Summerbody Club',
         abonnementType: '3 maanden | Start Pakket | Per maand',
-        abonnementTitle: '2 x week trainen | 1 op 2 | Prijs p.p.',
+        abonnementTitle: '2 x week trainen | 1 op 3 | Prijs p.p.',
         kosten: ['Pakket kosten: 3 x € 175,00', 'Kosten per maand: € 175,00'],
         totalKosten: ['Kosten 1e maand', 'Daarna maandelijkse kosten: € 175,00'],
         extra: true,
@@ -70,7 +70,7 @@ export const paymentOptions = [
     },
     {
         trainingTitle:'Groep PT Trainingen',
-        amount: '175.00',
+        amount: '180.00',
         quantity: '1',
         title: '| 1 Op 2 training | 5 Rittenkaart * | p.p.',
         subTitle: 'Je Groep PT Training abonnement bij My Summerbody Club',

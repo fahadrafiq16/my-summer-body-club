@@ -23,7 +23,7 @@ export const paymentOptions = [
         title: 'p.m. | 3 maanden | Start Pakket | 2 x week trainen | incl.. vetmetingen | p.p.',
         subTitle: 'Je Personal Training abonnement bij My Summerbody Club',
         abonnementType: '3 maanden | Start Pakket | Per maand',
-        abonnementTitle: 'Training 1 op 1',
+        abonnementTitle: '2x week trainen | incl. vetmetingen',
         kosten: ['Pakket kosten: 3 x € 499,00', 'Kosten per maand: € 499,00'],
         totalKosten: ['Kosten 1e maand', 'Daarna maandelijkse kosten: € 499,00'],
         extra: true,
