@@ -13,6 +13,7 @@ import CheckboxField from '../common/CheckboxField';
 
 
 
+
 const StepThree = ({ paymentOptions, extraOptions, clubAmount }) => {
 
     useEffect(() => {

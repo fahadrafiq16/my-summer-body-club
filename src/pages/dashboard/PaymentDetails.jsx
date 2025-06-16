@@ -13,7 +13,7 @@ const PaymentDetails = () => {
     const [status, setStatus] = useState("");
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/api/get-userinfo/${id}`)
+        axios.get(`https://msbc-backend.vercel.app/api/get-userinfo/${id}`)
             .then((response) => {
                 setUserInfo(response.data);
                 setStatus(response.data.status); // Set status after fetching

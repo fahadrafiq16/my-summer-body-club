@@ -5,7 +5,7 @@ console.log(PersonalImage);
 export const paymentOptions = [
     {
         trainingTitle:'PT Ruimte',
-        amount: '250.00',
+        amount: '332.75',
         quantity: '1',
         title: '| Per maand | Excl BTW',
         subTitle: 'Je Groep PT Training abonnement bij My Summerbody Club',
