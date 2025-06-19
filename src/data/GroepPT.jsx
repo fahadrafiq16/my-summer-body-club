@@ -90,7 +90,7 @@ export const paymentOptions = [
         abonnementType: '10 Rittenkaart',
         abonnementTitle: 'Training 1 op 2',
         kosten: ['Kosten:'],
-        totalKosten: ['Kosten 1e maand', 'Daarna maandelijkse kosten: € 1020,00'],
+        totalKosten: ['Totaal Kosten'],
         extra: true,
         recurring:false,
     },

@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom'
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 
+const BASE_BACKEND_URL = process.env.REACT_APP_BASE_BACKEND_URL;
 
 const MollieRedirect = () => {
 
@@ -22,7 +23,7 @@ const MollieRedirect = () => {
     useEffect(() => {
         const fetchPayments = async () => {
             try {
-                const response = await axios.get('https://msbc-backend.vercel.app/api/fetch-payments', {
+                const response = await axios.get(`${BASE_BACKEND_URL}/api/fetch-payments`, {
                     headers: {
                         'Accept': 'application/json', // Ensure the response is in JSON format
                     }
@@ -46,7 +47,7 @@ const MollieRedirect = () => {
                         ...match.metadata?.userInfo,
                         status:match.status,
                     }
-                    const response = await axios.post(`https://msbc-backend.vercel.app/api/add-user`, dataToSend, {
+                    const response = await axios.post(`${BASE_BACKEND_URL}/api/add-user`, dataToSend, {
                         headers: { "Content-Type": "application/json" },
                     });
                     console.log("✅ User added successfully:", response.data);

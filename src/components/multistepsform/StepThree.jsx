@@ -11,7 +11,7 @@ import PaymentBox from '../common/PaymentBox';
 import ExtraDescription from './ExtraDescription';
 import CheckboxField from '../common/CheckboxField';
 
-
+const BASE_BACKEND_URL = process.env.REACT_APP_BASE_BACKEND_URL;
 
 
 const StepThree = ({ paymentOptions, extraOptions, clubAmount }) => {
@@ -79,7 +79,7 @@ const StepThree = ({ paymentOptions, extraOptions, clubAmount }) => {
             console.log('form', formData);
 
             try {
-                const response = await axios.post('https://msbc-backend.vercel.app/api/create-payment', {
+                const response = await axios.post(`${BASE_BACKEND_URL}/api/create-payment`, {
                     amount: totalAmount,
                     userInfo: {
                         ...formData,
@@ -103,7 +103,7 @@ const StepThree = ({ paymentOptions, extraOptions, clubAmount }) => {
             setFormData((prev) => ({ ...prev, loading: true, totalAmount: totalAmount }));
             try {
 
-                const response = await axios.post('https://msbc-backend.vercel.app/api/create-recurring-payment', {
+                const response = await axios.post(`${BASE_BACKEND_URL}/api/create-recurring-payment`, {
                     email: data.email,
                     name: data.voornaam,
                     userInfo: {

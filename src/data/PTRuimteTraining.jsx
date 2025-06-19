@@ -15,6 +15,7 @@ export const paymentOptions = [
         totalKosten: ['Totaal'],
         extra: false,
         recurring:false,
+        isRent:true,
     },
 ];
 
