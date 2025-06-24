@@ -63,7 +63,7 @@ const StepThree = ({ trainingDescription, paymentOptions, extraOptions, clubAmou
     const onSubmit = async (data) => {
         updateFormData(data);
 
-          const totalAmount = (parseFloat(data.paymentOption) + parseFloat(clubAmount[0].amount) + parseFloat(extraOption.amount)).toFixed(2);
+        const totalAmount = (parseFloat(data.paymentOption) + parseFloat(clubAmount[0].amount) + parseFloat(extraOption.amount)).toFixed(2);
 
         console.log(totalAmount);
 
@@ -125,7 +125,7 @@ const StepThree = ({ trainingDescription, paymentOptions, extraOptions, clubAmou
         <>
             <form className="form-step-2" onSubmit={handleSubmit(onSubmit)}>
 
-                 {
+                {
 
                     trainingDescription[0].title !== 'Aanvraag verhuur PT ruimte'
                         ? <StepOneHeader trainingDescription={trainingDescription} />
@@ -194,14 +194,23 @@ const StepThree = ({ trainingDescription, paymentOptions, extraOptions, clubAmou
                         }}
                     />
 
-                    <CheckboxField
-                        name="acceptTerms2"
-                        title="Ik ga akkoord met de Algemene voorwaarden, Privacyverklaring en de Huisregels van My Summerbody Club."
-                        control={control}
-                        rules={{
-                            required: "Akkoord te gaan met de algemene voorwaarden en de huisregels is verplicht",
-                        }}
-                    />
+
+
+                    {
+
+                        trainingDescription[0].title !== 'Bootcamp Training'
+                            ? <CheckboxField
+                                name="acceptTerms2"
+                                title="Ik ga akkoord met de Algemene voorwaarden, Privacyverklaring en de Huisregels van My Summerbody Club."
+                                control={control}
+                                rules={{
+                                    required: "Akkoord te gaan met de algemene voorwaarden en de huisregels is verplicht",
+                                }}
+                            />
+                            : null
+                    }
+
+
                 </div>
 
                 <div className="flex gap-4">
