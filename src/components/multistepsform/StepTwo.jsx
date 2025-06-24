@@ -45,7 +45,7 @@ const StepTwo = ({trainingDescription}) => {
 
                     trainingDescription[0].title !== 'Aanvraag verhuur PT ruimte'
                         ? <StepOneHeader trainingDescription={trainingDescription} />
-                        : null
+                        : ''
                 }
 
                 <StepProgress title={'Adres & Contactgegevens'} />

@@ -22,8 +22,8 @@ const AfvallenTraining = () => {
                     <div className="payment-form-page max-w-[850px] mx-auto my-[100px]">
                         <Steps>
                             <StepOne trainingDescription={afvallenTrainingDescription}/>
-                            <StepTwo trainingDescription={trainingDescription} />
-                            <StepThree trainingDescription={trainingDescription} paymentOptions={paymentOptions} extraOptions={extraOptions} clubAmount={clubAmount} />    
+                            <StepTwo trainingDescription={afvallenTrainingDescription} />
+                            <StepThree trainingDescription={afvallenTrainingDescription} paymentOptions={paymentOptions} extraOptions={extraOptions} clubAmount={clubAmount} />    
                         </Steps>
                     </div>            
                 </StepsProvider>
