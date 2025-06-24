@@ -24,8 +24,8 @@ const AfvallenTraining = () => {
                         <Steps>
                             <ExtraStepPT trainingDescription={ptRuimteTrainingDescription} />
                             <StepOne trainingDescription={ptRuimteTrainingDescription}/>
-                            <StepTwo />
-                           <StepThree paymentOptions={paymentOptions} extraOptions={extraOptions} clubAmount={clubAmount} />    
+                            <StepTwo trainingDescription={trainingDescription} />
+                           <StepThree trainingDescription={trainingDescription} paymentOptions={paymentOptions} extraOptions={extraOptions} clubAmount={clubAmount} />    
                         </Steps>
                     </div>            
                 </StepsProvider>

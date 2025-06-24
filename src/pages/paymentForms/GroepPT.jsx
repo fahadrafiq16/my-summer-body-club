@@ -22,8 +22,8 @@ const GroepPTTraining = () => {
                     <div className="payment-form-page max-w-[850px] mx-auto sm:my-[60px] md:my-[100px]">
                         <Steps>
                             <StepOne trainingDescription={groepPtTrainingDescription}/>
-                            <StepTwo />
-                            <StepThree paymentOptions={paymentOptions} extraOptions={extraOptions} clubAmount={clubAmount} />    
+                            <StepTwo trainingDescription={trainingDescription} />
+                            <StepThree trainingDescription={trainingDescription} paymentOptions={paymentOptions} extraOptions={extraOptions} clubAmount={clubAmount} />    
                         </Steps>
                     </div>            
                 </StepsProvider>
