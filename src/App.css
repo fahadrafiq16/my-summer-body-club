@@ -949,7 +949,7 @@ li {
 }
 
 .selected,
-li:hover {
+.main-menu-area li:hover {
   border-top: 4px solid #000;
 }
 
@@ -3086,4 +3086,16 @@ th {
 }
 h3.training-title {
   text-align: center;
+}
+.cardio-list-icon li {
+  font-weight: 700;
+}
+.custom-font-500 p, .custom-font-500 span {
+  font-weight: 500;
+}
+.step-form-none {
+display: none;
+}
+.form-step-2 .fact {
+  margin-bottom: 100px;
 }

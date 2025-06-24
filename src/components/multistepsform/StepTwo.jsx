@@ -9,15 +9,16 @@ import StepProgress from './StepProgress';
 import BorderedHeader from './BorderedHeader';
 import axios from 'axios'
 import { useLocation } from "react-router-dom";
+import StepOneHeader from '../common/StepOneHeader';
 
 const ADRES_API_KEY = process.env.REACT_APP_ADRES_API_KEY;
 
-const StepTwo = () => {
+const StepTwo = ({trainingDescription}) => {
     const location = useLocation();
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        
+
     }, [location.pathname]);
 
 
@@ -37,8 +38,18 @@ const StepTwo = () => {
 
     return (
         <>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form className="form-step-2" onSubmit={handleSubmit(onSubmit)}>
+                
+
+                {
+
+                    trainingDescription[0].title !== 'Aanvraag verhuur PT ruimte'
+                        ? <StepOneHeader trainingDescription={trainingDescription} />
+                        : null
+                }
+
                 <StepProgress title={'Adres & Contactgegevens'} />
+
 
                 <BorderedHeader heading={'Adresgegevens'} />
                 <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-4">

@@ -10,11 +10,12 @@ import StepProgress from './StepProgress';
 import PaymentBox from '../common/PaymentBox';
 import ExtraDescription from './ExtraDescription';
 import CheckboxField from '../common/CheckboxField';
+import StepOneHeader from '../common/StepOneHeader';
 
 const BASE_BACKEND_URL = process.env.REACT_APP_BASE_BACKEND_URL;
 
 
-const StepThree = ({ paymentOptions, extraOptions, clubAmount }) => {
+const StepThree = ({ trainingDescription, paymentOptions, extraOptions, clubAmount }) => {
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -63,13 +64,6 @@ const StepThree = ({ paymentOptions, extraOptions, clubAmount }) => {
         updateFormData(data);
 
           const totalAmount = (parseFloat(data.paymentOption) + parseFloat(clubAmount[0].amount) + parseFloat(extraOption.amount)).toFixed(2);
-
-        //const clubAmt = clubAmount?.[0]?.amount ?? 0;
-       // const totalAmount = (
-         //   parseFloat(data.paymentOption) +
-          //  parseFloat(clubAmt) +
-           // parseFloat(extraOption.amount)
-        //).toFixed(2);
 
         console.log(totalAmount);
 
@@ -128,7 +122,15 @@ const StepThree = ({ paymentOptions, extraOptions, clubAmount }) => {
 
     return (
         <>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form className="form-step-2" onSubmit={handleSubmit(onSubmit)}>
+
+                 {
+
+                    trainingDescription[0].title !== 'Aanvraag verhuur PT ruimte'
+                        ? <StepOneHeader trainingDescription={trainingDescription} />
+                        : null
+                }
+
                 <StepProgress title={'Looptijd abonnement & betalingsmethode kiezen'} />
 
                 <RadioGroup

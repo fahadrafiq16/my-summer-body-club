@@ -23,9 +23,9 @@ const StepOneHeader = ({ trainingDescription }) => {
                     "{trainingDescription[0].quote}"
                 </p>
             </div>
-            <h3 className="form-h3">Ik meld me aan voor:</h3>
-            <p className="lead my-4">{trainingDescription[0].title}</p>
-            <div className="training-features">
+            <h3 className="form-h3 step-form-none">Ik meld me aan voor:</h3>
+            <p className="lead my-4 step-form-none">{trainingDescription[0].title}</p>
+            <div className="training-features step-form-none">
                 {
                     trainingDescription[0].trainingFeatures.map((feature) => (
                         <p>{feature}</p>

@@ -76,7 +76,7 @@ const ExtraStepPT = ({ trainingDescription }) => {
                 name="bedrijfsnaam"
                 register={register}
                 validation={{
-                    required: 'Bedrijfsnaam is required',
+                    //required: 'KVK nummer is required',
                 }}
                 errors={errors}
                 placeholder=""
@@ -87,20 +87,20 @@ const ExtraStepPT = ({ trainingDescription }) => {
 
                 <TextField
                     label="KVK nummer:"
-                    name="kvk nummer"
+                    name="kvknummer"
                     register={register}
                     validation={{
-                        required: 'KVK nummer is required',
+                        //required: 'KVK nummer is required',
                     }}
                     errors={errors}
                     placeholder=""
                 />
                 <TextField
                     label="BTW nummer:"
-                    name="BTW nummer"
+                    name="BTWnummer"
                     register={register}
                     validation={{
-                        required: 'BTW nummer is required',
+                        //required: 'BTW nummer is required',
                     }}
                     errors={errors}
                     placeholder=""
@@ -108,10 +108,10 @@ const ExtraStepPT = ({ trainingDescription }) => {
 
                 <TextField
                     label="Bedrijfs e-mail:"
-                    name="bedrijfs-email"
+                    name="bedrijfsemail"
                     register={register}
                     validation={{
-                        required: 'Bedrijfs Email is required',
+                       // required: 'Bedrijfs Email is required',
                         pattern: {
                             value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
                             message: 'Invalid email address',

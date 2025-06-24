@@ -97,6 +97,10 @@ const Header = () => {
                                     <Link to="/trainers">Trainers</Link>
                                 </li>
 
+                                <li className="menu-item">
+                                    <Link to="/bootcamp">Bootacmp</Link>
+                                </li>
+
 
                             </ul>
                         </nav>
