@@ -71,6 +71,7 @@ const StepThree = ({ trainingDescription, paymentOptions, extraOptions, clubAmou
 
             setFormData((prev) => ({ ...prev, loading: true, totalAmount: totalAmount }));
             console.log('form', formData);
+            console.log(BASE_BACKEND_URL);
 
             try {
                 const response = await axios.post(`${BASE_BACKEND_URL}/api/create-payment`, {
