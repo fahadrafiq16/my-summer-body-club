@@ -40,12 +40,12 @@ const MollieRedirect = () => {
 
                 setMatchedPayment(match); // Set the matched payment
                 console.log('Matched Payment:', match);
-   
+
 
                 try {
                     const dataToSend = {
                         ...match.metadata?.userInfo,
-                        status:match.status,
+                        status: match.status,
                     }
                     const response = await axios.post(`${BASE_BACKEND_URL}/api/add-user`, dataToSend, {
                         headers: { "Content-Type": "application/json" },
@@ -68,7 +68,7 @@ const MollieRedirect = () => {
 
     const navigate = useNavigate();
 
- 
+
 
 
     return (
@@ -124,17 +124,50 @@ const MollieRedirect = () => {
                         <span className="text-gray-700">{name},</span>
                     </p>
                     <p className="text-gray-700">
-                        Welkom bij My Summerbody Club! We zijn blij je als nieuw lid te verwelkomen. Binnenkort nemen we contact met je op voor het inplannen van je trainingen.
+                        {
+                            subTitle === 'pt-rent-form-page' ? (
+                                <>
+                                    Hartelijk welkom bij My Summerbody Club.<br />
+                                    Wij zijn verheugd u als nieuwe ondernemer te mogen verwelkomen en dat u gebruik zult maken van onze faciliteiten.
+                                </>
+                            ) : (
+                                'Welkom bij My Summerbody Club! We zijn blij je als nieuw lid te verwelkomen. Binnenkort nemen we contact met je op voor het inplannen van je trainingen.'
+                            )
+                        }
+
                     </p>
                     <p className="text-gray-700">
-                        De bevestiging van je betaling ontvang je ook per e-mail.
+                        {
+                            subTitle === 'pt-rent-form-page' ? (
+                                <>
+                                    Binnenkort nemen wij contact met u op om een rondleiding in te plannen.<br />
+                                    De bevestiging van uw betaling ontvangt u per e-mail.
+                                </>
+                            ) : (
+                                'De bevestiging van je betaling ontvang je ook per e-mail.'
+                            )
+                        }
                     </p>
                     <p className="text-gray-700">
-                        Heb je vragen of speciale verzoeken, aarzel dan niet om contact met ons op te nemen. We staan altijd voor je klaar!
+                        {
+                            subTitle === 'pt-rent-form-page' ? (
+                                <>
+                                    Mocht u vragen of bijzondere verzoeken hebben, neemt u dan gerust contact met ons op. Wij staan graag voor u klaar.
+                                </>
+                            ) : (
+                                'Heb je vragen of speciale verzoeken, aarzel dan niet om contact met ons op te nemen. We staan altijd voor je klaar!'
+                            )
+                        }
                     </p>
-                    <p className="text-gray-700">
-                        Tot snel!
-                    </p>
+                    {
+                        subTitle !== 'pt-rent-form-page' ? (
+                            <>
+                                <p className="text-gray-700">
+                                    Tot snel!
+                                </p>
+                            </>
+                        ) : ('')
+                    }
                     <p className="text-gray-700">
                         Met vriendelijke groet,
                     </p>
