@@ -43,7 +43,7 @@ const StepTwo = ({trainingDescription}) => {
 
                 {
 
-                    trainingDescription[0].title !== 'Aanvraag verhuur PT ruimte'
+                    trainingDescription[0].title !== 'Aanvraag verhuur PT ruimte1'
                         ? <StepOneHeader trainingDescription={trainingDescription} />
                         : ''
                 }
