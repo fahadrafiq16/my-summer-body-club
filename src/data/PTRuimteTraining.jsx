@@ -8,7 +8,7 @@ export const paymentOptions = [
         amount: '332.75',
         quantity: '1',
         title: '| Per maand | Excl BTW',
-        subTitle: 'Je Groep PT Training abonnement bij My Summerbody Club',
+        subTitle: 'pt-rent-form-page',
         abonnementType: 'Per maand',
         abonnementTitle: 'Training | 1 op 2 | Prijs p.p.',
         kosten: ['Kosten:'],
