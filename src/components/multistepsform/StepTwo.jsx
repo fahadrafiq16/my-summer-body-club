@@ -39,7 +39,7 @@ const StepTwo = ({trainingDescription}) => {
     return (
         <>
             <form className="form-step-2" onSubmit={handleSubmit(onSubmit)}>
-                
+                <StepProgress title={'Adres & Contactgegevens'} />
 
                 {
 
@@ -48,7 +48,7 @@ const StepTwo = ({trainingDescription}) => {
                         : ''
                 }
 
-                <StepProgress title={'Adres & Contactgegevens'} />
+                
 
 
                 <BorderedHeader heading={'Adresgegevens'} />

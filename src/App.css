@@ -3091,6 +3091,6 @@ h3.training-title {
 .step-form-none {
 display: none;
 }
-.form-step-2 .fact {
-  margin-bottom: 100px;
+.form-step-2 .payment-form-title-area {
+  margin-top:50px;
 }

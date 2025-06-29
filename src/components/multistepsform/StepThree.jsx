@@ -124,7 +124,7 @@ const StepThree = ({ trainingDescription, paymentOptions, extraOptions, clubAmou
     return (
         <>
             <form className="form-step-2" onSubmit={handleSubmit(onSubmit)}>
-
+                <StepProgress title={'Looptijd abonnement & betalingsmethode kiezen'} />
                 {
 
                     trainingDescription[0].title !== 'Aanvraag verhuur PT ruimte1'
@@ -132,7 +132,7 @@ const StepThree = ({ trainingDescription, paymentOptions, extraOptions, clubAmou
                         : null
                 }
 
-                <StepProgress title={'Looptijd abonnement & betalingsmethode kiezen'} />
+
 
                 <RadioGroup
                     name="paymentOption"
@@ -187,30 +187,30 @@ const StepThree = ({ trainingDescription, paymentOptions, extraOptions, clubAmou
                 <div className="checkboxes-area">
                     {
                         trainingDescription[0].title !== 'Bootcamp Training'
-                            ?   <CheckboxField
-                        name="acceptTerms1"
-                        title="Ik machtig My Summerbody Club om na de eerste betaling, de abonnementsgelden maandelijks via SEPA-incasso van mijn rekening af te schrijven. Deze machtiging blijft van kracht tot het einde van het abonnement of contract."
-                        control={control}
-                        rules={{
-                            required: "Akkoord voor toestemming om de abonnementsgelden automatisch te incasseren via SEPA-betalingen is verplicht.",
-                        }}
-                    /> :  null
+                            ? <CheckboxField
+                                name="acceptTerms1"
+                                title="Ik machtig My Summerbody Club om na de eerste betaling, de abonnementsgelden maandelijks via SEPA-incasso van mijn rekening af te schrijven. Deze machtiging blijft van kracht tot het einde van het abonnement of contract."
+                                control={control}
+                                rules={{
+                                    required: "Akkoord voor toestemming om de abonnementsgelden automatisch te incasseren via SEPA-betalingen is verplicht.",
+                                }}
+                            /> : null
                     }
-                  
+
 
 
 
                     {
 
-                         <CheckboxField
-                                name="acceptTerms2"
-                                title="Ik ga akkoord met de Algemene voorwaarden, Privacyverklaring en de Huisregels van My Summerbody Club."
-                                control={control}
-                                rules={{
-                                    required: "Akkoord te gaan met de algemene voorwaarden en de huisregels is verplicht",
-                                }}
-                            />
-                           
+                        <CheckboxField
+                            name="acceptTerms2"
+                            title="Ik ga akkoord met de Algemene voorwaarden, Privacyverklaring en de Huisregels van My Summerbody Club."
+                            control={control}
+                            rules={{
+                                required: "Akkoord te gaan met de algemene voorwaarden en de huisregels is verplicht",
+                            }}
+                        />
+
                     }
 
 

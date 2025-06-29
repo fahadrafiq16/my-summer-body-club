@@ -67,8 +67,9 @@ const ExtraStepPT = ({ trainingDescription }) => {
 
     return (
         <form className="form-step-2" onSubmit={handleSubmit(onSubmit)}>
-            <StepOneHeader trainingDescription={trainingDescription} />
             <StepProgress title={'Persoonlijke gegevens'} />
+            <StepOneHeader trainingDescription={trainingDescription} />
+            
 
             <BorderedHeader heading={'Persoonlijke gegevens'} />
             <TextField
