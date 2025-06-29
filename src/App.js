@@ -6,6 +6,7 @@ import GroepPTTraining from './pages/paymentForms/GroepPT';
 import SummerBody1Jarig from './pages/paymentForms/Summerbody1jarig'
 import PTRuimteForm from './pages/paymentForms/PTRuimteForm';
 import BootcampForm from './pages/paymentForms/BootcampTraining';
+import PtRent from './pages/PtRent/PtRent';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/home/Home'
@@ -45,6 +46,7 @@ function App() {
             <Route path="/abonnement" element={<Abonnement />} />
             <Route path="/trainers" element={<Trainers />} />
             <Route path="/bootcamp" element={<Bootcamp />} />
+            <Route path="/pt-ruimte-huren" element={<PtRent />} />
 
             <Route path="/trainingprograms/afvallen-training" element={<AfvallenIntro />} />
             <Route path="/trainingprograms/personal-training" element={<PersonalIntro />} />

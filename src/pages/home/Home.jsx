@@ -3,9 +3,7 @@ import 'font-awesome/css/font-awesome.min.css';
 import Gallery from '../../sections/home/Gallery';
 import LifeStyle from '../../components/home/LifeStyle';
 import AllTrainings from '../../components/abonnement/AllTrainings';
-import GreopImg from '../../images/img-4.png';
-import GewichtsverliesImg from '../../images/img-5.png';
-import personalImg from '../../images/img-6.png';
+
 import OurTrainers from '../../sections/home/OurTrainers';
 import StyleWant from '../../sections/home/StyleWant';
 import TwoBannersArea from '../../sections/home/TwoBannersArea';
@@ -20,23 +18,7 @@ import Testimonials from '../../components/home/Testimonials';
 const BASE_FRONTEND_URL = process.env.REACT_APP_BASE_FRONTEND_URL;
 const BASE_BACKEND_URL = process.env.REACT_APP_BASE_BACKEND_URL;
 
-const lifeStyle = [
-  {
-    img: GreopImg,
-    title: 'Groeps Training',
-    description: 'Geen motivatie om fit te blijven of vind je alleen sporten saai? Kom en probeer onze groepstraining! Ontmoet een groep gezellige mensen en onze instructeur zorgt ervoor dat je fit blijft.',
-  },
-  {
-    img: GewichtsverliesImg,
-    title: 'Gewichtsverlies',
-    description: 'Wil je wat extra kilo’s kwijt raken? Volg onze trainingsprogramma. Wij helpen je graag op weg met de juiste training en voedingsplan.',
-  },
-  {
-    img: personalImg,
-    title: 'Personal Trainer',
-    description: 'Ben je gericht op het bereiken van een optimale fysieke fitheid? Zit je op een sportschool, maar kun je wel persoonlijke begeleiding gebruiken? Dan is wellicht personal training wat voor jou.',
-  },
-]
+
 
 const Home = () => {
 
@@ -80,15 +62,6 @@ const Home = () => {
                 </a>
               </div>
             </div>
-          </div>
-          <div class="begin-lifestyle">
-
-            {
-              lifeStyle.map((style) => (
-                <LifeStyle style={style} />
-              ))
-            }
-
           </div>
         </div>
       </section>

@@ -66,10 +66,10 @@ const ExtraStepPT = ({ trainingDescription }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-
-            <StepProgress title={'Persoonlijke gegevens'} />
+        <form className="form-step-2" onSubmit={handleSubmit(onSubmit)}>
             <StepOneHeader trainingDescription={trainingDescription} />
+            <StepProgress title={'Persoonlijke gegevens'} />
+
             <BorderedHeader heading={'Persoonlijke gegevens'} />
             <TextField
                 label="Bedrijfsnaam:"
@@ -111,7 +111,7 @@ const ExtraStepPT = ({ trainingDescription }) => {
                     name="bedrijfsemail"
                     register={register}
                     validation={{
-                       // required: 'Bedrijfs Email is required',
+                        // required: 'Bedrijfs Email is required',
                         pattern: {
                             value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
                             message: 'Invalid email address',
@@ -133,7 +133,7 @@ const ExtraStepPT = ({ trainingDescription }) => {
             />
 
 
-           
+
 
 
 
