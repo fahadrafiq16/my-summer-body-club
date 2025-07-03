@@ -3094,3 +3094,39 @@ display: none;
 .form-step-2 .payment-form-title-area {
   margin-top:50px;
 }
+.life-style-main .begin-lifestyle {
+  grid-template-columns: repeat(1,1fr);
+}
+.life-style-main .lifestyle {
+  max-width: 600px;
+  margin:0 auto;
+}
+.life-style-main .begin-lifestyle {
+  margin-top: 0;
+}
+.life-style-main img {
+  max-width: 70px;
+}
+.life-style-main p {
+  font-size: 16px;
+}
+
+swiper-button-next,
+.swiper-button-prev {
+  color: #EF4D16; /* Set icon color */
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  color: #d53e0c; /* Slightly darker on hover */
+  transform: scale(1.15); /* Slight grow effect */
+}
+
+/* Optional: Make buttons more visible on white backgrounds */
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 20px;
+  font-weight: 900;
+}

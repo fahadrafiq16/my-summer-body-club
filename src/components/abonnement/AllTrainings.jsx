@@ -10,6 +10,25 @@ import GroepImg from '../../images/img-4.png';
 import GewichtsverliesImg from '../../images/img-5.png';
 import personalImg from '../../images/img-6.png';
 import Weight175 from '../../images/175 weight.jpg'
+import Gym180 from '../../images/180 GyM Comminityl.png'
+
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/navigation';
+
+import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
+
+
+
+const lifeStyleMain = [
+    {
+        img: Gym180,
+        title: 'Groepstraining',
+        description: `My Summerbody Club is geen standaard gym.\n Wij zijn een hechte summerbody community — een familie van gemotiveerde sporters die samen groeien.\n\n. Bij ons draait het om respect: voor elkaar, voor de apparatuur én voor de ruimte waarin we trainen. Kwaliteit, hygiëne en samenhorigheid staan bij ons hoog in het vaandel.\n\n Bij ons train je niet alleen… je hoort erbij.`,
+    },
+
+
+];
 
 const lifeStyle = [
     {
@@ -38,7 +57,17 @@ const lifeStyle = [
 const AllTrainings = () => {
     return (
         <>
+            <div className="container life-style-main max-w-[600px] mx-auto">
+                <div className="begin-lifestyle md:my-[50px]">
 
+                    {
+                        lifeStyleMain.map((style) => (
+                            <LifeStyle style={style} />
+                        ))
+                    }
+
+                </div>
+            </div>
             <section id="our-trainings" className="md:my-[0px]">
                 <div className="container max-w-[1110px] mx-auto">
                     <div className="section-title">
@@ -65,14 +94,33 @@ const AllTrainings = () => {
                     <div className="section-title">
                         <h2>Groups &amp; PT <span>Abonnementen</span></h2>
                     </div>
-                    <div className="our-trainers">
+                    
+                   
 
-                        <TrainingBox trainingDescription={trainingDescription} />
-                        <TrainingBox trainingDescription={afvallenTrainingDescription} />
-                        <TrainingBox trainingDescription={wedstrijdTrainingDescription} />
-                        <TrainingBox trainingDescription={groepPtTrainingDescription} />
-
-                    </div>
+                    <Swiper
+                        // install Swiper modules
+                        modules={[Navigation, Pagination, Scrollbar, A11y]}
+                        spaceBetween={20}
+                        slidesPerView={3}
+                        navigation
+                        scrollbar={{ draggable: true }}
+                        onSwiper={(swiper) => console.log(swiper)}
+                        onSlideChange={() => console.log('slide change')}
+                    >
+                        <SwiperSlide>
+                            <TrainingBox trainingDescription={trainingDescription} />
+                        </SwiperSlide>
+                        <SwiperSlide>
+                            <TrainingBox trainingDescription={afvallenTrainingDescription} />
+                        </SwiperSlide>
+                        <SwiperSlide>
+                            <TrainingBox trainingDescription={wedstrijdTrainingDescription} />
+                        </SwiperSlide>
+                        <SwiperSlide>
+                            <TrainingBox trainingDescription={groepPtTrainingDescription} />
+                        </SwiperSlide>
+                        ...
+                    </Swiper>
                 </div>
             </section>
         </>

@@ -11,9 +11,11 @@ import AllTrainings from '../../components/abonnement/AllTrainings';
 const Abonnement = () => {
     return (
         <>
-            <TitleHeader title={'Abonnementen'} />
-            <Banner />
-           <AllTrainings />
+            <section id="abonnementen-page">
+                <TitleHeader title={'Abonnementen'} />
+                <Banner />
+                <AllTrainings />
+            </section>
         </>
     );
 };
