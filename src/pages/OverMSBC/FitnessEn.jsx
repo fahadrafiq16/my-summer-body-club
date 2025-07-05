@@ -25,7 +25,7 @@ const FitnessEn = () => {
                     </div>
 
                     {/* Lifestyle Section */}
-                    <div className="begin-lifestyle">
+                    <div className="begin-lifestyle for-over-msbc">
                         {/* Lifestyle Item 1 */}
                         <div className="lifestyle">
                             <img

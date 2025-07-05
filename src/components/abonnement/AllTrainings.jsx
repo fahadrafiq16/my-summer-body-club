@@ -7,7 +7,7 @@ import { groepPtTrainingDescription } from '../../data/GroepPT';
 import { summerBodyTrainingDescription } from '../../data/Summerbody1jarig';
 import LifeStyle from '../../components/home/LifeStyle';
 import GroepImg from '../../images/img-4.png';
-import GewichtsverliesImg from '../../images/img-5.png';
+import GewichtsverliesImg from '../../images/175 pic.png';
 import personalImg from '../../images/img-6.png';
 import Weight175 from '../../images/175 weight.jpg'
 import Gym180 from '../../images/180 GyM Comminityl.png'
@@ -24,7 +24,7 @@ const lifeStyleMain = [
     {
         img: Gym180,
         title: 'Groepstraining',
-        description: `My Summerbody Club is geen standaard gym.\n Wij zijn een hechte summerbody community — een familie van gemotiveerde sporters die samen groeien.\n\n. Bij ons draait het om respect: voor elkaar, voor de apparatuur én voor de ruimte waarin we trainen. Kwaliteit, hygiëne en samenhorigheid staan bij ons hoog in het vaandel.\n\n Bij ons train je niet alleen… je hoort erbij.`,
+        description: `My Summerbody Club is geen standaard gym. Wij zijn een hechte summerbody community — een familie van gemotiveerde sporters die samen groeien. Bij ons draait het om respect: voor elkaar, voor de apparatuur én voor de ruimte waarin we trainen. Kwaliteit, hygiëne en samenhorigheid staan bij ons hoog in het vaandel. Bij ons train je niet alleen… je hoort erbij.`,
     },
 
 
@@ -42,13 +42,13 @@ const lifeStyle = [
         description: `Individuele coaching volledig afgestemd op jouw doelen: afvallen, spieropbouw, fit worden of werken aan een blijvende gezonde levensstijl. Persoonlijke aandacht en maximale resultaten!`,
     },
     {
-        img: GroepImg,
+        img: Weight175,
         title: 'Gewichtsverlies',
         description: `Wil jij op een gezonde én effectieve manier afvallen? Bij My Summerbody Club helpen we je niet alleen met training, maar ook met een doordacht plan voor voeding, mindset en leefstijl.\n\nWe focussen op duurzaam gewichtsverlies, zonder crashdiëten. Of je nu 5 of 25 kilo kwijt wilt — met de juiste begeleiding, structuur en motivatie blijf jij gemotiveerd en zie je resultaat.`,
     },
     {
-        img: personalImg,
-        title: 'Podiumbegeleiding',
+        img: GewichtsverliesImg,
+        title: 'Wedstrijd Training',
         description: `Wil jij schitteren op het podium? Wij begeleiden je stap voor stap richting jouw bodybuildingwedstrijd of Miss Bikini-competitie.\n\nFocus op houding, techniek, posing, voeding, spieropbouw, vetverlies en een ijzersterke mindset.`,
     },
 ];
@@ -94,8 +94,8 @@ const AllTrainings = () => {
                     <div className="section-title">
                         <h2>Groups &amp; PT <span>Abonnementen</span></h2>
                     </div>
-                    
-                   
+
+
 
                     <Swiper
                         // install Swiper modules
@@ -119,7 +119,7 @@ const AllTrainings = () => {
                         <SwiperSlide>
                             <TrainingBox trainingDescription={groepPtTrainingDescription} />
                         </SwiperSlide>
-                        ...
+                           <br/>
                     </Swiper>
                 </div>
             </section>

@@ -93,12 +93,10 @@ const Header = () => {
                                 <li className="menu-item">
                                     <Link to="/abonnement">Abonnementen</Link>
                                 </li>
-                                <li className="menu-item">
-                                    <Link to="/trainers">Trainers</Link>
-                                </li>
+                                
 
                                 <li className="menu-item">
-                                    <Link to="/bootcamp">Bootacmp</Link>
+                                    <Link to="/bootcamp">Bootcamp</Link>
                                 </li>
 
                                 <li className="menu-item">

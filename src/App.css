@@ -490,6 +490,9 @@ img {
   grid-column-gap: 20px;
   margin-top: 100px;
 }
+.begin-lifestyle.for-over-msbc {
+  grid-template-columns: repeat(3,1fr);
+}
 
 .lifestyle {
   text-align: center;
@@ -652,7 +655,7 @@ img {
 
 .content-right h3 {
   font-size: 25px;
-  line-height: 25px;
+  line-height: 32px;
   color: #000;
   font-weight: 700;
 }
@@ -664,9 +667,12 @@ img {
 .content-right p {
   color: #414141;
   font-size: 16px;
-  line-height: 30px;
+  line-height: 28px;
   text-align: justify;
   margin-top: 15px;
+}
+.icon-features p {
+  margin-top: 0px;
 }
 
 .img-toggles {
@@ -1164,29 +1170,23 @@ Home Style Want Section
 }
 
 .img-toggles img {
-  width: 15%;
+  width: 10%;
   border-radius: 50%;
   margin-right: 10px;
   cursor: pointer;
+  border:1px solid #ef4d16;
+  padding:2px;
 }
 
-.content-right h3 {
-  font-size: 25px;
-  line-height: 25px;
-  color: #000;
-  font-weight: 700;
-}
+
 
 .content-right span {
   color: #ef4d16;
 }
 
-.content-right p {
-  color: #414141;
-  font-size: 16px;
-  line-height: 30px;
-  text-align: justify;
-  margin-top: 15px;
+
+.bottom-p {
+  margin-top: 15px !important;
 }
 
 .msbc_normal_p {
@@ -3129,4 +3129,7 @@ swiper-button-next,
 .swiper-button-prev::after {
   font-size: 20px;
   font-weight: 900;
+}
+.swiper-scrollbar-drag {
+  background: #F44E17 !important;
 }

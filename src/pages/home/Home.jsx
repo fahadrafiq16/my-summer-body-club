@@ -69,7 +69,7 @@ const Home = () => {
 
       <AllTrainings />
 
-      <OurTrainers />
+      
       <PopUpVideoArea />
       <Testimonials />
       <Gallery />

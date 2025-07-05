@@ -1,4 +1,5 @@
 import React from 'react'
+import MarlonImg from '../../images/1000038289.jpg'
 
 const OverOns = () => {
     return (
@@ -12,37 +13,25 @@ const OverOns = () => {
                                 Ben Je Er Klaar <span className="msbc_span">Voor?</span>
                             </h3>
                             <p className="msbc_normal_p font-bold">
-                                Ben je het zat om je fitnessdoelen telkens niet te behalen?
+                                Is je motivatie vervlogen en lijkt jouw doel verder weg dan ooit?
                             </p>
                             <p>
-                                Dan is het tijd om de stap te zetten en te kiezen voor een trainers van My Summerbody Club.
-                                Wij helpen je om je doelen te behalen en verder te gaan dan je ooit voor mogelijk had
-                                gehouden!
-                            </p>
-                            <p className="font-bold mt-4">Waarom kiezen voor ‘My Summerbody Club’?</p>
-                            <p>
-                                Als je echt klaar bent om je grenzen te verleggen en het maximale uit jezelf en je trainingen
-                                te halen, dan ben je hier aan het juiste adres.
+                                Dan is het tijd voor verandering. <br/>
+                                Kies een van onze diensten en ontdek wat écht trainen betekent.
                             </p>
                             <p className="mt-4">
-                                Wij bieden niet alleen een breed scala aan diensten die je fitnessreis effectiever, flexibeler en
-                                creatiever maken, maar ook <span className="font-bold">Next Level trainingen</span> die zijn gebaseerd op techniek,
-                                wetenschap en praktijkervaring. Deze trainingen helpen je om sneller vooruitgang te boeken
-                                en je resultaten te optimaliseren.
+                                Bij My Summerbody Club train je met personal trainer Marlon — <br/>
+                                meer dan 30 jaar praktijkervaring en bewezen succes als wedstrijdtrainer en coach.
                             </p>
                             <p className="mt-4">
-                                Onze gekwalificeerde trainers zijn niet alleen experts in fitness, bodybuilding,
-                                gewichtsverlies en wedstrijdtrainingen, maar hebben zelf op hoog niveau deelgenomen aan
-                                wedstrijden. Dankzij hun kennis kunnen we trainingsprogramma&#39;s aanbieden die volledig zijn
-                                afgestemd op jouw persoonlijke doelen en wensen.
+                                Marlon ziet wat anderen missen.<br/>
+                                Hij heeft oog voor detail en tilt jouw training naar het hoogste niveau.<br/>
+                                Je leert opnieuw trainen — anders dan je gewend bent —<br/>
+                                en ontdekt spiergroepen waarvan je niet wist dat je ze had.
                             </p>
-                            <p className="mt-4 font-bold">
-                                Waar wacht je nog op?
-                            </p>
-                            <p>
-                                Bezoek onze website, kies de dienst of training die het beste bij jou past en start vandaag nog
-                                met het behalen van je fitnessdoelen! Samen zorgen we ervoor dat je niet alleen traint, maar
-                                dat je ook echt vooruitgang boekt.</p>
+                           
+                            
+                            <div style={{marginTop:'30px'}} className="form-border"></div>
 
                             <p
                                 style={{
@@ -88,7 +77,7 @@ const OverOns = () => {
                         {/* Right Content */}
                         <div className="msbc_ben_je_right">
                             <img
-                                src="https://mysummerbodyclub.nl/wp-content/themes/my-summer-body-club/assets/camiliasquats.png"
+                                src={MarlonImg}
                                 alt="Men After"
                             />
                         </div>
