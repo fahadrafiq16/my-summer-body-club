@@ -7,9 +7,9 @@ import { groepPtTrainingDescription } from '../../data/GroepPT';
 import { summerBodyTrainingDescription } from '../../data/Summerbody1jarig';
 import LifeStyle from '../../components/home/LifeStyle';
 import GroepImg from '../../images/img-4.png';
-import GewichtsverliesImg from '../../images/175 pic.png';
+import GewichtsverliesImg from '../../images/Naamloos3.2025-Photoroom.png';
 import personalImg from '../../images/img-6.png';
-import Weight175 from '../../images/175 weight.jpg'
+import Weight175 from '../../images/Weightloss3.3-Photoroom.png'
 import Gym180 from '../../images/180 GyM Comminityl.png'
 
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -44,7 +44,7 @@ const lifeStyle = [
     {
         img: Weight175,
         title: 'Gewichtsverlies',
-        description: `Wil jij op een gezonde én effectieve manier afvallen? Bij My Summerbody Club helpen we je niet alleen met training, maar ook met een doordacht plan voor voeding, mindset en leefstijl.\n\nWe focussen op duurzaam gewichtsverlies, zonder crashdiëten. Of je nu 5 of 25 kilo kwijt wilt — met de juiste begeleiding, structuur en motivatie blijf jij gemotiveerd en zie je resultaat.`,
+        description: `Wil jij op een gezonde én effectieve manier afvallen? Bij My Summerbody Club helpen we je niet alleen met training, maar ook met een doordacht plan voor voeding, mindset en leefstijl.\n\nWe focussen op duurzaam gewichtsverlies, zonder crashdiëten. Of je nu 5 of 25 kilo kwijt wilt —`,
     },
     {
         img: GewichtsverliesImg,
@@ -77,7 +77,7 @@ const AllTrainings = () => {
                         <TrainingBox trainingDescription={summerBodyTrainingDescription} />
                     </div>
 
-                    <div className="begin-lifestyle md:my-[100px]">
+                    <div className="begin-lifestyle begin-lifestyle-home md:my-[100px]">
 
                         {
                             lifeStyle.map((style) => (

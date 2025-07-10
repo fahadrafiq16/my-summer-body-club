@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import MarlonImg from '../../images/Image20220730225809.jpg'
-import ManAfterImg from '../../images/Small Pic 1.png'
-import NewLifeImg from '../../images/Small Pic 2.png'
-import KidImg from '../../images/Small Pic 3.png'
+import ManAfterImg from '../../images/new1.png'
+import NewLifeImg from '../../images/new2.png'
+import KidImg from '../../images/new3.png'
 
 const StyleWant = () => {
     const [activeSection, setActiveSection] = useState('fit');
@@ -19,7 +19,7 @@ const StyleWant = () => {
 
                         {/* Section 1 */}
                         {activeSection === 'fit' && (
-                            <div className="mb-6">
+                            <div className="mb-4">
                                 <h3 className="text-xl font-bold mb-4">
                                     Voel je fit, sterk en gezond met My Summerbody Club
                                 </h3>
@@ -35,7 +35,7 @@ const StyleWant = () => {
 
                         {/* Section 2 */}
                         {activeSection === 'afvallen' && (
-                            <div className="mb-6">
+                            <div className="mb-4">
                                 <h3 className="text-xl font-bold mb-4">
                                     Hoe werkt afvallen? Simpel, maar niet altijd makkelijk
                                 </h3>
@@ -48,7 +48,7 @@ const StyleWant = () => {
 
                         {/* Section 3 */}
                         {activeSection === 'wedstrijd' && (
-                            <div className="mb-6">
+                            <div className="mb-4">
                                 <h3 className="text-xl font-bold mb-4">
                                     Wedstrijdtraining & begeleiding: Klaar voor het podium?
                                 </h3>

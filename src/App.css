@@ -1170,7 +1170,7 @@ Home Style Want Section
 }
 
 .img-toggles img {
-  width: 12%;
+  width: 15%;
   border-radius: 50%;
   margin-right: 10px;
   cursor: pointer;
@@ -1243,6 +1243,9 @@ Begin Life Style Section
   text-align: center;
   border-right: 1px solid #DEE2E6;
   padding: 0px 20px;
+}
+.begin-lifestyle-home .lifestyle {
+  text-align: left;
 }
 
 .lifestyle h3 {
