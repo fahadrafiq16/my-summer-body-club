@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import MarlonImg from '../../images/Image20220730225809.jpg'
-import ManAfterImg from '../../images/new1.png'
+import ManAfterImg from '../../images/new3.png'
 import NewLifeImg from '../../images/new2.png'
-import KidImg from '../../images/new3.png'
+import KidImg from '../../images/new1.png'
 
 const StyleWant = () => {
     const [activeSection, setActiveSection] = useState('fit');

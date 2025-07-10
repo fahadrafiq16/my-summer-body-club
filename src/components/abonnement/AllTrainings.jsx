@@ -6,11 +6,15 @@ import { wedstrijdTrainingDescription } from '../../data/WedstrijdTraining';
 import { groepPtTrainingDescription } from '../../data/GroepPT';
 import { summerBodyTrainingDescription } from '../../data/Summerbody1jarig';
 import LifeStyle from '../../components/home/LifeStyle';
-import GroepImg from '../../images/img-4.png';
-import GewichtsverliesImg from '../../images/Naamloos3.2025-Photoroom.png';
-import personalImg from '../../images/img-6.png';
-import Weight175 from '../../images/Weightloss3.3-Photoroom.png'
+
+
 import Gym180 from '../../images/180 GyM Comminityl.png'
+
+import personalImg from '../../images/new4.png';
+import Weight175 from '../../images/new5.png'
+import GewichtsverliesImg from '../../images/new6.png';
+import GroepImg from '../../images/new7.png';
+
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
