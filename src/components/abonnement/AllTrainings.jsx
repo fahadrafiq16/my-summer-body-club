@@ -11,9 +11,9 @@ import LifeStyle from '../../components/home/LifeStyle';
 import Gym180 from '../../images/180 GyM Comminityl.png'
 
 import personalImg from '../../images/new4.png';
-import Weight175 from '../../images/new5.png'
+import Weight175 from '../../images/new7.png'
 import GewichtsverliesImg from '../../images/new6.png';
-import GroepImg from '../../images/new7.png';
+import GroepImg from '../../images/new5.png';
 
 
 import { Swiper, SwiperSlide } from 'swiper/react';
