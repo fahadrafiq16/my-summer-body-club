@@ -421,7 +421,7 @@ img {
 .msbc_ben_je_content_area {
   display: grid;
   grid-template-columns: 1.75fr 1fr;
-  align-items: center;
+  align-items: start;
   justify-content: center;
   grid-column-gap: 35px;
 }
@@ -1765,7 +1765,7 @@ Blog Posts Home Section
 .msbc_ben_je_content_area {
   display: grid;
   grid-template-columns: 1.75fr 1fr;
-  align-items: center;
+  align-items: start;
   justify-content: center;
   grid-column-gap: 35px;
 }
@@ -3135,4 +3135,8 @@ swiper-button-next,
 }
 .swiper-scrollbar-drag {
   background: #F44E17 !important;
+}
+ ul.styled-list-icons {
+  list-style: disc;
+  margin-left: 2rem;
 }
