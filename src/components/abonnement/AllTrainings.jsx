@@ -5,6 +5,7 @@ import { afvallenTrainingDescription } from '../../data/AfvallenTraining';
 import { wedstrijdTrainingDescription } from '../../data/WedstrijdTraining';
 import { groepPtTrainingDescription } from '../../data/GroepPT';
 import { summerBodyTrainingDescription } from '../../data/Summerbody1jarig';
+import {summerBodyTrainingDescription6Maanden} from '../../data/Summerbody6maanden';
 import LifeStyle from '../../components/home/LifeStyle';
 
 
@@ -79,6 +80,7 @@ const AllTrainings = () => {
                     </div>
                     <div className="our-trainers">
                         <TrainingBox trainingDescription={summerBodyTrainingDescription} />
+                        <TrainingBox trainingDescription={summerBodyTrainingDescription6Maanden} />
                     </div>
 
                     <div className="begin-lifestyle begin-lifestyle-home md:my-[100px]">
@@ -115,15 +117,16 @@ const AllTrainings = () => {
                             <TrainingBox trainingDescription={trainingDescription} />
                         </SwiperSlide>
                         <SwiperSlide>
-                            <TrainingBox trainingDescription={afvallenTrainingDescription} />
+                            <TrainingBox trainingDescription={groepPtTrainingDescription} />
+
                         </SwiperSlide>
                         <SwiperSlide>
                             <TrainingBox trainingDescription={wedstrijdTrainingDescription} />
                         </SwiperSlide>
                         <SwiperSlide>
-                            <TrainingBox trainingDescription={groepPtTrainingDescription} />
+                            <TrainingBox trainingDescription={afvallenTrainingDescription} />
                         </SwiperSlide>
-                           <br/>
+                        <br />
                     </Swiper>
                 </div>
             </section>
