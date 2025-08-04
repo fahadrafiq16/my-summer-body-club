@@ -1,21 +1,21 @@
-import Image from '../images/6-maanden.png'
+import Image from '../images/3.-FLEX-MSBC.jpg'
 
 export const paymentOptions = [
  
     {
-        trainingTitle:'Summerbody 6 maanden',
+        trainingTitle:'Summerbody Flex',
         amount: '75.00',
         quantity: '3',
         title: 'Betalen per 4 weken',
-        subTitle: 'Je 1-jarig My Summerbody Club abonnement bij My Summerbody Club',
+        subTitle: 'Je maandelijks opzegbaar My Summerbody Flexy abonnement bij My Summerbody Club',
         abonnementType: 'per 4 weken',
-        abonnementTitle: 'Actie: 3 maanden gratis trainen',
+        abonnementTitle: 'Actie: Geen',
         kosten: ['kosten:'],
         totalKosten: ['Totaal Kosten'],
         extra: false,
         recurring:true,
         programType:'club',
-        clubExtraTitle: 'Betaling per 4 weken voor 6 maanden via automatishe incasso',
+        clubExtraTitle:'Betaling per 4 weken via automatishe incasso',
     },
 
 ];
@@ -27,16 +27,16 @@ export const extraOptions = [
 
 export const clubAmount = [
     {
-        amount:'0',
+        amount:'15',
         title:'Clubpas/ QR-code',
-        status:false,
+        status:true,
     }
 ];
 
-export const summerBodyTrainingDescription6Maanden = [
+export const summerBodyTrainingDescriptionFlex = [
     {
-        title:'Summerbody 6 maanden',
-        quote:`"Wij ziijn hier om je te inspirenen, En willen dat je beter bent dan gisteren: 'Omdat je niet hebt opgegeven'."`,
+        title:'Summerbody Flex',
+        quote:` "Wij ziijn hier om je te inspirenen, En willen dat je beter bent dan gisteren: 'Omdat je niet hebt opgegeven'."`,
         trainingFeatures:[
             'Geen inschrijfgeld (t.w.v. €29,99)',
             'Na 12 maanden maandelijks opzegbaar',
@@ -45,9 +45,9 @@ export const summerBodyTrainingDescription6Maanden = [
         ],
         startingPrice:'€ 75,00',
         tenure:'Per 4 weken',
-        cardHeadline:'Populaire',
-        headLineBg:'#49edd7',
+        cardHeadline:'Zorgeloos',
+        headLineBg:'#7406e2',
         featuredImage: Image,
-        trainingLink:'/trainingprograms/my-summerbody-6-maanden/payment-form',
+        trainingLink:'/trainingprograms/my-summerbody-flex/payment-form',
     }
 ];

@@ -6,6 +6,8 @@ import { wedstrijdTrainingDescription } from '../../data/WedstrijdTraining';
 import { groepPtTrainingDescription } from '../../data/GroepPT';
 import { summerBodyTrainingDescription } from '../../data/Summerbody1jarig';
 import {summerBodyTrainingDescription6Maanden} from '../../data/Summerbody6maanden';
+import { summerBodyTrainingDescriptionFlex } from '../../data/SummerBodyFlex';
+
 import LifeStyle from '../../components/home/LifeStyle';
 
 
@@ -81,6 +83,7 @@ const AllTrainings = () => {
                     <div className="our-trainers">
                         <TrainingBox trainingDescription={summerBodyTrainingDescription} />
                         <TrainingBox trainingDescription={summerBodyTrainingDescription6Maanden} />
+                        <TrainingBox trainingDescription={summerBodyTrainingDescriptionFlex} />
                     </div>
 
                     <div className="begin-lifestyle begin-lifestyle-home md:my-[100px]">

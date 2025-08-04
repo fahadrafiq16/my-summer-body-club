@@ -6,6 +6,7 @@ import GroepPTTraining from './pages/paymentForms/GroepPT';
 
 import SummerBody1Jarig from './pages/paymentForms/Summerbody1jarig'
 import SummerBody6Maanden from './pages/paymentForms/Summerbody6maanden'
+import SummerBodyFlex from './pages/paymentForms/SummerBodyFlex'
 
 import PTRuimteForm from './pages/paymentForms/PTRuimteForm';
 import BootcampForm from './pages/paymentForms/BootcampTraining';
@@ -59,6 +60,7 @@ function App() {
 
             <Route path="/trainingprograms/my-summerbody-1-jaar/payment-form" element={<SummerBody1Jarig />} />
             <Route path="/trainingprograms/my-summerbody-6-maanden/payment-form" element={<SummerBody6Maanden />} />
+            <Route path="/trainingprograms/my-summerbody-flex/payment-form" element={<SummerBodyFlex />} />
             <Route path="/trainingprograms/personal-training/payment-form" element={<PersonalTraining />} />
             <Route path="/trainingprograms/afvallen-training/payment-form" element={<AfvallenTraining />} />
             <Route path="/trainingprograms/wedstrijd-training/payment-form" element={<WedstrijdTraining />} />

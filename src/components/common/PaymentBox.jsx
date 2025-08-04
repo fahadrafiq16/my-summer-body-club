@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import RentPaymentBox from './RentPaymentBox';
+import ClubPaymentBox from './ClubPaymentBox';
 
 const PaymentBox = ({
     selectedOption,
@@ -14,6 +15,13 @@ const PaymentBox = ({
 
         <>
 
+
+        {
+            selectedOption.programType === 'club' && (
+                <ClubPaymentBox selectedOption={selectedOption} extraOption={extraOption} clubAmount={clubAmount} />
+            )
+        }
+
             {
                 selectedOption.trainingTitle === 'PT Ruimte' && (
                     <RentPaymentBox selectedOption={selectedOption} extraOption={extraOption} clubAmount={clubAmount} />
@@ -22,7 +30,7 @@ const PaymentBox = ({
 
             {
 
-                selectedOption.trainingTitle !== 'PT Ruimte' && (
+                selectedOption.trainingTitle !== 'PT Ruimte' && selectedOption.programType !== 'club' && (
                     <div className="first-payment-radio">
                         <p className="pp">Check of alles klopt en bevestig je abonnement. </p>
                         <div className="active-details">
