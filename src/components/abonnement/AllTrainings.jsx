@@ -30,7 +30,7 @@ import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
 const lifeStyleMain = [
     {
         img: Gym180,
-        title: 'Cummerbody Community',
+        title: 'Summerbody Community',
         description: `My Summerbody Club is geen standaard gym. Wij zijn een hechte summerbody community — een familie van gemotiveerde sporters die samen groeien. Bij ons draait het om respect: voor elkaar, voor de apparatuur én voor de ruimte waarin we trainen. Kwaliteit, hygiëne en samenhorigheid staan bij ons hoog in het vaandel. Bij ons train je niet alleen… je hoort erbij.`,
     },
 
