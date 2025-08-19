@@ -7,7 +7,7 @@ export const paymentOptions = [
         amount: '45.00',
         quantity: '3',
         title: 'Betalen per 4 weken',
-        subTitle: 'Je 1-jarig My Summerbody abonnement bij My Summerbody Club',
+        subTitle: 'Je 1-jarig Summerbody abonnement bij My Summerbody Club',
         abonnementType: 'per 4 weken',
         abonnementTitle: 'Actie: 3 maanden gratis trainen',
         kosten: ['kosten:'],
