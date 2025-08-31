@@ -16,7 +16,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/home/Home'
 import Abonnement from './pages/abonnement/Abonnement';
 import Footer from './components/header/Footer';
-import ScrollToTop from './components/common/ScrollToTop';
+import ScrollToTop1 from './components/common/ScrollToTop';
 
 import MollieRedirect from './pages/MollieRedirect/MollieRedirect';
 import RecurringRedirect from './pages/MollieRedirect/RecurringRedirect';
@@ -36,13 +36,33 @@ import DashboardHome from './pages/dashboard/Home';
 import AllPayments from './pages/dashboard/AllPayments';
 import PaymentDetails from './pages/dashboard/PaymentDetails';
 
+import ScrollToTop from "react-scroll-to-top";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
+
+import LandbotWidget from './components/common/LandbotWidget';
+
 function App() {
 
   return (
     <Router>
       <div className="App">
 
-        <ScrollToTop />
+        <LandbotWidget />
+        <ScrollToTop
+          smooth
+          component={<FontAwesomeIcon icon={faArrowUp} size="lg" />}
+          style={{
+            borderRadius: "50%",
+            backgroundColor: "#f44e17",
+             bottom: "80px",
+            color: "#fff",
+            boxShadow: "0px 4px 10px rgba(0,0,0,0.3)",
+          }}
+        />
+
+        <ScrollToTop1 />
         <Routes>
           <Route element={<MainLayout />}>
             <Route path="/" element={<Home />} />
@@ -56,7 +76,7 @@ function App() {
             <Route path="/trainingprograms/personal-training" element={<PersonalIntro />} />
             <Route path="/trainingprograms/groeppt-training/" element={<GroepPTIntro />} />
             <Route path="/trainingprograms/wedstrijd-training/" element={<WedstrijdIntro />} />
-            
+
 
             <Route path="/trainingprograms/my-summerbody-1-jaar/payment-form" element={<SummerBody1Jarig />} />
             <Route path="/trainingprograms/my-summerbody-6-maanden/payment-form" element={<SummerBody6Maanden />} />
@@ -79,7 +99,7 @@ function App() {
           </Route>
 
         </Routes>
-        
+
       </div>
     </Router>
   );
