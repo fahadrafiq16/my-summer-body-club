@@ -3140,3 +3140,13 @@ swiper-button-next,
   list-style: disc;
   margin-left: 2rem;
 }
+.training-options .text-left {
+  display: block !important;
+  margin-top: 20px;
+}
+.training-options .radio-group-label {
+  padding:5px 0px;
+}
+.informatie .form-border {
+  margin-top: 20px !important;
+}

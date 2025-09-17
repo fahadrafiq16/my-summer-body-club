@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from "react-router-dom";
 
 const TwoBannersArea = () => {
     return (
@@ -11,12 +12,12 @@ const TwoBannersArea = () => {
                         <p className="bold-heading">
                             Voor Meer<span> Proefles</span>
                         </p>
-                        <a
+                        <Link
                             className="bordered-button"
-                            href="https://mysummerbodyclub.nl/informatie/"
+                            to="/informatie"
                         >
                             Hier Aanvragen
-                        </a>
+                        </Link>
                     </div>
                     {/* Banner Right */}
                     <div className="banner-right banner">

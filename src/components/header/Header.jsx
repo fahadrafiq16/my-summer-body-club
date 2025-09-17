@@ -103,6 +103,10 @@ const Header = () => {
                                     <Link to="/pt-ruimte-huren">PT Ruimte Huren</Link>
                                 </li>
 
+                                <li className="menu-item">
+                                    <Link to="/contact">Contact</Link>
+                                </li>
+
 
                             </ul>
                         </nav>

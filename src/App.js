@@ -24,6 +24,8 @@ import Header from './components/header/Header';
 import OverMSBC from './pages/OverMSBC/OverMSBC';
 import Trainers from './pages/trainers/Trainers';
 import Bootcamp from './pages/bootcamp/Bootcamp';
+import ContactForm from './pages/contactform/ContactForm';
+import Informatie from './pages/informatie/Informatie';
 
 import AfvallenIntro from './pages/formsIntroduction/AfvallenIntro';
 import PersonalIntro from './pages/formsIntroduction/PersonalIntro';
@@ -56,7 +58,7 @@ function App() {
           style={{
             borderRadius: "50%",
             backgroundColor: "#f44e17",
-             bottom: "80px",
+            bottom: "80px",
             color: "#fff",
             boxShadow: "0px 4px 10px rgba(0,0,0,0.3)",
           }}
@@ -71,6 +73,9 @@ function App() {
             <Route path="/trainers" element={<Trainers />} />
             <Route path="/bootcamp" element={<Bootcamp />} />
             <Route path="/pt-ruimte-huren" element={<PtRent />} />
+            <Route path="/contact" element={<ContactForm />} />
+
+            <Route path="/informatie" element={<Informatie />} />
 
             <Route path="/trainingprograms/afvallen-training" element={<AfvallenIntro />} />
             <Route path="/trainingprograms/personal-training" element={<PersonalIntro />} />
