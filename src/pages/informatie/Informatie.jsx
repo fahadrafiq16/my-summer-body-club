@@ -9,52 +9,26 @@ import axios from "axios"
 const BASE_BACKEND_URL = process.env.REACT_APP_BASE_BACKEND_URL;
 
 const geslachtoOptions = [
-    {
-        title: 'Man',
-        amount: 'man',
-    },
-    {
-        title: 'Vrouw',
-        amount: 'vrouw',
-    },
-    {
-        title: 'Neutraal',
-        amount: 'neutraal',
-    },
+    { title: 'Man', amount: 'man' },
+    { title: 'Vrouw', amount: 'vrouw' },
+    { title: 'Neutraal', amount: 'neutraal' },
 ];
 
 const trainingPrograms = [
-    {
-        title: 'Small Group Training',
-        amount: 'small-group-training'
-    },
-    {
-        title: 'Personal Training',
-        amount: 'personal-training'
-    },
-    {
-        title: 'Duo PT',
-        amount: 'duo-pt'
-    },
-    {
-        title: 'Wedstrijd Training',
-        amount: 'wedstrijd-training'
-    },
-    {
-        title: 'Afvallen',
-        amount: 'afvallen'
-    },
+    { title: 'Small Group Training', amount: 'small-group-training' },
+    { title: 'Personal Training', amount: 'personal-training' },
+    { title: 'Duo PT', amount: 'duo-pt' },
+    { title: 'Wedstrijd Training', amount: 'wedstrijd-training' },
+    { title: 'Afvallen', amount: 'afvallen' },
 ];
 
-
 const Informatie = () => {
-
-    const { register, handleSubmit, control, formState: { errors } } = useForm({
-
-    });
+    const { register, handleSubmit, control, formState: { errors } } = useForm({});
+    const [loading, setLoading] = React.useState(false);
 
     const onSubmit = async (data) => {
         try {
+            setLoading(true);
             console.log("Form Data:", data);
 
             const res = await axios.post(
@@ -70,24 +44,24 @@ const Informatie = () => {
         } catch (err) {
             console.error("Request Error:", err);
             alert("⚠️ Server error, email not sent");
+        } finally {
+            setLoading(false);
         }
     };
-
 
     return (
         <>
             <TitleHeader title={'Informatie'} />
             <div className="payment-form-page informatie max-w-[800px] mx-auto my-[100px]">
-                <h3 class="form-h3">Ik wil graag meer informatie over:</h3>
+                <h3 className="form-h3">Ik wil graag meer informatie over:</h3>
                 <form onSubmit={handleSubmit(onSubmit)}>
 
                     <div className="select-gender training-options">
-                        <label className="mt-[20px]  font-bold"></label>
+                        <label className="mt-[20px] font-bold"></label>
                         <RadioGroup
                             name="trainingsoptions"
                             control={control}
                             options={trainingPrograms}
-
                         />
                         {errors.trainingsoptions && (
                             <p className="text-red-500 text-left">{"This field is required"}</p>
@@ -95,8 +69,10 @@ const Informatie = () => {
                     </div>
 
                     <BorderedHeader heading={'Mijn gegevens'} />
-                    <p class="form-h3-p">Je ontavang de informatie over de door jouw aangevraade trainen zo snel mogelijk!
-                        Vul eerst nog even je gegevens in.</p>
+                    <p className="form-h3-p">
+                        Je ontvangt de informatie over de door jouw aangevraagde training zo snel mogelijk!
+                        Vul eerst nog even je gegevens in.
+                    </p>
 
                     <BorderedHeader heading={'Persoonlijke gegevens'} />
 
@@ -104,13 +80,10 @@ const Informatie = () => {
                         label="Voornaam:"
                         name="voornaam"
                         register={register}
-                        validation={{
-                            required: 'Voornaam is required',
-                        }}
+                        validation={{ required: 'Voornaam is required' }}
                         errors={errors}
                         placeholder=""
                     />
-
 
                     <TextField
                         label="Tussen Voegsel (Optioneel):"
@@ -125,9 +98,7 @@ const Informatie = () => {
                         label="Achternaam:"
                         name="achternaam"
                         register={register}
-                        validation={{
-                            required: 'Achternaam is required',
-                        }}
+                        validation={{ required: 'Achternaam is required' }}
                         errors={errors}
                         placeholder=""
                     />
@@ -138,7 +109,6 @@ const Informatie = () => {
                             name="geslachtooptions"
                             control={control}
                             options={geslachtoOptions}
-
                         />
                         {errors.geslachtooptions && (
                             <p className="text-red-500 text-left">{"This field is required"}</p>
@@ -151,9 +121,7 @@ const Informatie = () => {
                         label="Telefoonnummer:"
                         name="telefoonnummer"
                         register={register}
-                        validation={{
-                            //required: 'Voornaam is required',
-                        }}
+                        validation={{}}
                         errors={errors}
                         placeholder=""
                     />
@@ -175,11 +143,11 @@ const Informatie = () => {
 
                     <button
                         type="submit"
-                        className="bg-[#F04D17] text-white px-4 py-2 mt-4 flex-1"
+                        disabled={loading}
+                        className="bg-[#F04D17] text-white px-4 py-2 mt-4 flex-1 disabled:opacity-50"
                     >
-                        Bericht verzenden
+                        {loading ? "Versturen..." : "Bericht verzenden"}
                     </button>
-
                 </form>
             </div>
         </>

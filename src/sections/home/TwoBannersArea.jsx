@@ -10,7 +10,7 @@ const TwoBannersArea = () => {
                     <div className="banner-left banner">
                         <p className="sub-heading">Start Vandaag Je Nieuwe Life Style</p>
                         <p className="bold-heading">
-                            Voor Meer<span> Proefles</span>
+                            Voor Meer<span> Informatie</span>
                         </p>
                         <Link
                             className="bordered-button"
