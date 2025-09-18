@@ -26,6 +26,7 @@ import Trainers from './pages/trainers/Trainers';
 import Bootcamp from './pages/bootcamp/Bootcamp';
 import ContactForm from './pages/contactform/ContactForm';
 import Informatie from './pages/informatie/Informatie';
+import Proefles from './pages/proefles/Proefles';
 
 import AfvallenIntro from './pages/formsIntroduction/AfvallenIntro';
 import PersonalIntro from './pages/formsIntroduction/PersonalIntro';
@@ -76,6 +77,7 @@ function App() {
             <Route path="/contact" element={<ContactForm />} />
 
             <Route path="/informatie" element={<Informatie />} />
+            <Route path="/proefles" element={<Proefles />} />
 
             <Route path="/trainingprograms/afvallen-training" element={<AfvallenIntro />} />
             <Route path="/trainingprograms/personal-training" element={<PersonalIntro />} />

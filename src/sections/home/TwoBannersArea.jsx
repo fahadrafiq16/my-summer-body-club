@@ -25,12 +25,13 @@ const TwoBannersArea = () => {
                         <p className="bold-heading">
                             Voor Meer<span> Proefles</span>
                         </p>
-                        <a
+                     
+                         <Link
                             className="bordered-button"
-                            href="https://mysummerbodyclub.nl/proefles/"
+                            to="/proefles"
                         >
                             Hier Aanvragen
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </div>

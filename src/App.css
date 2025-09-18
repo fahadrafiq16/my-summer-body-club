@@ -3150,3 +3150,9 @@ swiper-button-next,
 .informatie .form-border {
   margin-top: 20px !important;
 }
+.informatie .radio-group-label {
+  font-size: 18px;
+}
+.informatie .radio-group-label {
+  padding:10px;
+}
