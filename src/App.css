@@ -2828,10 +2828,10 @@ h2.post-title {
 .comment-form input[type="text"],
 .comment-form input[type="email"],
 .comment-form input[type="url"],
-.comment-form textarea {
+textarea {
   display: block;
   width: 100%;
-  margin-bottom: 15px;
+  margin-bottom: 0;
   padding: 16px;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -3155,4 +3155,7 @@ swiper-button-next,
 }
 .informatie .radio-group-label {
   padding:10px;
+}
+.contact.form-h3 {
+  font-size: 26px !important;
 }
