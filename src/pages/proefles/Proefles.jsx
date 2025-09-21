@@ -91,7 +91,7 @@ const Proefles = () => {
                     <BorderedHeader heading={'Kies dag & tijd'} />
 
                     <div className="select-gender">
-                        <label className="mt-[20px] text-left font-bold">Training days</label>
+                        <label className="mt-[20px] text-left font-bold">Proefles dag</label>
                         <RadioGroup
                             name="trainingdays"
                             control={control}
@@ -103,7 +103,7 @@ const Proefles = () => {
                     </div>
 
                     <div className="select-gender">
-                        <label className="mt-[20px] text-left font-bold">Time preference</label>
+                        <label className="mt-[20px] text-left font-bold">Verzoektijd</label>
                         <RadioGroup
                             name="timepreference"
                             control={control}
