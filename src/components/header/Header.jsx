@@ -100,7 +100,7 @@ const Header = () => {
                                 </li>
 
                                 <li className="menu-item">
-                                    <Link to="/pt-ruimte-huren">PT Ruimte Huren</Link>
+                                    <Link to="/pt-ruimte-training/payment-form">PT Ruimte Huren</Link>
                                 </li>
 
                                 <li className="menu-item">
