@@ -7,7 +7,7 @@ const Layout = () => {
     return (
         <div className="flex h-screen">
             {/* Sidebar */}
-            <div className="w-56 min-h-screen bg-[#ef4d16] border border-[#ef4d16]">
+            <div className="fixed h-screen w-56 min-h-screen bg-[#ef4d16] border border-[#ef4d16]">
                 <div className="dashboard-logo mx-auto center p-4 bg-[#fff]">
                     <img className="mx-auto" src={Logo} alt="My Summer Body Club" />
                     <div className="divider-area mx-auto">
@@ -29,7 +29,7 @@ const Layout = () => {
             </div>
 
             {/* Main Content */}
-            <div className="flex-1">
+            <div className="flex-1 ml-[224px]">
                 <Outlet />
             </div>
         </div>

@@ -1,7 +1,11 @@
 import React from 'react'
 import MarlonImg from '../../images/1000038289.jpg'
+import { useNavigate } from "react-router-dom";
 
 const OverOns = () => {
+
+    const navigate = useNavigate();
+
     return (
         <>
             <div id="msbc_ben_je" className="padding-all">
@@ -75,7 +79,7 @@ const OverOns = () => {
                                 <strong>Marlon helpt je het maximale uit jezelf te halen.</strong>
                             </p>
 
-                           
+
 
                             <p className="mt-4">
                                 Bij ons train je niet alleen…
@@ -99,7 +103,23 @@ const OverOns = () => {
                             <div className="msbc-contact-detail">
                                 {/* Contact Button and Social Profiles */}
                                 <div className="msbc-left-detail">
-                                    <button className="msbc_ben_button">Neem contact op</button>
+
+                                    <button
+                                        className="button-focused-proefles msbc_ben_button"
+                                        onClick={() => navigate("/proefles")}
+                                    >
+                                        START JE NIEUWE LIFE STYLE VANDAAG!
+                                    </button>
+
+                                    
+
+                                    <button
+                                        className="msbc_ben_button"
+                                        onClick={() => navigate("/contact")}
+                                    >
+                                        Neem contact op
+                                    </button>
+
                                     <div className="msbc_ben_social-profiles">
                                         <a className="msbc_ben_item" href="#">
                                             <i className="fab fa-instagram"></i>

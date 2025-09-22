@@ -452,7 +452,7 @@ img {
 .msbc_ben_button {
   color: #ef4d16;
   border: 2px solid #ef4d16;
-  font-size: 20px;
+  font-size: 18px;
   background: #fff;
   line-height: 34px;
   padding: 10px 15px;
@@ -1781,17 +1781,7 @@ Blog Posts Home Section
   font-weight: 700;
 }
 
-.msbc_ben_button {
-  color: #ef4d16;
-  border: 2px solid #ef4d16;
-  font-size: 20px;
-  background: #fff;
-  ;
-  line-height: 34px;
-  padding: 10px 15px;
-  font-family: 'Heebo', sans-serif;
-  margin-top: 30px;
-}
+
 
 .msbc_ben_button:hover {
   background: #000;
@@ -3158,4 +3148,7 @@ swiper-button-next,
 }
 .contact.form-h3 {
   font-size: 26px !important;
+}
+.button-focused-proefles.msbc_ben_button {
+  font-weight: 700;
 }

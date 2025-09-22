@@ -6,21 +6,23 @@ const PaymentBox = ({
     selectedOption,
     extraOption,
     clubAmount,
+    clubNewAmount,
+    clubAmountMongo,
 
 }) => {
 
-    console.log('extra', selectedOption);
+    console.log(clubNewAmount);
 
     return (
 
         <>
 
 
-        {
-            selectedOption.programType === 'club' && (
-                <ClubPaymentBox selectedOption={selectedOption} extraOption={extraOption} clubAmount={clubAmount} />
-            )
-        }
+            {
+                selectedOption.programType === 'club' && (
+                    <ClubPaymentBox selectedOption={selectedOption} extraOption={extraOption} clubAmount={clubAmount} />
+                )
+            }
 
             {
                 selectedOption.trainingTitle === 'PT Ruimte' && (
@@ -79,13 +81,15 @@ const PaymentBox = ({
                         </div>
 
                         {
-                            clubAmount[0]?.status && (
+                            clubNewAmount && (
                                 <div style={{ marginTop: '0.9rem' }} className="active-details bottom-border">
                                     <p className="pp">Clubpas/ QR-code</p>
-                                    <p className="pp align-left">€ {clubAmount[0]?.amount},00</p>
+                                    <p className="pp align-left">€ 15,00</p>
                                 </div>
                             )
                         }
+
+
 
                         <div style={{ marginTop: '15px' }} className="active-details bottom-border">
                             <p className="pp">Actie: Geen inschrijfgeld</p>
@@ -104,13 +108,31 @@ const PaymentBox = ({
 
 
                             <div className="pt-form-group pt-form-group-18 pt-form-group-total-amount">
-                                Totaal: <span className="pt-total-amount">€ {(parseFloat(selectedOption.amount) + (selectedOption.extra ? parseFloat(extraOption.amount) : 0) + parseFloat(clubAmount[0]?.amount)).toFixed(2)}</span>
+
+                                Totaal: {
+                                    clubNewAmount ? (
+                                        <span className="pt-total-amount">€ {(parseFloat(selectedOption.amount) + (selectedOption.extra ? parseFloat(extraOption.amount) : 0) + parseFloat(clubAmountMongo)).toFixed(2)}</span>
+                                    ) :
+                                        <span className="pt-total-amount">€ {(parseFloat(selectedOption.amount) + (selectedOption.extra ? parseFloat(extraOption.amount) : 0)).toFixed(2)}</span>
+
+
+                                }
                             </div>
                         </div>
                         <div style={{ marginTop: '15px' }} className="active-details bottom-border">
                             <p className="pp pg">Nu te betalen</p>
                             <div className="pt-form-group pt-form-group-19 pt-form-group-total-amount">
-                                Totaal: <span className="pt-total-amount">€ {(parseFloat(selectedOption.amount) + (selectedOption.extra ? parseFloat(extraOption.amount) : 0) + parseFloat(clubAmount[0]?.amount)).toFixed(2)}</span>
+                                Totaal:
+
+                                {
+                                    clubNewAmount ? (
+                                        <span className="pt-total-amount">€ {(parseFloat(selectedOption.amount) + (selectedOption.extra ? parseFloat(extraOption.amount) : 0) + parseFloat(clubAmountMongo)).toFixed(2)}</span>
+                                    ) :
+                                        <span className="pt-total-amount">€ {(parseFloat(selectedOption.amount) + (selectedOption.extra ? parseFloat(extraOption.amount) : 0)).toFixed(2)}</span>
+
+
+                                }
+
                             </div>
                         </div>
                     </div>

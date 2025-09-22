@@ -17,6 +17,25 @@ const BASE_BACKEND_URL = process.env.REACT_APP_BASE_BACKEND_URL;
 
 const StepThree = ({ trainingDescription, paymentOptions, extraOptions, clubAmount }) => {
 
+    const [enabled, setEnabled] = useState(false);
+    const [clubAmountMongo, setClubAmountMongo] = useState(15);
+
+    // ✅ Fetch initial value from DB
+    useEffect(() => {
+        const fetchToggle = async () => {
+            try {
+                const res = await axios.get(`${BASE_BACKEND_URL}/api/toggle`);
+                setEnabled(res.data.value);
+                setClubAmountMongo(res.data.amount);
+                console.log(res.data.value);
+                console.log(res.data.amount);
+            } catch (err) {
+                console.error("Error fetching toggle:", err);
+            }
+        };
+        fetchToggle();
+    }, []);
+
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
@@ -63,7 +82,7 @@ const StepThree = ({ trainingDescription, paymentOptions, extraOptions, clubAmou
     const onSubmit = async (data) => {
         updateFormData(data);
 
-        const totalAmount = (parseFloat(data.paymentOption) + parseFloat(clubAmount[0].amount) + parseFloat(extraOption.amount)).toFixed(2);
+        const totalAmount = (parseFloat(data.paymentOption) + parseFloat(clubAmountMongo) + parseFloat(extraOption.amount)).toFixed(2);
 
         console.log(totalAmount);
 
@@ -81,7 +100,7 @@ const StepThree = ({ trainingDescription, paymentOptions, extraOptions, clubAmou
                         selectedOption: selectedOption,
                         extraOption: extraOption,
                         totalAmount: totalAmount,
-                        clubAmount: parseFloat(clubAmount[0].amount),
+                        clubAmount: parseFloat(clubAmountMongo),
                     },
                 });
 
@@ -161,7 +180,7 @@ const StepThree = ({ trainingDescription, paymentOptions, extraOptions, clubAmou
                 {
                     selectedOption &&
                     <div className="payment-boxes">
-                        <PaymentBox selectedOption={selectedOption} extraOption={extraOption} clubAmount={clubAmount} />
+                        <PaymentBox selectedOption={selectedOption} extraOption={extraOption} clubAmount={clubAmount} clubNewAmount={enabled} clubAmountMongo={clubAmountMongo} />
                     </div>
                 }
 

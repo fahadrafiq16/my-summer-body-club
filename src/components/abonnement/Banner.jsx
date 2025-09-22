@@ -1,6 +1,10 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const Banner = () => {
+
+  const navigate = useNavigate();
+
   return (
     <>
       <div id="msbc_maak_je" className="pt-[100px]">
@@ -24,7 +28,13 @@ const Banner = () => {
                 diensten die wij aanbieden.
               </p>
 
-              <button className="msbc_ben_button">Start Je Training Vandaag!</button>
+              
+              <button
+                className="button-focused-proefles msbc_ben_button"
+                onClick={() => navigate("/proefles")}
+              >
+                Start Je Training Vandaag!
+              </button>
               <div className="msbc_ben_social-profiles">
                 <a className="msbc_ben_item" href="#">
                   <i className="fab fa-instagram"></i>

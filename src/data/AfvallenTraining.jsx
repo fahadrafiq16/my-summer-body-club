@@ -2,6 +2,7 @@
 import PersonalImage from '../images/afvallen.jpg'
 console.log(PersonalImage);
 
+
 export const paymentOptions = [
     {
         trainingTitle:'Afvallen Trainingen',
@@ -108,7 +109,7 @@ export const clubAmount = [
     {
         amount:'15',
         title:'Clubpas/ QR-code',
-        status:true,
+        status:false,
     }
 ];
 
