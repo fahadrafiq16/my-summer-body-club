@@ -20,7 +20,7 @@ const PaymentBox = ({
 
             {
                 selectedOption.programType === 'club' && (
-                    <ClubPaymentBox selectedOption={selectedOption} extraOption={extraOption} clubAmount={clubAmount} />
+                    <ClubPaymentBox selectedOption={selectedOption} extraOption={extraOption} clubNewAmount={clubNewAmount} clubAmountMongo={clubAmountMongo} />
                 )
             }
 
@@ -84,7 +84,7 @@ const PaymentBox = ({
                             clubNewAmount && (
                                 <div style={{ marginTop: '0.9rem' }} className="active-details bottom-border">
                                     <p className="pp">Clubpas/ QR-code</p>
-                                    <p className="pp align-left">€ 15,00</p>
+                                    <p className="pp align-left">€ {clubAmountMongo},00</p>
                                 </div>
                             )
                         }

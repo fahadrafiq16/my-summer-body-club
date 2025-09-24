@@ -3,7 +3,8 @@ import React from 'react'
 const ClubPaymentBox = ({
     selectedOption,
     extraOption,
-    clubAmount, }) => {
+    clubNewAmount,
+    clubAmountMongo, }) => {
     return (
         <div className="first-payment-radio">
             <p className="pp">Check of alles klopt en bevestig je abonnement. </p>
@@ -16,33 +17,33 @@ const ClubPaymentBox = ({
             </p>
             <div className="active-details">
                 <p><strong>{selectedOption.clubExtraTitle}</strong></p>
-                
+
             </div>
             <div className="active-details">
                 <p>
-                   {selectedOption.abonnementTitle}
+                    {selectedOption.abonnementTitle}
                 </p>
                 <p style={{ textAlign: 'right', lineHeight: '27px' }}>
-                     € {selectedOption.amount}
-                     <br/>
+                    € {selectedOption.amount}
+                    <br />
                     <strong>{selectedOption.abonnementType}</strong>
-                  
+
                 </p>
             </div>
 
-             <div className="active-details">
+            <div className="active-details">
                 <p>
-                   Korting:
+                    Korting:
                 </p>
                 <p style={{ textAlign: 'right', lineHeight: '27px' }}>
-                     € 25,00
-                    
-                  
+                    € 25,00
+
+
                 </p>
             </div>
-            
-           
-           
+
+
+
             <p className="pg" style={{ marginTop: '15px' }}>
                 Éénmalig kosten
             </p>
@@ -52,10 +53,10 @@ const ClubPaymentBox = ({
             </div>
 
             {
-                clubAmount[0]?.status && (
+                clubNewAmount && (
                     <div style={{ marginTop: '0.9rem' }} className="active-details bottom-border">
                         <p className="pp">Clubpas/ QR-code</p>
-                        <p className="pp align-left">€ {clubAmount[0]?.amount},00</p>
+                        <p className="pp align-left">€ {clubAmountMongo},00</p>
                     </div>
                 )
             }
@@ -77,13 +78,13 @@ const ClubPaymentBox = ({
 
 
                 <div className="pt-form-group pt-form-group-18 pt-form-group-total-amount">
-                    Totaal: <span className="pt-total-amount">€ {(parseFloat(selectedOption.amount) + (selectedOption.extra ? parseFloat(extraOption.amount) : 0) + parseFloat(clubAmount[0]?.amount)).toFixed(2)}</span>
+                    Totaal: <span className="pt-total-amount">€ {(parseFloat(selectedOption.amount) + (selectedOption.extra ? parseFloat(extraOption.amount) : 0) + parseFloat(clubAmountMongo)).toFixed(2)}</span>
                 </div>
             </div>
             <div style={{ marginTop: '15px' }} className="active-details bottom-border">
                 <p className="pp pg">Nu te betalen</p>
                 <div className="pt-form-group pt-form-group-19 pt-form-group-total-amount">
-                    Totaal: <span className="pt-total-amount">€ {(parseFloat(selectedOption.amount) + (selectedOption.extra ? parseFloat(extraOption.amount) : 0) + parseFloat(clubAmount[0]?.amount)).toFixed(2)}</span>
+                    Totaal: <span className="pt-total-amount">€ {(parseFloat(selectedOption.amount) + (selectedOption.extra ? parseFloat(extraOption.amount) : 0) + parseFloat(clubAmountMongo)).toFixed(2)}</span>
                 </div>
             </div>
         </div>
