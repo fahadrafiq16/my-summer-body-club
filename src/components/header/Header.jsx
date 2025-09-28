@@ -104,6 +104,10 @@ const Header = () => {
                                 </li>
 
                                 <li className="menu-item">
+                                    <Link to="/testimonial-uploader">Your Review</Link>
+                                </li>
+
+                                <li className="menu-item">
                                     <Link to="/contact">Contact</Link>
                                 </li>
 

@@ -27,6 +27,7 @@ import Bootcamp from './pages/bootcamp/Bootcamp';
 import ContactForm from './pages/contactform/ContactForm';
 import Informatie from './pages/informatie/Informatie';
 import Proefles from './pages/proefles/Proefles';
+import TestimonialUploader from './pages/testimonialsuploader/TestimonialUploader';
 
 import AfvallenIntro from './pages/formsIntroduction/AfvallenIntro';
 import PersonalIntro from './pages/formsIntroduction/PersonalIntro';
@@ -75,6 +76,7 @@ function App() {
             <Route path="/bootcamp" element={<Bootcamp />} />
             <Route path="/pt-ruimte-huren" element={<PtRent />} />
             <Route path="/contact" element={<ContactForm />} />
+            <Route path="/testimonial-uploader" element={<TestimonialUploader />} />
 
             <Route path="/informatie" element={<Informatie />} />
             <Route path="/proefles" element={<Proefles />} />
