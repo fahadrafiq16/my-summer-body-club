@@ -1,32 +1,40 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useParams } from "react-router-dom";
 import axios from 'axios';
 import InfoItem from './InfoItem';
+import { useAuth } from '../../context/AuthContext';
+import { getBackendBaseUrl } from '../../utils/backend';
 
 const PaymentDetails = () => {
     const { id } = useParams();
-    console.log(id);
 
     const [userInfo, setUserInfo] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const { token } = useAuth();
+    const backendBaseUrl = useMemo(() => getBackendBaseUrl(), []);
     const [status, setStatus] = useState("");
 
     useEffect(() => {
-        axios.get(`https://msbc-backend.vercel.app/api/get-userinfo/${id}`)
+        if (!token || !id) return;
+        axios.get(`${backendBaseUrl}/api/get-userinfo/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
             .then((response) => {
                 setUserInfo(response.data);
-                setStatus(response.data.status); // Set status after fetching
+                setStatus(response.data.status || "");
                 setLoading(false);
             })
             .catch((err) => {
                 setError(err.message);
                 setLoading(false);
             });
-    }, [id]);
+    }, [backendBaseUrl, id, token]);
 
-    const handleStatusChange = (e) => {
-        setStatus(e.target.value);
+    const handleStatusChange = (event) => {
+        setStatus(event.target.value);
     };
 
     if (loading) return <p className="text-center text-lg font-semibold">Loading...</p>;
@@ -85,3 +93,4 @@ const PaymentDetails = () => {
 };
 
 export default PaymentDetails;
+

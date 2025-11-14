@@ -17,7 +17,7 @@ const FitnessEn = () => {
                         <div className="popup-btn" style={{ marginRight: "150px" }}>
                             
                                 <div id="video-button" className="video-button">
-                                  <VideoModal />
+                                  <VideoModal showAnimation />
                                     <div id="vidBox"></div>
                                
                             </div>

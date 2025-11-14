@@ -39,6 +39,8 @@ import MainLayout from './layouts/MainLayout';
 import DashboardHome from './pages/dashboard/Home';
 import AllPayments from './pages/dashboard/AllPayments';
 import PaymentDetails from './pages/dashboard/PaymentDetails';
+import CustomersReviews from './pages/dashboard/CustomersReviews';
+import Login from './pages/auth/Login';
 
 import ScrollToTop from "react-scroll-to-top";
 
@@ -46,71 +48,85 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
 
 import LandbotWidget from './components/common/LandbotWidget';
+import { AuthProvider } from './context/AuthContext';
+import ProtectedRoute from './components/auth/ProtectedRoute';
 
 function App() {
 
   return (
-    <Router>
-      <div className="App">
+    <AuthProvider>
+      <Router>
+        <div className="App">
 
-        <LandbotWidget />
-        <ScrollToTop
-          smooth
-          component={<FontAwesomeIcon icon={faArrowUp} size="lg" />}
-          style={{
-            borderRadius: "50%",
-            backgroundColor: "#f44e17",
-            bottom: "80px",
-            color: "#fff",
-            boxShadow: "0px 4px 10px rgba(0,0,0,0.3)",
-          }}
-        />
+          <LandbotWidget />
+          <ScrollToTop
+            smooth
+            component={<FontAwesomeIcon icon={faArrowUp} size="lg" />}
+            style={{
+              borderRadius: "50%",
+              backgroundColor: "#f44e17",
+              bottom: "80px",
+              color: "#fff",
+              boxShadow: "0px 4px 10px rgba(0,0,0,0.3)",
+            }}
+          />
 
-        <ScrollToTop1 />
-        <Routes>
-          <Route element={<MainLayout />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/over-msbc" element={<OverMSBC />} />
-            <Route path="/abonnement" element={<Abonnement />} />
-            <Route path="/trainers" element={<Trainers />} />
-            <Route path="/bootcamp" element={<Bootcamp />} />
-            <Route path="/pt-ruimte-huren" element={<PtRent />} />
-            <Route path="/contact" element={<ContactForm />} />
-            <Route path="/testimonial-uploader" element={<TestimonialUploader />} />
+          <ScrollToTop1 />
+          <Routes>
+            <Route element={<MainLayout />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/over-msbc" element={<OverMSBC />} />
+              <Route path="/abonnement" element={<Abonnement />} />
+              <Route path="/trainers" element={<Trainers />} />
+              <Route path="/bootcamp" element={<Bootcamp />} />
+              <Route path="/pt-ruimte-huren" element={<PtRent />} />
+              <Route path="/contact" element={<ContactForm />} />
+              <Route path="/testimonial-uploader" element={<TestimonialUploader />} />
 
-            <Route path="/informatie" element={<Informatie />} />
-            <Route path="/proefles" element={<Proefles />} />
+              <Route path="/informatie" element={<Informatie />} />
+              <Route path="/proefles" element={<Proefles />} />
 
-            <Route path="/trainingprograms/afvallen-training" element={<AfvallenIntro />} />
-            <Route path="/trainingprograms/personal-training" element={<PersonalIntro />} />
-            <Route path="/trainingprograms/groeppt-training/" element={<GroepPTIntro />} />
-            <Route path="/trainingprograms/wedstrijd-training/" element={<WedstrijdIntro />} />
+              <Route path="/trainingprograms/afvallen-training" element={<AfvallenIntro />} />
+              <Route path="/trainingprograms/personal-training" element={<PersonalIntro />} />
+              <Route path="/trainingprograms/groeppt-training/" element={<GroepPTIntro />} />
+              <Route path="/trainingprograms/wedstrijd-training/" element={<WedstrijdIntro />} />
 
 
-            <Route path="/trainingprograms/my-summerbody-1-jaar/payment-form" element={<SummerBody1Jarig />} />
-            <Route path="/trainingprograms/my-summerbody-6-maanden/payment-form" element={<SummerBody6Maanden />} />
-            <Route path="/trainingprograms/my-summerbody-flex/payment-form" element={<SummerBodyFlex />} />
-            <Route path="/trainingprograms/personal-training/payment-form" element={<PersonalTraining />} />
-            <Route path="/trainingprograms/afvallen-training/payment-form" element={<AfvallenTraining />} />
-            <Route path="/trainingprograms/wedstrijd-training/payment-form" element={<WedstrijdTraining />} />
-            <Route path="/trainingprograms/groeppt-training/payment-form" element={<GroepPTTraining />} />
-            <Route path="/trainingprograms/pt-ruimte-training/payment-form" element={<PTRuimteForm />} />
-            <Route path="/trainingprograms/bootcamp-training/payment-form" element={<BootcampForm />} />
+              <Route path="/trainingprograms/my-summerbody-1-jaar/payment-form" element={<SummerBody1Jarig />} />
+              <Route path="/trainingprograms/my-summerbody-6-maanden/payment-form" element={<SummerBody6Maanden />} />
+              <Route path="/trainingprograms/my-summerbody-flex/payment-form" element={<SummerBodyFlex />} />
+              <Route path="/trainingprograms/personal-training/payment-form" element={<PersonalTraining />} />
+              <Route path="/trainingprograms/afvallen-training/payment-form" element={<AfvallenTraining />} />
+              <Route path="/trainingprograms/wedstrijd-training/payment-form" element={<WedstrijdTraining />} />
+              <Route path="/trainingprograms/groeppt-training/payment-form" element={<GroepPTTraining />} />
+              <Route path="/trainingprograms/pt-ruimte-training/payment-form" element={<PTRuimteForm />} />
+              <Route path="/trainingprograms/bootcamp-training/payment-form" element={<BootcampForm />} />
 
-            <Route path="/mollie-redirect" element={<MollieRedirect />} />
-            <Route path="/recurring-redirect" element={<RecurringRedirect />} />
-          </Route>
+              <Route path="/mollie-redirect" element={<MollieRedirect />} />
+              <Route path="/recurring-redirect" element={<RecurringRedirect />} />
+            </Route>
 
-          <Route path="/dashboard" element={<Layout />}>
-            <Route index element={<DashboardHome />} />
-            <Route path="/dashboard/payments" element={<AllPayments />} />
-            <Route path="/dashboard/payments/:id" element={<PaymentDetails />} />
-          </Route>
+            <Route path="/dashboard/login" element={<Login />} />
 
-        </Routes>
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute>
+                  <Layout />
+                </ProtectedRoute>
+              }
+            >
+              <Route index element={<DashboardHome />} />
+              <Route path="payments" element={<AllPayments />} />
+              <Route path="testimonials" element={<CustomersReviews />} />
+              <Route path="payments/:id" element={<PaymentDetails />} />
+            </Route>
 
-      </div>
-    </Router>
+          </Routes>
+
+        </div>
+      </Router>
+    </AuthProvider>
   );
 }
 

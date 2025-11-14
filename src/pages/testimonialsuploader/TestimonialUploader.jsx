@@ -30,6 +30,7 @@ const TestimonialUploader = () => {
                 `${BASE_BACKEND_URL}/api/customers-feedback`,
                 {
                     name: data.name.trim(),
+                    position: data.position?.trim() || "",
                     rating: rating,
                     testimonial: data.testimonial.trim()
                 },
@@ -76,6 +77,19 @@ const TestimonialUploader = () => {
                     {errors.name && (
                         <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
                     )}
+                </div>
+
+                {/* Position Field */}
+                <div>
+                    <label className="block font-semibold mb-2">
+                        Position <span className="text-gray-400 text-sm">(optional)</span>
+                    </label>
+                    <input
+                        type="text"
+                        {...register("position")}
+                        className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#EF4D16]"
+                        placeholder="bv. Lid / Ondernemer / Sporter"
+                    />
                 </div>
 
                 {/* Rating Field */}
