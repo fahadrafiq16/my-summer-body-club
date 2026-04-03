@@ -11,9 +11,7 @@ import PaymentBox from '../common/PaymentBox';
 import ExtraDescription from './ExtraDescription';
 import CheckboxField from '../common/CheckboxField';
 import StepOneHeader from '../common/StepOneHeader';
-
-const BASE_BACKEND_URL = process.env.REACT_APP_BASE_BACKEND_URL;
-
+import { getBackendBaseUrl } from '../../utils/backend';
 
 const StepThree = ({ trainingDescription, paymentOptions, extraOptions, clubAmount }) => {
 
@@ -24,7 +22,7 @@ const StepThree = ({ trainingDescription, paymentOptions, extraOptions, clubAmou
     useEffect(() => {
         const fetchToggle = async () => {
             try {
-                const res = await axios.get(`${BASE_BACKEND_URL}/api/toggle`);
+                const res = await axios.get(`${getBackendBaseUrl()}/api/toggle`);
                 setEnabled(res.data.value);
                 setClubAmountMongo(res.data.amount);
                 console.log(res.data.value);
@@ -109,11 +107,12 @@ const StepThree = ({ trainingDescription, paymentOptions, extraOptions, clubAmou
         if (!selectedOption.recurring) {
 
             setFormData((prev) => ({ ...prev, loading: true, totalAmount: totalAmount }));
+            const backendBase = getBackendBaseUrl();
             console.log('form', formData);
-            console.log(BASE_BACKEND_URL);
+            console.log(backendBase);
 
             try {
-                const response = await axios.post(`${BASE_BACKEND_URL}/api/create-payment`, {
+                const response = await axios.post(`${backendBase}/api/create-payment`, {
                     amount: totalAmount,
                     userInfo: {
                         ...formData,
@@ -135,9 +134,10 @@ const StepThree = ({ trainingDescription, paymentOptions, extraOptions, clubAmou
             }
         } else {
             setFormData((prev) => ({ ...prev, loading: true, totalAmount: totalAmount }));
+            const backendBase = getBackendBaseUrl();
             try {
                 // Block duplicate recurring registrations before Mollie 0.01 mandate step
-                const eligibility = await axios.post(`${BASE_BACKEND_URL}/api/check-recurring-eligibility`, {
+                const eligibility = await axios.post(`${backendBase}/api/check-recurring-eligibility`, {
                     email: data.email,
                     voornaam: data.voornaam,
                 });
@@ -147,7 +147,7 @@ const StepThree = ({ trainingDescription, paymentOptions, extraOptions, clubAmou
                     return;
                 }
 
-                const response = await axios.post(`${BASE_BACKEND_URL}/api/create-recurring-payment`, {
+                const response = await axios.post(`${backendBase}/api/create-recurring-payment`, {
                     email: data.email,
                     name: data.voornaam,
                     userInfo: {
