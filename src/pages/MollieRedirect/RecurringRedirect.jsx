@@ -4,8 +4,9 @@ import { useLocation } from 'react-router-dom'
 import axios from 'axios'
 import FailedPaymentHeader from '../../components/common/FailedPaymentHeader'
 import { useNavigate } from "react-router-dom";
+import { getBackendBaseUrl } from "../../utils/backend";
 
-const BASE_BACKEND_URL = process.env.REACT_APP_BASE_BACKEND_URL;
+const backendBaseUrl = () => getBackendBaseUrl();
 
 
 const RecurringRedirect = () => {
@@ -32,7 +33,7 @@ const RecurringRedirect = () => {
         const fetchPayments = async () => {
             setLoading(true);
             try {
-                const response = await axios.get(`${BASE_BACKEND_URL}/api/fetch-payments`, {
+                const response = await axios.get(`${backendBaseUrl()}/api/fetch-payments`, {
                     headers: {
                         'Accept': 'application/json', // Ensure the response is in JSON format
                     }
@@ -84,7 +85,7 @@ const RecurringRedirect = () => {
                                 ...(resolvedProgramType ? { programType: resolvedProgramType } : {}),
                             },
                         };
-                        const addUserRes = await axios.post(`${BASE_BACKEND_URL}/api/add-user`, dataToSend, {
+                        const addUserRes = await axios.post(`${backendBaseUrl()}/api/add-user`, dataToSend, {
                             headers: { "Content-Type": "application/json" },
                         });
                         console.log("✅ User added successfully:", addUserRes.data);
@@ -99,26 +100,27 @@ const RecurringRedirect = () => {
                         const ok = await createSubscription(match.customerId, ui);
                         setPaymentStatus(Boolean(ok));
                     } else {
-                        setLoading(false);
                         setPaymentStatus(false);
                         await failedPaymentEmail(match.customerId, ui);
                     }
+                } else {
+                    setPaymentStatus(false);
                 }
 
             } catch (error) {
                 console.error('Error fetching payments:', error);
+                setPaymentStatus(false);
             } finally {
-                // Start the 10-second timer for redirection
+                setLoading(false);
                 setTimeout(() => {
-                    navigate("/"); // Redirect to the home page
+                    navigate("/");
                 }, 20000);
-                 
             }
         }
 
         const createSubscription = async (customerId, userInfo) => {
             try {
-                const response = await axios.post(`${BASE_BACKEND_URL}/api/create-subscription`, { customerId, userInfo, });
+                const response = await axios.post(`${backendBaseUrl()}/api/create-subscription`, { customerId, userInfo, });
                 console.log('Subscription created successfully:', response.data);
                 if (response.data) {
                     setPaymentCreated(true);
@@ -127,7 +129,7 @@ const RecurringRedirect = () => {
                     try {
 
                         // Call the recurring email API
-                        const emailResponse = await axios.post(`${BASE_BACKEND_URL}/api/recurring-email`, { userInfo });
+                        const emailResponse = await axios.post(`${backendBaseUrl()}/api/recurring-email`, { userInfo });
                         console.log('Email sent successfully:', emailResponse.data);
 
 
@@ -147,13 +149,12 @@ const RecurringRedirect = () => {
                 await failedPaymentEmail(customerId, userInfo);
                 return false;
             }
-            setLoading(false);
             return false;
         };
 
         const failedPaymentEmail = async (customerId, userInfo) => {
             try {
-                const emailResponse = await axios.post(`${BASE_BACKEND_URL}/api/failed-email`, { userInfo });
+                const emailResponse = await axios.post(`${backendBaseUrl()}/api/failed-email`, { userInfo });
                 console.log('Failed Email sent successfully:', emailResponse.data);
             } catch (emailError) {
                 console.error('Error sending email:', emailError);
