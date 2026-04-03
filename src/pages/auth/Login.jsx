@@ -31,9 +31,17 @@ const Login = () => {
 
             if (response.data?.success && response.data?.token) {
                 login(response.data.token, response.data.user);
-                const redirectTo =
-                    location.state?.from?.pathname ||
-                    (location.pathname.startsWith("/dashboard-new") ? "/dashboard-new" : "/dashboard");
+                const userRole = response.data.user?.role;
+                let redirectTo = location.state?.from?.pathname;
+                if (!redirectTo) {
+                    if (userRole === "member") {
+                        redirectTo = "/dashboard-new";
+                    } else if (location.pathname.startsWith("/dashboard-new")) {
+                        redirectTo = "/dashboard-new";
+                    } else {
+                        redirectTo = "/dashboard";
+                    }
+                }
                 navigate(redirectTo, { replace: true });
             } else {
                 setError("Ongeldige reactie van de server.");

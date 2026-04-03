@@ -1862,12 +1862,14 @@ function runSelfTests() {
 
 export default function DashboardDemo() {
   const navigate = useNavigate();
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
   const [lang, setLang] = useState("nl");
   const [role, setRole] = useState("admin");
   const [tab, setTab] = useState("dashboard");
   const [collapsed, setCollapsed] = useState(false);
   const [locationId, setLocationId] = useState(LOCATIONS[0].id);
+
+  const isMember = user?.role === "member";
 
   useEffect(() => {
     runSelfTests();
@@ -1877,6 +1879,15 @@ export default function DashboardDemo() {
     logout();
     navigate("/dashboard-new/login", { replace: true });
   };
+
+  if (isMember) {
+    const MemberPortal = React.lazy(() => import("../../components/dashboard-new/MemberPortal"));
+    return (
+      <React.Suspense fallback={<div className="flex items-center justify-center h-screen text-gray-500">Laden...</div>}>
+        <MemberPortal onLogout={onLogout} />
+      </React.Suspense>
+    );
+  }
 
   const t = i18n[lang];
   const location = LOCATIONS.find((l) => l.id === locationId) ?? LOCATIONS[0];
