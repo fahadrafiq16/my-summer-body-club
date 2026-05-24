@@ -1,35 +1,72 @@
-import React, { useState, createContext } from 'react'
-import TextField from '../../components/common/TextField'
-import { useForm } from 'react-hook-form';
-import RadioGroup from '../../components/common/RadioGroup';
+import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import { Steps, StepsProvider, useSteps } from "react-step-builder";
+import { Steps, StepsProvider } from "react-step-builder";
 import { FormProvider } from '../../contex/FormContex'
 import StepOne from '../../components/multistepsform/StepOne';
 import StepTwo from '../../components/multistepsform/StepTwo';
 import StepThree from '../../components/multistepsform/StepThree';
-import { paymentOptions,extraOptions, clubAmount, wedstrijdTrainingDescription } from '../../data/WedstrijdTraining';
+import {
+    paymentOptions as defaultPaymentOptions,
+    extraOptions as defaultExtraOptions,
+    clubAmount as defaultClubAmount,
+    wedstrijdTrainingDescription as defaultWedstrijdTrainingDescription,
+} from '../../data/WedstrijdTraining';
 import PaymentFormHeader from '../../components/common/PaymentFormHeader';
+import { getBackendBaseUrl } from '../../utils/backend';
 
+const PROGRAM_KEY = 'wedstrijd-training';
 
 const WedstrijdTraining = () => {
-   
+    const [paymentOptions, setPaymentOptions] = useState(defaultPaymentOptions);
+    const [extraOptions, setExtraOptions] = useState(defaultExtraOptions);
+    const [clubAmount, setClubAmount] = useState(defaultClubAmount);
+    const [wedstrijdTrainingDescription, setWedstrijdTrainingDescription] = useState(defaultWedstrijdTrainingDescription);
+
+    useEffect(() => {
+        let cancelled = false;
+        const load = async () => {
+            try {
+                const res = await axios.get(`${getBackendBaseUrl()}/api/program-config/${PROGRAM_KEY}`);
+                if (cancelled || !res?.data) return;
+                const data = res.data;
+                if (Array.isArray(data.paymentOptions) && data.paymentOptions.length > 0) {
+                    setPaymentOptions(data.paymentOptions);
+                }
+                if (Array.isArray(data.extraOptions)) {
+                    setExtraOptions(data.extraOptions);
+                }
+                if (Array.isArray(data.clubAmount)) {
+                    setClubAmount(data.clubAmount);
+                }
+                if (Array.isArray(data.trainingDescription) && data.trainingDescription.length > 0) {
+                    const localImage = defaultWedstrijdTrainingDescription?.[0]?.featuredImage;
+                    setWedstrijdTrainingDescription(
+                        data.trainingDescription.map((d) => ({ ...d, featuredImage: localImage }))
+                    );
+                }
+            } catch (err) {
+                console.warn('Falling back to static WedstrijdTraining data:', err?.message);
+            }
+        };
+        load();
+        return () => { cancelled = true; };
+    }, []);
+
     return (
         <>
-        <PaymentFormHeader />
+            <PaymentFormHeader />
             <FormProvider>
                 <StepsProvider>
                     <div className="payment-form-page max-w-[850px] mx-auto my-[100px]">
                         <Steps>
-                            <StepOne trainingDescription={wedstrijdTrainingDescription}/>
+                            <StepOne trainingDescription={wedstrijdTrainingDescription} />
                             <StepTwo trainingDescription={wedstrijdTrainingDescription} />
-                            <StepThree trainingDescription={wedstrijdTrainingDescription} paymentOptions={paymentOptions} extraOptions={extraOptions} clubAmount={clubAmount} />    
+                            <StepThree trainingDescription={wedstrijdTrainingDescription} paymentOptions={paymentOptions} extraOptions={extraOptions} clubAmount={clubAmount} />
                         </Steps>
-                    </div>            
+                    </div>
                 </StepsProvider>
             </FormProvider>
         </>
-
     )
 }
 

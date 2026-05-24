@@ -7,7 +7,12 @@ import { getBackendBaseUrl } from "../../utils/backend";
 
 const AVAILABLE_PROGRAMS = [
   { key: "personal-training", label: "Personal Training" },
-  // Add more keys here when backend defaults are added (e.g. bootcamp-training, wedstrijd-training)
+  { key: "groep-pt", label: "Groep PT Training" },
+  { key: "wedstrijd-training", label: "Wedstrijd Training" },
+  { key: "afvallen-training", label: "Afvallen Training" },
+  { key: "summerbody-1jarig", label: "Summerbody 1 jarig" },
+  { key: "summerbody-6-maanden", label: "Summerbody 6 maanden" },
+  { key: "summerbody-flex", label: "Summerbody Flex" },
 ];
 
 const emptyPaymentOption = () => ({

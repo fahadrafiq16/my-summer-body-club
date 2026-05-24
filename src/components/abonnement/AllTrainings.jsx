@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import TrainingBox from './TrainingBox'
 import { trainingDescription as defaultPersonalTrainingDescription } from '../../data/PersonalTraining';
-import { afvallenTrainingDescription } from '../../data/AfvallenTraining';
+import { afvallenTrainingDescription as defaultAfvallenTrainingDescription } from '../../data/AfvallenTraining';
+import { groepPtTrainingDescription as defaultGroepPtTrainingDescription } from '../../data/GroepPT';
+import { wedstrijdTrainingDescription as defaultWedstrijdTrainingDescription } from '../../data/WedstrijdTraining';
 import { getBackendBaseUrl } from '../../utils/backend';
-import { wedstrijdTrainingDescription } from '../../data/WedstrijdTraining';
-import { groepPtTrainingDescription } from '../../data/GroepPT';
-import { summerBodyTrainingDescription } from '../../data/Summerbody1jarig';
-import {summerBodyTrainingDescription6Maanden} from '../../data/Summerbody6maanden';
-import { summerBodyTrainingDescriptionFlex } from '../../data/SummerBodyFlex';
+import { summerBodyTrainingDescription as defaultSummerBodyTrainingDescription } from '../../data/Summerbody1jarig';
+import { summerBodyTrainingDescription6Maanden as defaultSummerBodyTrainingDescription6Maanden } from '../../data/Summerbody6maanden';
+import { summerBodyTrainingDescriptionFlex as defaultSummerBodyTrainingDescriptionFlex } from '../../data/SummerBodyFlex';
 
 import LifeStyle from '../../components/home/LifeStyle';
 
@@ -65,23 +65,39 @@ const lifeStyle = [
 
 const AllTrainings = () => {
     const [trainingDescription, setTrainingDescription] = useState(defaultPersonalTrainingDescription);
+    const [groepPtTrainingDescription, setGroepPtTrainingDescription] = useState(defaultGroepPtTrainingDescription);
+    const [wedstrijdTrainingDescription, setWedstrijdTrainingDescription] = useState(defaultWedstrijdTrainingDescription);
+    const [afvallenTrainingDescription, setAfvallenTrainingDescription] = useState(defaultAfvallenTrainingDescription);
+    const [summerBodyTrainingDescription, setSummerBodyTrainingDescription] = useState(defaultSummerBodyTrainingDescription);
+    const [summerBodyTrainingDescription6Maanden, setSummerBodyTrainingDescription6Maanden] = useState(defaultSummerBodyTrainingDescription6Maanden);
+    const [summerBodyTrainingDescriptionFlex, setSummerBodyTrainingDescriptionFlex] = useState(defaultSummerBodyTrainingDescriptionFlex);
 
     useEffect(() => {
         let cancelled = false;
-        const load = async () => {
+        const backendBase = getBackendBaseUrl();
+
+        const fetchProgram = async (key, fallback, setter) => {
             try {
-                const res = await axios.get(`${getBackendBaseUrl()}/api/program-config/personal-training`);
+                const res = await axios.get(`${backendBase}/api/program-config/${key}`);
                 if (cancelled) return;
                 const list = res?.data?.trainingDescription;
                 if (Array.isArray(list) && list.length > 0) {
-                    const localImage = defaultPersonalTrainingDescription?.[0]?.featuredImage;
-                    setTrainingDescription(list.map((d) => ({ ...d, featuredImage: localImage })));
+                    const localImage = fallback?.[0]?.featuredImage;
+                    setter(list.map((d) => ({ ...d, featuredImage: localImage })));
                 }
             } catch (err) {
-                console.warn('Falling back to static Personal Training description:', err?.message);
+                console.warn(`Falling back to static ${key} description:`, err?.message);
             }
         };
-        load();
+
+        fetchProgram('personal-training', defaultPersonalTrainingDescription, setTrainingDescription);
+        fetchProgram('groep-pt', defaultGroepPtTrainingDescription, setGroepPtTrainingDescription);
+        fetchProgram('wedstrijd-training', defaultWedstrijdTrainingDescription, setWedstrijdTrainingDescription);
+        fetchProgram('afvallen-training', defaultAfvallenTrainingDescription, setAfvallenTrainingDescription);
+        fetchProgram('summerbody-1jarig', defaultSummerBodyTrainingDescription, setSummerBodyTrainingDescription);
+        fetchProgram('summerbody-6-maanden', defaultSummerBodyTrainingDescription6Maanden, setSummerBodyTrainingDescription6Maanden);
+        fetchProgram('summerbody-flex', defaultSummerBodyTrainingDescriptionFlex, setSummerBodyTrainingDescriptionFlex);
+
         return () => { cancelled = true; };
     }, []);
 

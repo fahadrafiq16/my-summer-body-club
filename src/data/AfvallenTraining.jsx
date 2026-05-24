@@ -142,21 +142,20 @@ export const afvallenTrainingDescription = [
 export const fetchAfvallenTrainingConfig = async () => {
     try {
         const backendBaseUrl = getBackendBaseUrl();
-        const response = await axios.get(`${backendBaseUrl}/api/training-config/afvallen`);
+        const response = await axios.get(`${backendBaseUrl}/api/program-config/afvallen-training`);
         const data = response?.data || {};
+        const desc = Array.isArray(data.trainingDescription) ? data.trainingDescription : afvallenTrainingDescription;
         return {
-            paymentOptions: Array.isArray(data.paymentOptions) ? data.paymentOptions : paymentOptions,
+            paymentOptions: Array.isArray(data.paymentOptions) && data.paymentOptions.length > 0 ? data.paymentOptions : paymentOptions,
             extraOptions: Array.isArray(data.extraOptions) ? data.extraOptions : extraOptions,
             clubAmount: Array.isArray(data.clubAmount) ? data.clubAmount : clubAmount,
-            afvallenTrainingDescription: Array.isArray(data.afvallenTrainingDescription)
-                ? data.afvallenTrainingDescription.map((item) => ({
-                    ...item,
-                    featuredImage: PersonalImage,
-                }))
-                : afvallenTrainingDescription,
+            afvallenTrainingDescription: desc.map((item) => ({
+                ...item,
+                featuredImage: PersonalImage,
+            })),
         };
     } catch (err) {
-        console.error("Failed to fetch AfvallenTraining config:", err);
+        console.warn("Falling back to static AfvallenTraining config:", err?.message);
         return {
             paymentOptions,
             extraOptions,
