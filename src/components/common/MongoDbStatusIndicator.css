@@ -1,0 +1,57 @@
+.mongo-status-indicator {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    z-index: 9999;
+    pointer-events: none;
+    border: 2px solid rgba(255, 255, 255, 0.85);
+}
+
+.mongo-status-indicator--green {
+    background-color: #22c55e;
+    animation: mongo-traffic-green 2.4s ease-in-out infinite;
+}
+
+.mongo-status-indicator--red {
+    background-color: #ef4444;
+    animation: mongo-traffic-red 2.4s ease-in-out infinite;
+}
+
+@keyframes mongo-traffic-green {
+    0%,
+    100% {
+        opacity: 1;
+        box-shadow:
+            0 0 4px 1px rgba(34, 197, 94, 0.5),
+            0 0 12px 3px rgba(34, 197, 94, 0.35);
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.55;
+        box-shadow:
+            0 0 8px 2px rgba(34, 197, 94, 0.85),
+            0 0 20px 6px rgba(34, 197, 94, 0.55);
+        transform: scale(1.08);
+    }
+}
+
+@keyframes mongo-traffic-red {
+    0%,
+    100% {
+        opacity: 1;
+        box-shadow:
+            0 0 4px 1px rgba(239, 68, 68, 0.5),
+            0 0 12px 3px rgba(239, 68, 68, 0.35);
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.55;
+        box-shadow:
+            0 0 8px 2px rgba(239, 68, 68, 0.85),
+            0 0 20px 6px rgba(239, 68, 68, 0.55);
+        transform: scale(1.08);
+    }
+}

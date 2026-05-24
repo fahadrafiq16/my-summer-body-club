@@ -5,6 +5,7 @@ import { Button } from "../../components/ui/button";
 import Dashboard from "../../components/dashboard-new/Dashboard";
 import Finance from "../../components/dashboard-new/Finance";
 import Programs from "../../components/dashboard-new/Programs";
+import Reviews from "../../components/dashboard-new/Reviews";
 import { useAuth } from "../../context/AuthContext";
 import { motion } from "framer-motion";
 import {
@@ -25,6 +26,7 @@ import {
   FileText,
   CreditCard,
   Mail,
+  MessageSquare,
   LogIn,
   LogOut,
   ArrowLeft,
@@ -62,6 +64,7 @@ const i18n = {
       invoices: "Facturen",
       automations: "Automations",
       programs: "Programs",
+      reviews: "Reviews",
       portal: "Member portal",
     },
     roles: { admin: "Admin", staff: "Staff" },
@@ -191,6 +194,7 @@ const i18n = {
       invoices: "Invoices",
       automations: "Automations",
       programs: "Programs",
+      reviews: "Reviews",
       portal: "Member portal",
     },
     roles: { admin: "Admin", staff: "Staff" },
@@ -1915,6 +1919,7 @@ export default function DashboardDemo() {
             <NavButton icon={<Receipt className="w-5 h-5" />} label={t.tabs.invoices} active={tab === "invoices"} collapsed={collapsed} onClick={() => setTab("invoices")} />
             <NavButton icon={<CalendarClock className="w-5 h-5" />} label={t.tabs.automations} active={tab === "automations"} collapsed={collapsed} onClick={() => setTab("automations")} />
             <NavButton icon={<FileText className="w-5 h-5" />} label={t.tabs.programs} active={tab === "programs"} collapsed={collapsed} onClick={() => setTab("programs")} />
+            <NavButton icon={<MessageSquare className="w-5 h-5" />} label={t.tabs.reviews} active={tab === "reviews"} collapsed={collapsed} onClick={() => setTab("reviews")} />
             <NavButton icon={<LogIn className="w-5 h-5" />} label={t.tabs.portal} active={tab === "portal"} collapsed={collapsed} onClick={() => setTab("portal")} />
           </div>
           {!collapsed && (
@@ -1960,6 +1965,7 @@ export default function DashboardDemo() {
           {tab === "invoices" && <InvoicesTab lang={lang} locationId={locationId} />}
           {tab === "automations" && <AutomationsTab lang={lang} />}
           {tab === "programs" && <Programs />}
+          {tab === "reviews" && <Reviews lang={lang} />}
           {tab === "portal" && <PortalTab lang={lang} />}
         </main>
       </div>

@@ -51,6 +51,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
 
 import LandbotWidget from './components/common/LandbotWidget';
+import MongoDbStatusIndicator from './components/common/MongoDbStatusIndicator';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 
@@ -61,6 +62,7 @@ function App() {
       <Router>
         <div className="App">
 
+          <MongoDbStatusIndicator />
           <LandbotWidget />
           <ScrollToTop
             smooth
