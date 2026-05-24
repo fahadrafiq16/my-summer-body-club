@@ -4,6 +4,7 @@ import { Card, CardContent } from "../../components/ui/card";
 import { Button } from "../../components/ui/button";
 import Dashboard from "../../components/dashboard-new/Dashboard";
 import Finance from "../../components/dashboard-new/Finance";
+import Programs from "../../components/dashboard-new/Programs";
 import { useAuth } from "../../context/AuthContext";
 import { motion } from "framer-motion";
 import {
@@ -60,6 +61,7 @@ const i18n = {
       finance: "Finance",
       invoices: "Facturen",
       automations: "Automations",
+      programs: "Programs",
       portal: "Member portal",
     },
     roles: { admin: "Admin", staff: "Staff" },
@@ -188,6 +190,7 @@ const i18n = {
       finance: "Finance",
       invoices: "Invoices",
       automations: "Automations",
+      programs: "Programs",
       portal: "Member portal",
     },
     roles: { admin: "Admin", staff: "Staff" },
@@ -1911,6 +1914,7 @@ export default function DashboardDemo() {
             <NavButton icon={<Shield className="w-5 h-5" />} label={t.tabs.finance} active={tab === "finance"} collapsed={collapsed} onClick={() => setTab("finance")} />
             <NavButton icon={<Receipt className="w-5 h-5" />} label={t.tabs.invoices} active={tab === "invoices"} collapsed={collapsed} onClick={() => setTab("invoices")} />
             <NavButton icon={<CalendarClock className="w-5 h-5" />} label={t.tabs.automations} active={tab === "automations"} collapsed={collapsed} onClick={() => setTab("automations")} />
+            <NavButton icon={<FileText className="w-5 h-5" />} label={t.tabs.programs} active={tab === "programs"} collapsed={collapsed} onClick={() => setTab("programs")} />
             <NavButton icon={<LogIn className="w-5 h-5" />} label={t.tabs.portal} active={tab === "portal"} collapsed={collapsed} onClick={() => setTab("portal")} />
           </div>
           {!collapsed && (
@@ -1955,6 +1959,7 @@ export default function DashboardDemo() {
           {tab === "finance" && <FinanceGate role={role} lang={lang}><Finance lang={lang} /></FinanceGate>}
           {tab === "invoices" && <InvoicesTab lang={lang} locationId={locationId} />}
           {tab === "automations" && <AutomationsTab lang={lang} />}
+          {tab === "programs" && <Programs />}
           {tab === "portal" && <PortalTab lang={lang} />}
         </main>
       </div>

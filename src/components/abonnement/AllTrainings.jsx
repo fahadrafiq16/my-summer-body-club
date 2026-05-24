@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 import TrainingBox from './TrainingBox'
-import { trainingDescription } from '../../data/PersonalTraining';
+import { trainingDescription as defaultPersonalTrainingDescription } from '../../data/PersonalTraining';
 import { afvallenTrainingDescription } from '../../data/AfvallenTraining';
+import { getBackendBaseUrl } from '../../utils/backend';
 import { wedstrijdTrainingDescription } from '../../data/WedstrijdTraining';
 import { groepPtTrainingDescription } from '../../data/GroepPT';
 import { summerBodyTrainingDescription } from '../../data/Summerbody1jarig';
@@ -62,6 +64,27 @@ const lifeStyle = [
 
 
 const AllTrainings = () => {
+    const [trainingDescription, setTrainingDescription] = useState(defaultPersonalTrainingDescription);
+
+    useEffect(() => {
+        let cancelled = false;
+        const load = async () => {
+            try {
+                const res = await axios.get(`${getBackendBaseUrl()}/api/program-config/personal-training`);
+                if (cancelled) return;
+                const list = res?.data?.trainingDescription;
+                if (Array.isArray(list) && list.length > 0) {
+                    const localImage = defaultPersonalTrainingDescription?.[0]?.featuredImage;
+                    setTrainingDescription(list.map((d) => ({ ...d, featuredImage: localImage })));
+                }
+            } catch (err) {
+                console.warn('Falling back to static Personal Training description:', err?.message);
+            }
+        };
+        load();
+        return () => { cancelled = true; };
+    }, []);
+
     return (
         <>
             <div className="container life-style-main max-w-[600px] mx-auto">
