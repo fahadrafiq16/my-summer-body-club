@@ -1,5 +1,4 @@
 import React from 'react'
-import VideoModal from '../../components/home/VideoModal'
 
 const FitnessEn = () => {
     return (
@@ -14,14 +13,7 @@ const FitnessEn = () => {
                                 Fitness en <span>Gezondheid</span>
                             </h2>
                         </div>
-                        <div className="popup-btn" style={{ marginRight: "150px" }}>
-                            
-                                <div id="video-button" className="video-button">
-                                  <VideoModal showAnimation />
-                                    <div id="vidBox"></div>
-                               
-                            </div>
-                        </div>
+                       
                     </div>
 
                     {/* Lifestyle Section */}

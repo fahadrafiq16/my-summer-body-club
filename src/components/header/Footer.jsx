@@ -13,19 +13,19 @@ const Footer = () => {
 
                             <p>
 
-                                <Link to="/trainingprograms/afvallen-training/">Afvallen</Link>
+                                <Link to="/trainingprograms/afvallen-training/">Kies Afvallen</Link>
                             </p>
 
                             <p>
-                                <Link to="/trainingprograms/groeppt-training/">Groep PT</Link>
+                                <Link to="/trainingprograms/groeppt-training/">Kies Groep PT</Link>
                             </p>
 
                             <p>
-                                <Link to="/trainingprograms/personal-training/">Personal Training</Link>
+                                <Link to="/trainingprograms/personal-training/">Kies Personal Training</Link>
                             </p>
 
                             <p>
-                                <Link to="/trainingprograms/wedstrijd-training/">Wedstrijd Training</Link>
+                                <Link to="/trainingprograms/wedstrijd-training/">Kes Wedstrijd Training</Link>
                             </p>
                         </div>
 

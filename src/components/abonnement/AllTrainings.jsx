@@ -149,7 +149,12 @@ const AllTrainings = () => {
                         // install Swiper modules
                         modules={[Navigation, Pagination, Scrollbar, A11y]}
                         spaceBetween={20}
-                        slidesPerView={3}
+                        slidesPerView={1}
+                        breakpoints={{
+                            768: {
+                                slidesPerView: 3,
+                            },
+                        }}
                         navigation
                         scrollbar={{ draggable: true }}
                         onSwiper={(swiper) => console.log(swiper)}

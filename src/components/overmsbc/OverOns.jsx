@@ -1,5 +1,6 @@
 import React from 'react'
 import MarlonImg from '../../images/1000038289.jpg'
+import VideoModal from '../home/VideoModal'
 import { useNavigate } from "react-router-dom";
 
 const OverOns = () => {
@@ -90,16 +91,7 @@ const OverOns = () => {
 
                             <p className="mt-4">Ben jij klaar om beeldhouwer te worden van jouw Summerbody — voor het hele jaar?</p>
 
-                            <p
-                                style={{
-                                    color: "#ef4d16",
-                                    fontWeight: 700,
-                                    fontSize: "18px",
-                                    marginTop: "15px",
-                                }}
-                            >
-                                START JE NIEUWE LIFE STYLE VANDAAG!
-                            </p>
+                      
                             <div className="msbc-contact-detail">
                                 {/* Contact Button and Social Profiles */}
                                 <div className="msbc-left-detail">
@@ -153,6 +145,12 @@ const OverOns = () => {
                                 src={MarlonImg}
                                 alt="Men After"
                             />
+                            <div className="popup-btn" style={{ marginTop: '50px', display: 'flex', justifyContent: 'center' }}>
+                                <div id="video-button" className="video-button">
+                                    <VideoModal showAnimation />
+                                    <div id="vidBox"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

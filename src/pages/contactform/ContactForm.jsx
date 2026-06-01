@@ -6,6 +6,7 @@ import axios from "axios"
 import { useForm } from 'react-hook-form';
 
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+import "./ContactFormStartToday.css";
 
 const BASE_BACKEND_URL = process.env.REACT_APP_BASE_BACKEND_URL;
 
@@ -103,9 +104,9 @@ const ContactForm = () => {
     return (
         <>
             <TitleHeader title={'Contact'} />
-            <div className="container max-w-[1110px]">
+            <div className="container max-w-[1110px] px-5 md:px-0">
                 <div className="py-16">
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="">
 
                             <h3 class="contact form-h3">LAAT EEN BERICHT ACHTER</h3>
@@ -144,7 +145,7 @@ const ContactForm = () => {
                                 />
 
                                 <div>
-                                    <label className="block  mt-4 font-bold">Message:</label>
+                                    <label className="block  mt-4 font-bold">Bericht:</label>
                                     <textarea
                                         {...register("message", { required: "Message is required" })}
                                         className="w-full border rounded-md p-2 focus:ring-2 focus:ring-blue-500"
@@ -231,8 +232,10 @@ const ContactForm = () => {
 
                     </div>
                 </div>
+
+               
             </div>
-        </div >
+        </div>
 
         </>
     )

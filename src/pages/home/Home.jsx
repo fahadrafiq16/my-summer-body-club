@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import 'font-awesome/css/font-awesome.min.css';
 import Gallery from '../../sections/home/Gallery';
 import LifeStyle from '../../components/home/LifeStyle';
@@ -53,13 +54,13 @@ const Home = () => {
                 <div className="my-[20px]">
                   <VideoModal />
                 </div>
-                <a href="https://mysummerbodyclub.nl/bootcamp-page/">
+                <Link to="/bootcamp">
                   <img
                     className="bootcamp-link"
                     src={BootCampHome}
                     alt="bootcamp-link"
                   />
-                </a>
+                </Link>
               </div>
             </div>
           </div>

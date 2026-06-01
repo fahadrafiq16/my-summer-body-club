@@ -25,7 +25,7 @@ const StyleWant = () => {
                                 </h3>
                                 <p className="mb-4">Gezond leven begint met de juiste balans tussen beweging, voeding en mindset. Bij My Summerbody Club helpen we jou om fit te worden én te blijven. Of je nu wilt afvallen, spiermassa wilt opbouwen of werkt aan een gezondere levensstijl — wij bieden persoonlijke begeleiding, voedingsadvies en effectieve trainingsprogramma’s. Met onze doelgerichte aanpak wordt jouw Summer body haalbaar én houdbaar.</p>
 
-                                <div className="icon-features flex gap-4">
+                                <div className="icon-features flex flex-wrap md:flex-nowrap gap-4">
                                     <p>✅ Fit worden </p><p>✅ Gezond eten</p ><p>✅ Resultaat boeken</p>
                                 </div>
                                 <p className="italic font-bold">👉 Klaar voor de beste versie van jezelf?</p>

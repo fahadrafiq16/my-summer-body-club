@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'
 import Logo from '../../images/logo.png'
 import EmailIcon from '../../images/email.png'
@@ -7,11 +7,15 @@ import PhoneIcon from '../../images/mobile-phone.png'
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    const hamburgerClicked = () => {
-      const nav = document.getElementById('nav-ul');
-      nav.classList.toggle('show'); // Example of toggling a class
-      setIsMenuOpen((prevState) => !prevState); // Toggle the state
-    };
+    const toggleMenu = () => setIsMenuOpen((prev) => !prev);
+    const closeMenu = () => setIsMenuOpen(false);
+
+    useEffect(() => {
+        document.body.style.overflow = isMenuOpen ? 'hidden' : '';
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [isMenuOpen]);
 
     return (
         <header id="global-header">
@@ -49,8 +53,18 @@ const Header = () => {
                             />
                         </Link>
                     </div>
-                    <button className="hamburger" id="hamburger" onClick={hamburgerClicked}>
-                        <i className={`fas ${isMenuOpen ? 'fa-times' : 'fa-bars'}`}></i>
+                    <button
+                        type="button"
+                        className={`hamburger ${isMenuOpen ? 'hamburger--active' : ''}`}
+                        id="hamburger"
+                        onClick={toggleMenu}
+                        aria-expanded={isMenuOpen}
+                        aria-controls="nav-ul"
+                        aria-label={isMenuOpen ? 'Menu sluiten' : 'Menu openen'}
+                    >
+                        <span className="hamburger-line" />
+                        <span className="hamburger-line" />
+                        <span className="hamburger-line" />
                     </button>
                     <div className="contact-area">
                         <div className="email-area">
@@ -60,7 +74,7 @@ const Header = () => {
                             />
                             <div className="header-content">
                                 <h3>Email</h3>
-                                <p>info@mysummerbodyclub.nl</p>
+                                <Link to="/contact" className="header-email-link">info@mysummerbodyclub.nl</Link>
                             </div>
                         </div>
 
@@ -79,44 +93,48 @@ const Header = () => {
             </div>
 
             {/* Main Menu Area */}
-            <div className="main-menu-area">
-                <div className="container">
+            <div className={`main-menu-area ${isMenuOpen ? 'main-menu-area--open' : ''}`}>
+                <div className="container main-menu-area__container">
                     <div className="navigation-area">
-                        <nav className="nav-ul" id="nav-ul">
+                        <nav
+                            className={`nav-ul ${isMenuOpen ? 'nav-ul--open' : ''}`}
+                            id="nav-ul"
+                        >
                             <ul id="menu-menu-1">
                                 <li className="menu-item">
-                                    <Link to="/">Home</Link>
+                                    <Link to="/" onClick={closeMenu}>Home</Link>
                                 </li>
                                 <li className="menu-item">
-                                    <Link to="/over-msbc">Over MSBC</Link>
+                                    <Link to="/over-msbc" onClick={closeMenu}>Over MSBC</Link>
                                 </li>
                                 <li className="menu-item">
-                                    <Link to="/abonnement">Abonnementen</Link>
+                                    <Link to="/abonnement" onClick={closeMenu}>Abonnementen</Link>
                                 </li>
-                                
-
                                 <li className="menu-item">
-                                    <Link to="/bootcamp">Bootcamp</Link>
+                                    <Link to="/bootcamp" onClick={closeMenu}>Bootcamp</Link>
                                 </li>
-
                                 <li className="menu-item">
-                                    <Link to="/trainingprograms/pt-ruimte-training/payment-form">PT Ruimte Huren</Link>
+                                    <Link to="/pt-ruimte-huren" onClick={closeMenu}>PT Ruimte Huren</Link>
                                 </li>
-
                                 <li className="menu-item">
-                                    <Link to="/testimonial-uploader">Plaats Review</Link>
+                                    <Link to="/testimonial-uploader" onClick={closeMenu}>Plaats Review</Link>
                                 </li>
-
                                 <li className="menu-item">
-                                    <Link to="/contact">Contact</Link>
+                                    <Link to="/contact" onClick={closeMenu}>Contact</Link>
                                 </li>
-
-
                             </ul>
                         </nav>
                     </div>
                     <div className="right-icons"></div>
                 </div>
+                {isMenuOpen && (
+                    <button
+                        type="button"
+                        className="mobile-nav-backdrop"
+                        aria-label="Menu sluiten"
+                        onClick={closeMenu}
+                    />
+                )}
             </div>
         </header>
     );

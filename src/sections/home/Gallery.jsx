@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import Gallery1 from '../../images/gallery-1.jpg'
 import Gallery2 from '../../images/gallery-2.jpg'
 import Gallery3 from '../../images/gallery-3.jpg'
@@ -71,12 +72,12 @@ const Gallery = () => {
 
                     {/* Right Area */}
                     <div className="right-area">
-                        <a
+                        <Link
                             className="bordered-button"
-                            href="https://mysummerbodyclub.nl/fotos/"
+                            to="/proefles"
                         >
                             Hoe Graag Wil Je Het? Start Vandaag!
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </div>

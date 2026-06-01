@@ -8,26 +8,10 @@ import axios from 'axios'
 
 const AfvallenIntro = () => {
 
-    const addItem = async () => {
-
-        try {
-
-            const item = { name: 'Laptop', price: 122 };
-
-            const response = await axios.post("http://localhost:5000/add-item", item, {
-                headers: { "Content-Type": "application/json" },
-            });
-
-            console.log(response.data);
-
-        } catch (error) {
-            console.log("Error adding data", error);
-        }
-    };
-
+    
     return (
         <>
-            <button onClick={addItem}>Add</button>
+           
             <IntroductionCommon
                 title={'Afvallen Training'}
                 img1={Img1}

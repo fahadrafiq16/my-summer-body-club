@@ -68,6 +68,11 @@ const StepThree = ({ trainingDescription, paymentOptions, extraOptions, clubAmou
                 (option) => option.amount === watchedExtra
             );
             setExtraOption(matchedExtra);
+        } else {
+            setExtraOption({
+                amount: 0,
+                title: 'Geen',
+            });
         }
         if (selectedOption?.extra === false) {
             resetField("extraOption");
@@ -211,6 +216,7 @@ const StepThree = ({ trainingDescription, paymentOptions, extraOptions, clubAmou
                             control={control}
                             options={extraOptions}
                             required={false}
+                            allowDeselect
                         />
                     </>
                 )}
