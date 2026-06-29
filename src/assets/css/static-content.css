@@ -1,0 +1,194 @@
+/* Static legal / info pages — shared layout (Algemene voorwaarden, etc.) */
+
+#page-custom-content.static-content-page {
+  background: linear-gradient(180deg, #fafafa 0%, #ffffff 120px);
+  padding-top: 48px;
+  padding-bottom: 72px;
+}
+
+.static-content-page .container-800 {
+  max-width: 820px !important;
+}
+
+.static-content-page .custom-inner-content {
+  margin: 0;
+}
+
+.static-content-prose {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  font-family: "Heebo", sans-serif;
+  color: #333333;
+}
+
+/* Article cards */
+.static-article {
+  background: #ffffff;
+  border: 1px solid #e8e8e8;
+  border-radius: 12px;
+  padding: 28px 32px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+  transition: box-shadow 0.2s ease;
+}
+
+.static-article:hover {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+}
+
+.static-article__title {
+  margin: 0 0 16px 0 !important;
+  padding-bottom: 12px;
+  border-bottom: 3px solid #ef4d16;
+  font-family: "Heebo", sans-serif !important;
+  font-size: 1.35rem !important;
+  font-weight: 700 !important;
+  line-height: 1.35 !important;
+  color: #1a1a1a !important;
+  letter-spacing: -0.01em;
+}
+
+.static-subsection {
+  margin-top: 24px;
+  padding: 20px 22px;
+  background: #fafafa;
+  border-left: 4px solid #ef4d16;
+  border-radius: 0 8px 8px 0;
+}
+
+.static-subsection__title {
+  margin: 0 0 12px 0 !important;
+  font-family: "Heebo", sans-serif !important;
+  font-size: 1.05rem !important;
+  font-weight: 700 !important;
+  line-height: 1.4 !important;
+  color: #ef4d16 !important;
+}
+
+.static-content-prose p {
+  margin: 0 0 14px 0;
+  font-size: 16px;
+  line-height: 1.75 !important;
+  color: #414141 !important;
+}
+
+.static-content-prose p:last-child {
+  margin-bottom: 0;
+}
+
+.static-content-prose strong {
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+/* Lists */
+.static-content-prose ul,
+.static-content-prose ol {
+  margin: 0 0 16px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.static-content-prose ul:last-child,
+.static-content-prose ol:last-child {
+  margin-bottom: 0;
+}
+
+.static-content-prose ul li,
+.static-content-prose ol li {
+  position: relative;
+  margin-bottom: 10px;
+  padding-left: 36px;
+  font-size: 16px;
+  line-height: 1.7 !important;
+  color: #414141 !important;
+  border-top: none !important;
+}
+
+.static-content-prose ul li:last-child,
+.static-content-prose ol li:last-child {
+  margin-bottom: 0;
+}
+
+.static-content-prose ul li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 13px;
+  width: 24px;
+  height: 24px;
+  border-radius: 0;
+  background: transparent;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ef4d16'%3E%3Cpath d='M8.59 16.59 13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  transform: translateY(-50%);
+}
+
+.static-content-prose ol {
+  counter-reset: static-ol;
+}
+
+.static-content-prose ol li {
+  counter-increment: static-ol;
+  padding-left: 32px;
+}
+
+.static-content-prose ol li::before {
+  content: counter(static-ol) ".";
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-weight: 700;
+  color: #ef4d16;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.static-subsection ul li::before {
+  width: 26px;
+  height: 26px;
+  opacity: 0.9;
+}
+
+.static-subsection ul li {
+  padding-left: 38px;
+}
+
+/* Nested list after ol intro */
+.static-article > ol + ul {
+  margin-top: 8px;
+  margin-bottom: 18px;
+}
+
+.static-article > p + ol,
+.static-article > p + ul {
+  margin-top: 4px;
+}
+
+@media only screen and (max-width: 768px) {
+  #page-custom-content.static-content-page {
+    padding-top: 32px;
+    padding-bottom: 48px;
+  }
+
+  .static-article {
+    padding: 22px 20px;
+    border-radius: 10px;
+  }
+
+  .static-article__title {
+    font-size: 1.2rem !important;
+  }
+
+  .static-subsection {
+    padding: 16px 18px;
+  }
+
+  .static-content-prose p,
+  .static-content-prose ul li,
+  .static-content-prose ol li {
+    font-size: 15px;
+  }
+}

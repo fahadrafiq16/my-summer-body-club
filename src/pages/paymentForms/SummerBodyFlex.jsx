@@ -13,6 +13,7 @@ import {
 } from '../../data/SummerBodyFlex';
 import PaymentFormHeader from '../../components/common/PaymentFormHeader';
 import { getBackendBaseUrl } from '../../utils/backend';
+import { mergeTrainingDescriptionWithFeaturedImage } from '../../utils/programFeaturedImage';
 
 const PROGRAM_KEY = 'summerbody-flex';
 
@@ -39,9 +40,12 @@ const SummerBodyFlex = () => {
                     setClubAmount(data.clubAmount);
                 }
                 if (Array.isArray(data.trainingDescription) && data.trainingDescription.length > 0) {
-                    const localImage = defaultSummerBodyTrainingDescriptionFlex?.[0]?.featuredImage;
                     setSummerBodyTrainingDescriptionFlex(
-                        data.trainingDescription.map((d) => ({ ...d, featuredImage: localImage }))
+                        mergeTrainingDescriptionWithFeaturedImage(
+                            data.trainingDescription,
+                            defaultSummerBodyTrainingDescriptionFlex,
+                            data.featuredImageUrl
+                        )
                     );
                 }
             } catch (err) {

@@ -13,6 +13,7 @@ import {
 } from '../../data/WedstrijdTraining';
 import PaymentFormHeader from '../../components/common/PaymentFormHeader';
 import { getBackendBaseUrl } from '../../utils/backend';
+import { mergeTrainingDescriptionWithFeaturedImage } from '../../utils/programFeaturedImage';
 
 const PROGRAM_KEY = 'wedstrijd-training';
 
@@ -39,9 +40,12 @@ const WedstrijdTraining = () => {
                     setClubAmount(data.clubAmount);
                 }
                 if (Array.isArray(data.trainingDescription) && data.trainingDescription.length > 0) {
-                    const localImage = defaultWedstrijdTrainingDescription?.[0]?.featuredImage;
                     setWedstrijdTrainingDescription(
-                        data.trainingDescription.map((d) => ({ ...d, featuredImage: localImage }))
+                        mergeTrainingDescriptionWithFeaturedImage(
+                            data.trainingDescription,
+                            defaultWedstrijdTrainingDescription,
+                            data.featuredImageUrl
+                        )
                     );
                 }
             } catch (err) {

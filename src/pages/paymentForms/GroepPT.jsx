@@ -13,6 +13,7 @@ import {
 } from '../../data/GroepPT';
 import PaymentFormHeader from '../../components/common/PaymentFormHeader';
 import { getBackendBaseUrl } from '../../utils/backend';
+import { mergeTrainingDescriptionWithFeaturedImage } from '../../utils/programFeaturedImage';
 
 const PROGRAM_KEY = 'groep-pt';
 
@@ -39,9 +40,12 @@ const GroepPTTraining = () => {
                     setClubAmount(data.clubAmount);
                 }
                 if (Array.isArray(data.trainingDescription) && data.trainingDescription.length > 0) {
-                    const localImage = defaultGroepPtTrainingDescription?.[0]?.featuredImage;
                     setGroepPtTrainingDescription(
-                        data.trainingDescription.map((d) => ({ ...d, featuredImage: localImage }))
+                        mergeTrainingDescriptionWithFeaturedImage(
+                            data.trainingDescription,
+                            defaultGroepPtTrainingDescription,
+                            data.featuredImageUrl
+                        )
                     );
                 }
             } catch (err) {

@@ -28,6 +28,12 @@ import ContactForm from './pages/contactform/ContactForm';
 import Informatie from './pages/informatie/Informatie';
 import Proefles from './pages/proefles/Proefles';
 import TestimonialUploader from './pages/testimonialsuploader/TestimonialUploader';
+import AlgemeneVoorwaarden from './pages/static/AlgemeneVoorwaarden';
+import PrivacyVerklaring from './pages/static/PrivacyVerklaring';
+import Huisregels from './pages/static/Huisregels';
+import Cookies from './pages/static/Cookies';
+import HerroepingsRecht from './pages/static/HerroepingsRecht';
+import Sepa from './pages/static/Sepa';
 
 import AfvallenIntro from './pages/formsIntroduction/AfvallenIntro';
 import PersonalIntro from './pages/formsIntroduction/PersonalIntro';
@@ -90,6 +96,18 @@ function App() {
 
               <Route path="/informatie" element={<Informatie />} />
               <Route path="/proefles" element={<Proefles />} />
+              <Route path="/algemene-voorwaarden" element={<AlgemeneVoorwaarden />} />
+              <Route path="/algemene-voorwaarden/" element={<AlgemeneVoorwaarden />} />
+              <Route path="/privacyverklaring" element={<PrivacyVerklaring />} />
+              <Route path="/privacyverklaring/" element={<PrivacyVerklaring />} />
+              <Route path="/huisregels" element={<Huisregels />} />
+              <Route path="/huisregels/" element={<Huisregels />} />
+              <Route path="/cookies" element={<Cookies />} />
+              <Route path="/cookies/" element={<Cookies />} />
+              <Route path="/herroepings-recht" element={<HerroepingsRecht />} />
+              <Route path="/herroepings-recht/" element={<HerroepingsRecht />} />
+              <Route path="/sepa" element={<Sepa />} />
+              <Route path="/sepa/" element={<Sepa />} />
 
               <Route path="/trainingprograms/afvallen-training" element={<AfvallenIntro />} />
               <Route path="/trainingprograms/personal-training" element={<PersonalIntro />} />

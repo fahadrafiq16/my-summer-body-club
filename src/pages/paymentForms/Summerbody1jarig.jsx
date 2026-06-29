@@ -13,6 +13,7 @@ import {
 } from '../../data/Summerbody1jarig';
 import PaymentFormHeader from '../../components/common/PaymentFormHeader';
 import { getBackendBaseUrl } from '../../utils/backend';
+import { mergeTrainingDescriptionWithFeaturedImage } from '../../utils/programFeaturedImage';
 
 const PROGRAM_KEY = 'summerbody-1jarig';
 
@@ -39,9 +40,12 @@ const Summerbody1jarig = () => {
                     setClubAmount(data.clubAmount);
                 }
                 if (Array.isArray(data.trainingDescription) && data.trainingDescription.length > 0) {
-                    const localImage = defaultSummerBodyTrainingDescription?.[0]?.featuredImage;
                     setSummerBodyTrainingDescription(
-                        data.trainingDescription.map((d) => ({ ...d, featuredImage: localImage }))
+                        mergeTrainingDescriptionWithFeaturedImage(
+                            data.trainingDescription,
+                            defaultSummerBodyTrainingDescription,
+                            data.featuredImageUrl
+                        )
                     );
                 }
             } catch (err) {

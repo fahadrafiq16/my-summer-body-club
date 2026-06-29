@@ -4,7 +4,9 @@ import Modal from "react-modal";
 // Bind modal to appElement (required by react-modal)
 Modal.setAppElement("#root");
 
-const VideoModal = ({ showAnimation = false }) => {
+const DEFAULT_YOUTUBE_EMBED = "https://www.youtube.com/embed/3A8X8O4dT5E";
+
+const VideoModal = ({ showAnimation = false, youtubeUrl = DEFAULT_YOUTUBE_EMBED }) => {
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
     const openModal = () => setModalIsOpen(true);
@@ -78,7 +80,7 @@ const VideoModal = ({ showAnimation = false }) => {
                     <iframe
                         width="100%"
                         height="100%"
-                        src="https://www.youtube.com/embed/3A8X8O4dT5E"
+                        src={youtubeUrl || DEFAULT_YOUTUBE_EMBED}
                         title="YouTube Video"
                         frameBorder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

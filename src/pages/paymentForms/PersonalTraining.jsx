@@ -13,6 +13,7 @@ import {
 } from '../../data/PersonalTraining';
 import PaymentFormHeader from '../../components/common/PaymentFormHeader';
 import { getBackendBaseUrl } from '../../utils/backend';
+import { mergeTrainingDescriptionWithFeaturedImage } from '../../utils/programFeaturedImage';
 
 const PROGRAM_KEY = 'personal-training';
 
@@ -39,10 +40,12 @@ const PersonalTraining = () => {
                     setClubAmount(data.clubAmount);
                 }
                 if (Array.isArray(data.trainingDescription) && data.trainingDescription.length > 0) {
-                    // Preserve the local featuredImage import; DB cannot store the bundled asset
-                    const localImage = defaultTrainingDescription?.[0]?.featuredImage;
                     setTrainingDescription(
-                        data.trainingDescription.map((d) => ({ ...d, featuredImage: localImage }))
+                        mergeTrainingDescriptionWithFeaturedImage(
+                            data.trainingDescription,
+                            defaultTrainingDescription,
+                            data.featuredImageUrl
+                        )
                     );
                 }
             } catch (err) {

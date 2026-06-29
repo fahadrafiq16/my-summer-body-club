@@ -2,7 +2,8 @@ import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import { Card, CardContent } from "../ui/card";
 import { Button } from "../ui/button";
-import { Plus, Trash2, Save, RefreshCw, CheckCircle2, AlertCircle } from "lucide-react";
+import { Plus, Trash2, Save, RefreshCw, CheckCircle2, AlertCircle, ImageIcon } from "lucide-react";
+import { useDropzone } from "react-dropzone";
 import { getBackendBaseUrl } from "../../utils/backend";
 
 const AVAILABLE_PROGRAMS = [
@@ -106,6 +107,40 @@ function StringListEditor({ label, items, onChange }) {
   );
 }
 
+function FeaturedImageUpload({ preview, onFile, disabled }) {
+  const onDrop = (accepted) => {
+    const file = accepted?.[0];
+    if (file) onFile(file);
+  };
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    accept: { "image/*": [".png", ".jpg", ".jpeg", ".webp", ".gif"] },
+    maxSize: 5 * 1024 * 1024,
+    multiple: false,
+    disabled,
+  });
+
+  return (
+    <div
+      {...getRootProps()}
+      className={`border-2 border-dashed rounded-xl p-4 text-center cursor-pointer transition-colors min-h-[160px] flex items-center justify-center ${
+        isDragActive ? "border-[#ef4d16] bg-orange-50" : "border-gray-200 hover:border-[#ef4d16] hover:bg-orange-50"
+      } ${disabled ? "opacity-60 pointer-events-none" : ""}`}
+    >
+      <input {...getInputProps()} />
+      {preview ? (
+        <img src={preview} alt="" className="max-h-48 w-auto h-auto mx-auto rounded-lg object-contain" />
+      ) : (
+        <div className="text-sm text-gray-500 flex flex-col items-center gap-2">
+          <ImageIcon className="w-8 h-8 text-gray-400" />
+          <span>Sleep of klik om featured card image te uploaden</span>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function Programs() {
   const [programKey, setProgramKey] = useState(AVAILABLE_PROGRAMS[0].key);
   const [loading, setLoading] = useState(true);
@@ -117,6 +152,10 @@ export default function Programs() {
   const [extraOptions, setExtraOptions] = useState([]);
   const [clubAmount, setClubAmount] = useState([]);
   const [trainingDescription, setTrainingDescription] = useState([]);
+  const [featuredImageUrl, setFeaturedImageUrl] = useState("");
+  const [featuredImagePublicId, setFeaturedImagePublicId] = useState("");
+  const [pendingFeaturedFile, setPendingFeaturedFile] = useState(null);
+  const [featuredPreview, setFeaturedPreview] = useState("");
 
   const backendBaseUrl = useMemo(() => getBackendBaseUrl(), []);
 
@@ -130,6 +169,11 @@ export default function Programs() {
       setExtraOptions(Array.isArray(res.data?.extraOptions) ? res.data.extraOptions : []);
       setClubAmount(Array.isArray(res.data?.clubAmount) ? res.data.clubAmount : []);
       setTrainingDescription(Array.isArray(res.data?.trainingDescription) ? res.data.trainingDescription : []);
+      setFeaturedImageUrl(res.data?.featuredImageUrl || "");
+      setFeaturedImagePublicId(res.data?.featuredImagePublicId || "");
+      setPendingFeaturedFile(null);
+      if (featuredPreview) URL.revokeObjectURL(featuredPreview);
+      setFeaturedPreview("");
     } catch (e) {
       setError(e?.response?.data?.error || e?.message || "Failed to load program config");
     } finally {
@@ -141,16 +185,48 @@ export default function Programs() {
     load(programKey);
   }, [programKey]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  const uploadFeaturedImage = async (file) => {
+    const formData = new FormData();
+    formData.append("image", file);
+    const res = await axios.post(`${backendBaseUrl}/api/upload-image?folder=msbc/programs`, formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+    if (!res.data?.success) throw new Error(res.data?.error || "Image upload failed");
+    return { url: res.data.url, publicId: res.data.publicId };
+  };
+
   const save = async () => {
     try {
       setSaving(true);
       setStatus(null);
+
+      let nextFeaturedUrl = featuredImageUrl;
+      let nextFeaturedPublicId = featuredImagePublicId;
+
+      if (pendingFeaturedFile) {
+        const uploaded = await uploadFeaturedImage(pendingFeaturedFile);
+        nextFeaturedUrl = uploaded.url;
+        nextFeaturedPublicId = uploaded.publicId;
+      }
+
       const res = await axios.put(
         `${backendBaseUrl}/api/program-config/${programKey}`,
-        { paymentOptions, extraOptions, clubAmount, trainingDescription },
+        {
+          paymentOptions,
+          extraOptions,
+          clubAmount,
+          trainingDescription,
+          featuredImageUrl: nextFeaturedUrl,
+          featuredImagePublicId: nextFeaturedPublicId,
+        },
         { headers: { "Content-Type": "application/json", ...authHeaders() } }
       );
       if (res.data?.success !== false) {
+        setFeaturedImageUrl(res.data?.featuredImageUrl || nextFeaturedUrl);
+        setFeaturedImagePublicId(res.data?.featuredImagePublicId || nextFeaturedPublicId);
+        setPendingFeaturedFile(null);
+        if (featuredPreview) URL.revokeObjectURL(featuredPreview);
+        setFeaturedPreview("");
         setStatus({ type: "ok", text: "Opgeslagen in MongoDB" });
       } else {
         setStatus({ type: "err", text: res.data?.error || "Opslaan mislukt" });
@@ -230,6 +306,28 @@ export default function Programs() {
         <div className="text-sm text-gray-500">Laden...</div>
       ) : (
         <>
+          <Card className="bg-white shadow-sm border border-gray-200 rounded-2xl">
+            <CardContent className="p-6">
+              <h2 className="text-lg font-semibold mb-1">Featured Card Image</h2>
+              <p className="text-sm text-gray-500 mb-4">
+                Afbeelding op de training card voor{" "}
+                <span className="font-medium text-gray-700">
+                  {AVAILABLE_PROGRAMS.find((p) => p.key === programKey)?.label || programKey}
+                </span>{" "}
+                (Cloudinary + MongoDB).
+              </p>
+              <FeaturedImageUpload
+                preview={featuredPreview || featuredImageUrl}
+                disabled={loading || saving}
+                onFile={(file) => {
+                  if (featuredPreview) URL.revokeObjectURL(featuredPreview);
+                  setPendingFeaturedFile(file);
+                  setFeaturedPreview(URL.createObjectURL(file));
+                }}
+              />
+            </CardContent>
+          </Card>
+
           {/* Payment Options */}
           <Card className="bg-white shadow-sm border border-gray-200 rounded-2xl">
             <CardContent className="p-6">

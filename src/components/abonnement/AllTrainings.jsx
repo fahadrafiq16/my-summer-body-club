@@ -6,6 +6,7 @@ import { afvallenTrainingDescription as defaultAfvallenTrainingDescription } fro
 import { groepPtTrainingDescription as defaultGroepPtTrainingDescription } from '../../data/GroepPT';
 import { wedstrijdTrainingDescription as defaultWedstrijdTrainingDescription } from '../../data/WedstrijdTraining';
 import { getBackendBaseUrl } from '../../utils/backend';
+import { mergeTrainingDescriptionWithFeaturedImage } from '../../utils/programFeaturedImage';
 import { summerBodyTrainingDescription as defaultSummerBodyTrainingDescription } from '../../data/Summerbody1jarig';
 import { summerBodyTrainingDescription6Maanden as defaultSummerBodyTrainingDescription6Maanden } from '../../data/Summerbody6maanden';
 import { summerBodyTrainingDescriptionFlex as defaultSummerBodyTrainingDescriptionFlex } from '../../data/SummerBodyFlex';
@@ -71,32 +72,43 @@ const AllTrainings = () => {
     const [summerBodyTrainingDescription, setSummerBodyTrainingDescription] = useState(defaultSummerBodyTrainingDescription);
     const [summerBodyTrainingDescription6Maanden, setSummerBodyTrainingDescription6Maanden] = useState(defaultSummerBodyTrainingDescription6Maanden);
     const [summerBodyTrainingDescriptionFlex, setSummerBodyTrainingDescriptionFlex] = useState(defaultSummerBodyTrainingDescriptionFlex);
+    const [summerbody1jarigImage, setSummerbody1jarigImage] = useState("");
+    const [summerbody6MaandenImage, setSummerbody6MaandenImage] = useState("");
+    const [summerbodyFlexImage, setSummerbodyFlexImage] = useState("");
+    const [personalTrainingImage, setPersonalTrainingImage] = useState("");
+    const [groepPtImage, setGroepPtImage] = useState("");
+    const [wedstrijdTrainingImage, setWedstrijdTrainingImage] = useState("");
+    const [afvallenTrainingImage, setAfvallenTrainingImage] = useState("");
 
     useEffect(() => {
         let cancelled = false;
         const backendBase = getBackendBaseUrl();
 
-        const fetchProgram = async (key, fallback, setter) => {
+        const fetchProgram = async (key, fallback, setter, setFeaturedImage) => {
             try {
                 const res = await axios.get(`${backendBase}/api/program-config/${key}`);
                 if (cancelled) return;
-                const list = res?.data?.trainingDescription;
-                if (Array.isArray(list) && list.length > 0) {
-                    const localImage = fallback?.[0]?.featuredImage;
-                    setter(list.map((d) => ({ ...d, featuredImage: localImage })));
+                const data = res?.data || {};
+                const list = Array.isArray(data.trainingDescription) && data.trainingDescription.length > 0
+                    ? data.trainingDescription
+                    : fallback;
+                const merged = mergeTrainingDescriptionWithFeaturedImage(list, fallback, data.featuredImageUrl);
+                setter(merged);
+                if (setFeaturedImage) {
+                    setFeaturedImage(data.featuredImageUrl || "");
                 }
             } catch (err) {
                 console.warn(`Falling back to static ${key} description:`, err?.message);
             }
         };
 
-        fetchProgram('personal-training', defaultPersonalTrainingDescription, setTrainingDescription);
-        fetchProgram('groep-pt', defaultGroepPtTrainingDescription, setGroepPtTrainingDescription);
-        fetchProgram('wedstrijd-training', defaultWedstrijdTrainingDescription, setWedstrijdTrainingDescription);
-        fetchProgram('afvallen-training', defaultAfvallenTrainingDescription, setAfvallenTrainingDescription);
-        fetchProgram('summerbody-1jarig', defaultSummerBodyTrainingDescription, setSummerBodyTrainingDescription);
-        fetchProgram('summerbody-6-maanden', defaultSummerBodyTrainingDescription6Maanden, setSummerBodyTrainingDescription6Maanden);
-        fetchProgram('summerbody-flex', defaultSummerBodyTrainingDescriptionFlex, setSummerBodyTrainingDescriptionFlex);
+        fetchProgram('personal-training', defaultPersonalTrainingDescription, setTrainingDescription, setPersonalTrainingImage);
+        fetchProgram('groep-pt', defaultGroepPtTrainingDescription, setGroepPtTrainingDescription, setGroepPtImage);
+        fetchProgram('wedstrijd-training', defaultWedstrijdTrainingDescription, setWedstrijdTrainingDescription, setWedstrijdTrainingImage);
+        fetchProgram('afvallen-training', defaultAfvallenTrainingDescription, setAfvallenTrainingDescription, setAfvallenTrainingImage);
+        fetchProgram('summerbody-1jarig', defaultSummerBodyTrainingDescription, setSummerBodyTrainingDescription, setSummerbody1jarigImage);
+        fetchProgram('summerbody-6-maanden', defaultSummerBodyTrainingDescription6Maanden, setSummerBodyTrainingDescription6Maanden, setSummerbody6MaandenImage);
+        fetchProgram('summerbody-flex', defaultSummerBodyTrainingDescriptionFlex, setSummerBodyTrainingDescriptionFlex, setSummerbodyFlexImage);
 
         return () => { cancelled = true; };
     }, []);
@@ -120,9 +132,18 @@ const AllTrainings = () => {
                         <h2>My Summerbody Club  <span>Abonnementen</span></h2>
                     </div>
                     <div className="our-trainers">
-                        <TrainingBox trainingDescription={summerBodyTrainingDescription} />
-                        <TrainingBox trainingDescription={summerBodyTrainingDescription6Maanden} />
-                        <TrainingBox trainingDescription={summerBodyTrainingDescriptionFlex} />
+                        <TrainingBox
+                            trainingDescription={summerBodyTrainingDescription}
+                            featuredImageUrl={summerbody1jarigImage}
+                        />
+                        <TrainingBox
+                            trainingDescription={summerBodyTrainingDescription6Maanden}
+                            featuredImageUrl={summerbody6MaandenImage}
+                        />
+                        <TrainingBox
+                            trainingDescription={summerBodyTrainingDescriptionFlex}
+                            featuredImageUrl={summerbodyFlexImage}
+                        />
                     </div>
 
                     <div className="begin-lifestyle begin-lifestyle-home md:my-[100px]">
@@ -161,17 +182,28 @@ const AllTrainings = () => {
                         onSlideChange={() => console.log('slide change')}
                     >
                         <SwiperSlide>
-                            <TrainingBox trainingDescription={trainingDescription} />
+                            <TrainingBox
+                                trainingDescription={trainingDescription}
+                                featuredImageUrl={personalTrainingImage}
+                            />
                         </SwiperSlide>
                         <SwiperSlide>
-                            <TrainingBox trainingDescription={groepPtTrainingDescription} />
-
+                            <TrainingBox
+                                trainingDescription={groepPtTrainingDescription}
+                                featuredImageUrl={groepPtImage}
+                            />
                         </SwiperSlide>
                         <SwiperSlide>
-                            <TrainingBox trainingDescription={wedstrijdTrainingDescription} />
+                            <TrainingBox
+                                trainingDescription={wedstrijdTrainingDescription}
+                                featuredImageUrl={wedstrijdTrainingImage}
+                            />
                         </SwiperSlide>
                         <SwiperSlide>
-                            <TrainingBox trainingDescription={afvallenTrainingDescription} />
+                            <TrainingBox
+                                trainingDescription={afvallenTrainingDescription}
+                                featuredImageUrl={afvallenTrainingImage}
+                            />
                         </SwiperSlide>
                         <br />
                     </Swiper>
