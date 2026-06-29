@@ -110,7 +110,7 @@ const TestimonialUploader = () => {
         }
     };
 
-    const dropzoneCls = `border-2 border-dashed rounded-md p-4 text-center cursor-pointer transition-colors h-full min-h-[140px] flex items-center justify-center ${
+    const dropzoneCls = `border-2 border-dashed rounded-md px-2 py-3 text-center cursor-pointer transition-colors w-full min-h-[120px] flex items-center justify-center ${
         isDragReject
             ? "border-red-400 bg-red-50"
             : isDragActive
@@ -161,9 +161,9 @@ const TestimonialUploader = () => {
                 </div>
 
                 {/* Rating + Image (side by side) */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="flex flex-col md:flex-row md:items-start gap-6 md:gap-8">
                     {/* Rating */}
-                    <div>
+                    <div className="shrink-0">
                         <label className="block font-semibold mb-2">
                             Rating <span className="text-red-500">*</span>
                         </label>
@@ -200,7 +200,7 @@ const TestimonialUploader = () => {
                     </div>
 
                     {/* Image upload (react-dropzone) */}
-                    <div>
+                    <div className="w-full max-w-[140px] shrink-0 md:ml-[20%]">
                         <label className="block font-semibold mb-2">
                             Foto <span className="text-gray-400 text-sm">(optional)</span>
                         </label>
@@ -208,24 +208,24 @@ const TestimonialUploader = () => {
                         {!preview ? (
                             <div {...getRootProps()} className={dropzoneCls}>
                                 <input {...getInputProps()} />
-                                <div className="text-sm text-gray-600">
+                                <div className="text-xs text-gray-600 leading-snug px-1">
                                     {isDragActive
-                                        ? "Drop the image here…"
-                                        : "Sleep een foto hierheen, of klik om te selecteren"}
-                                    <div className="text-xs text-gray-400 mt-1">PNG / JPG / WEBP — max 5 MB</div>
+                                        ? "Drop here…"
+                                        : "Sleep of klik om foto te selecteren"}
+                                    <div className="text-[10px] text-gray-400 mt-1">max 5 MB</div>
                                 </div>
                             </div>
                         ) : (
-                            <div className="relative rounded-md overflow-hidden border h-full min-h-[140px] flex items-center justify-center bg-gray-50">
+                            <div className="relative rounded-md overflow-hidden border w-full min-h-[120px] flex items-center justify-center bg-gray-50">
                                 <img
                                     src={preview}
                                     alt="preview"
-                                    className="max-h-[180px] w-auto object-contain"
+                                    className="max-h-[112px] max-w-full w-auto object-contain"
                                 />
                                 <button
                                     type="button"
                                     onClick={removeImage}
-                                    className="absolute top-2 right-2 bg-white/90 text-red-600 rounded-full w-7 h-7 flex items-center justify-center shadow hover:bg-white"
+                                    className="absolute top-1 right-1 bg-white/90 text-red-600 rounded-full w-6 h-6 text-sm flex items-center justify-center shadow hover:bg-white"
                                     aria-label="Remove image"
                                 >
                                     ×
