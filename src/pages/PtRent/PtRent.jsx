@@ -2,7 +2,10 @@ import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import TitleHeader from '../../components/common/TitleHeader'
 import PtRentHeroImg from '../../images/groep-pt.png'
+import { usePageHeroImage } from '../../hooks/usePageHeroImage'
 import './PtRent.css'
+
+const SECTION_KEY = 'pt-rent-page'
 
 const checklistItems = [
   'Eigen baas',
@@ -12,6 +15,8 @@ const checklistItems = [
 ]
 
 const PtRent = () => {
+  const heroImageUrl = usePageHeroImage(SECTION_KEY)
+
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
@@ -28,7 +33,7 @@ const PtRent = () => {
 
           <img
             className="pt-rent-hero-img"
-            src={PtRentHeroImg}
+            src={heroImageUrl || PtRentHeroImg}
             alt="My Summerbody Club gym"
           />
 

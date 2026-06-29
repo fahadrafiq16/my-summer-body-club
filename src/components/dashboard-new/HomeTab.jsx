@@ -6,6 +6,7 @@ import HomeLifeStyle from "./HomeLifeStyle";
 import HomePopUpVideo from "./HomePopUpVideo";
 import HomeGallery from "./HomeGallery";
 import HomeFooter from "./HomeFooter";
+import HomePageHeroImage from "./HomePageHeroImage";
 
 const SECTIONS = [
   {
@@ -47,6 +48,42 @@ const SECTIONS = [
     descriptionNl: "4 kolommen: menu's, logo, Facebook feed en social media links.",
     descriptionEn: "4 columns: menus, logo, Facebook feed and social media links.",
     render: (lang) => <HomeFooter lang={lang} embedded />,
+  },
+  {
+    key: "bootcamp",
+    labelNl: "Bootcamp",
+    labelEn: "Bootcamp",
+    descriptionNl: "Hero-afbeelding op de Bootcamp-pagina (/bootcamp).",
+    descriptionEn: "Hero image on the Bootcamp page (/bootcamp).",
+    render: (lang) => (
+      <HomePageHeroImage
+        sectionKey="bootcamp-page"
+        title="Bootcamp"
+        uploadFolder="msbc/bootcamp"
+        lang={lang}
+        embedded
+        hintNl="Wordt getoond rechts op de Bootcamp-pagina."
+        hintEn="Shown on the right side of the Bootcamp page."
+      />
+    ),
+  },
+  {
+    key: "pt-rent",
+    labelNl: "PT Ruimte Huren",
+    labelEn: "PT Ruimte Huren",
+    descriptionNl: "Hero-afbeelding op de PT Ruimte Huren-pagina (/pt-ruimte-huren).",
+    descriptionEn: "Hero image on the PT Ruimte Huren page (/pt-ruimte-huren).",
+    render: (lang) => (
+      <HomePageHeroImage
+        sectionKey="pt-rent-page"
+        title="PT Ruimte Huren"
+        uploadFolder="msbc/pt-rent"
+        lang={lang}
+        embedded
+        hintNl="Wordt getoond onder de kop op de PT Ruimte Huren-pagina."
+        hintEn="Shown below the headline on the PT Ruimte Huren page."
+      />
+    ),
   },
 ];
 

@@ -2,8 +2,13 @@ import React from 'react'
 import TitleHeader from '../../components/common/TitleHeader'
 import BootcampImg from '../../images/bootcamp-2025.png'
 import { Link } from 'react-router-dom'
+import { usePageHeroImage } from '../../hooks/usePageHeroImage'
+
+const SECTION_KEY = 'bootcamp-page'
 
 const Bootcamp = () => {
+    const heroImageUrl = usePageHeroImage(SECTION_KEY)
+
     return (
         <>
             <TitleHeader title={'Bootcamp'} />
@@ -46,14 +51,10 @@ const Bootcamp = () => {
 
                 {/* Right Content */}
                 <div className="flex flex-col items-center text-center space-y-4">
-                    <img src={BootcampImg} alt="My Summerbody Club" />
-                    <button class="bg-[#49539B] hover:bg-orange-700 text-white text-[18px] font-bold py-3 px-6 rounded">
+                    <img src={heroImageUrl || BootcampImg} alt="My Summerbody Club" />
+                    <button className="bg-[#49539B] hover:bg-orange-700 text-white text-[18px] font-bold py-3 px-6 rounded">
                        <Link to="/trainingprograms/bootcamp-training/payment-form">Registreren Bootcamp</Link>
-                        
                     </button>
-
-                    
-
                 </div>
             </div>
 
