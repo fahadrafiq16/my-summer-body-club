@@ -34,6 +34,8 @@ import Huisregels from './pages/static/Huisregels';
 import Cookies from './pages/static/Cookies';
 import HerroepingsRecht from './pages/static/HerroepingsRecht';
 import Sepa from './pages/static/Sepa';
+import Fotos from './pages/Fotos/Fotos';
+import FotosGalleryDetail from './pages/Fotos/FotosGalleryDetail';
 
 import AfvallenIntro from './pages/formsIntroduction/AfvallenIntro';
 import PersonalIntro from './pages/formsIntroduction/PersonalIntro';
@@ -87,6 +89,8 @@ function App() {
             <Route element={<MainLayout />}>
               <Route path="/" element={<Home />} />
               <Route path="/over-msbc" element={<OverMSBC />} />
+              <Route path="/fotos" element={<Fotos />} />
+              <Route path="/fotos/:slug" element={<FotosGalleryDetail />} />
               <Route path="/abonnement" element={<Abonnement />} />
               <Route path="/trainers" element={<Trainers />} />
               <Route path="/bootcamp" element={<Bootcamp />} />

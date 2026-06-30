@@ -120,6 +120,9 @@ const Header = () => {
                                     <Link to="/testimonial-uploader" onClick={closeMenu}>Plaats Review</Link>
                                 </li>
                                 <li className="menu-item">
+                                    <Link to="/fotos" onClick={closeMenu}>Gallery</Link>
+                                </li>
+                                <li className="menu-item">
                                     <Link to="/contact" onClick={closeMenu}>Contact</Link>
                                 </li>
                             </ul>

@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import { useDropzone } from "react-dropzone";
 import { Button } from "../ui/button";
-import { Save, RefreshCw, CheckCircle2, AlertCircle, ImageIcon } from "lucide-react";
+import { Save, RefreshCw, CheckCircle2, AlertCircle, ImageIcon, Trash2 } from "lucide-react";
 import { getBackendBaseUrl } from "../../utils/backend";
 
 const SECTION_KEY = "lifestyle-video";
@@ -21,7 +21,7 @@ function authHeaders() {
 const inputCls =
   "w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#ef4d16]";
 
-function BannerUpload({ preview, onFile, lang, disabled }) {
+function BannerUpload({ preview, onFile, onDelete, lang, disabled, canDelete }) {
   const onDrop = (accepted) => {
     const file = accepted?.[0];
     if (file) onFile(file);
@@ -37,9 +37,22 @@ function BannerUpload({ preview, onFile, lang, disabled }) {
 
   return (
     <div>
-      <span className="block text-xs font-medium text-gray-600 mb-1">
-        {lang === "nl" ? "Bannerafbeelding" : "Banner image"}
-      </span>
+      <div className="flex items-center justify-between gap-3 mb-1">
+        <span className="block text-xs font-medium text-gray-600">
+          {lang === "nl" ? "Bannerafbeelding" : "Banner image"}
+        </span>
+        {canDelete && (
+          <button
+            type="button"
+            onClick={onDelete}
+            disabled={disabled}
+            className="inline-flex items-center gap-1.5 text-xs font-medium text-red-600 hover:text-red-700 disabled:opacity-50"
+          >
+            <Trash2 className="w-3.5 h-3.5" />
+            {lang === "nl" ? "Banner verwijderen" : "Remove banner"}
+          </button>
+        )}
+      </div>
       <div
         {...getRootProps()}
         className={`border-2 border-dashed rounded-xl p-3 text-center cursor-pointer transition-colors min-h-[120px] flex items-center justify-center ${
@@ -111,6 +124,15 @@ export default function HomeLifeStyle({ lang = "nl", embedded = false }) {
     });
     if (!res.data?.success) throw new Error(res.data?.error || "Banner upload failed");
     return { url: res.data.url, publicId: res.data.publicId };
+  };
+
+  const removeBanner = () => {
+    if (bannerPreview) URL.revokeObjectURL(bannerPreview);
+    setPendingBannerFile(null);
+    setBannerPreview("");
+    setBannerImageUrl("");
+    setBannerImagePublicId("");
+    setStatus(null);
   };
 
   const save = async () => {
@@ -209,6 +231,8 @@ export default function HomeLifeStyle({ lang = "nl", embedded = false }) {
         preview={bannerPreview || bannerImageUrl}
         lang={lang}
         disabled={loading || saving}
+        canDelete={Boolean(bannerPreview || bannerImageUrl)}
+        onDelete={removeBanner}
         onFile={(file) => {
           if (bannerPreview) URL.revokeObjectURL(bannerPreview);
           setPendingBannerFile(file);

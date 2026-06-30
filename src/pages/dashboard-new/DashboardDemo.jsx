@@ -6,6 +6,7 @@ import Dashboard from "../../components/dashboard-new/Dashboard";
 import Finance from "../../components/dashboard-new/Finance";
 import Programs from "../../components/dashboard-new/Programs";
 import Reviews from "../../components/dashboard-new/Reviews";
+import FotosGalleryAdmin from "../../components/dashboard-new/FotosGalleryAdmin";
 import HomeTab from "../../components/dashboard-new/HomeTab";
 import { useAuth } from "../../context/AuthContext";
 import { motion } from "framer-motion";
@@ -29,6 +30,7 @@ import {
   Mail,
   MessageSquare,
   Home,
+  Images,
   LogIn,
   LogOut,
   ArrowLeft,
@@ -68,6 +70,8 @@ const i18n = {
       programs: "Programs",
       reviews: "Reviews",
       home: "Home",
+      gallery: "Gallery",
+      contentMenu: "Website",
       portal: "Member portal",
     },
     roles: { admin: "Admin", staff: "Staff" },
@@ -199,6 +203,8 @@ const i18n = {
       programs: "Programs",
       reviews: "Reviews",
       home: "Home",
+      gallery: "Gallery",
+      contentMenu: "Website",
       portal: "Member portal",
     },
     roles: { admin: "Admin", staff: "Staff" },
@@ -451,6 +457,67 @@ function NavButton({ icon, label, active, collapsed, onClick }) {
       <span className="shrink-0">{icon}</span>
       {!collapsed && <span className="truncate">{label}</span>}
     </button>
+  );
+}
+
+const CONTENT_TABS = ["home", "programs", "gallery", "reviews"];
+
+function NavSubButton({ icon, label, active, onClick }) {
+  return (
+    <li>
+      <button
+        type="button"
+        onClick={onClick}
+        className={`w-full flex items-center gap-2.5 pl-11 pr-4 py-2.5 rounded-xl text-left text-sm transition ${active ? "bg-gray-100 font-semibold text-gray-900" : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"}`}
+      >
+        <span className="shrink-0">{icon}</span>
+        <span className="truncate">{label}</span>
+      </button>
+    </li>
+  );
+}
+
+function NavGroup({ icon, label, collapsed, open, onToggle, active, items, tab, setTab, onExpandSidebar }) {
+  const handleParentClick = () => {
+    if (collapsed) {
+      onExpandSidebar?.();
+      onToggle(true);
+      return;
+    }
+    onToggle(!open);
+  };
+
+  return (
+    <div>
+      <button
+        type="button"
+        onClick={handleParentClick}
+        title={collapsed ? label : undefined}
+        className={`relative w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition ${active ? "bg-gray-100 font-semibold" : "hover:bg-gray-50"}`}
+      >
+        {active && <span className="absolute left-0 top-2 bottom-2 w-1 bg-black rounded-r-full" />}
+        <span className="shrink-0">{icon}</span>
+        {!collapsed && (
+          <>
+            <span className="truncate flex-1">{label}</span>
+            <ChevronRight className={`w-4 h-4 shrink-0 text-gray-400 transition-transform ${open ? "rotate-90" : ""}`} />
+          </>
+        )}
+      </button>
+      {!collapsed && open && (
+        <ul className="mt-1 space-y-0.5 list-none m-0 p-0">
+          {items.map((item) => (
+            <NavSubButton
+              key={item.id}
+              icon={item.icon}
+              label={item.label}
+              active={tab === item.id}
+              onClick={() => setTab(item.id)}
+            />
+          ))}
+        </ul>
+      )}
+    </div>
   );
 }
 
@@ -1878,6 +1945,7 @@ export default function DashboardDemo() {
   const [role, setRole] = useState("admin");
   const [tab, setTab] = useState("dashboard");
   const [collapsed, setCollapsed] = useState(false);
+  const [contentOpen, setContentOpen] = useState(false);
   const [locationId, setLocationId] = useState(LOCATIONS[0].id);
 
   const isMember = user?.role === "member";
@@ -1885,6 +1953,10 @@ export default function DashboardDemo() {
   useEffect(() => {
     runSelfTests();
   }, []);
+
+  useEffect(() => {
+    if (CONTENT_TABS.includes(tab)) setContentOpen(true);
+  }, [tab]);
 
   const onLogout = () => {
     logout();
@@ -1902,6 +1974,12 @@ export default function DashboardDemo() {
 
   const t = i18n[lang];
   const location = LOCATIONS.find((l) => l.id === locationId) ?? LOCATIONS[0];
+  const contentNavItems = [
+    { id: "home", label: t.tabs.home, icon: <Home className="w-4 h-4" /> },
+    { id: "programs", label: t.tabs.programs, icon: <FileText className="w-4 h-4" /> },
+    { id: "gallery", label: t.tabs.gallery, icon: <Images className="w-4 h-4" /> },
+    { id: "reviews", label: t.tabs.reviews, icon: <MessageSquare className="w-4 h-4" /> },
+  ];
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900">
@@ -1922,9 +2000,18 @@ export default function DashboardDemo() {
             <NavButton icon={<Shield className="w-5 h-5" />} label={t.tabs.finance} active={tab === "finance"} collapsed={collapsed} onClick={() => setTab("finance")} />
             <NavButton icon={<Receipt className="w-5 h-5" />} label={t.tabs.invoices} active={tab === "invoices"} collapsed={collapsed} onClick={() => setTab("invoices")} />
             <NavButton icon={<CalendarClock className="w-5 h-5" />} label={t.tabs.automations} active={tab === "automations"} collapsed={collapsed} onClick={() => setTab("automations")} />
-            <NavButton icon={<FileText className="w-5 h-5" />} label={t.tabs.programs} active={tab === "programs"} collapsed={collapsed} onClick={() => setTab("programs")} />
-            <NavButton icon={<Home className="w-5 h-5" />} label={t.tabs.home} active={tab === "home"} collapsed={collapsed} onClick={() => setTab("home")} />
-            <NavButton icon={<MessageSquare className="w-5 h-5" />} label={t.tabs.reviews} active={tab === "reviews"} collapsed={collapsed} onClick={() => setTab("reviews")} />
+            <NavGroup
+              icon={<Globe className="w-5 h-5" />}
+              label={t.tabs.contentMenu}
+              collapsed={collapsed}
+              open={contentOpen}
+              onToggle={setContentOpen}
+              active={CONTENT_TABS.includes(tab)}
+              items={contentNavItems}
+              tab={tab}
+              setTab={setTab}
+              onExpandSidebar={() => setCollapsed(false)}
+            />
             <NavButton icon={<LogIn className="w-5 h-5" />} label={t.tabs.portal} active={tab === "portal"} collapsed={collapsed} onClick={() => setTab("portal")} />
           </div>
           {!collapsed && (
@@ -1971,6 +2058,7 @@ export default function DashboardDemo() {
           {tab === "automations" && <AutomationsTab lang={lang} />}
           {tab === "programs" && <Programs />}
           {tab === "home" && <HomeTab lang={lang} />}
+          {tab === "gallery" && <FotosGalleryAdmin />}
           {tab === "reviews" && <Reviews lang={lang} />}
           {tab === "portal" && <PortalTab lang={lang} />}
         </main>

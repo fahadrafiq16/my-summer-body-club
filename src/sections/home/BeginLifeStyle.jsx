@@ -29,9 +29,7 @@ export default function BeginLifeStyle() {
           if (data.section.youtubeEmbedUrl) {
             setYoutubeUrl(data.section.youtubeEmbedUrl);
           }
-          if (data.section.bannerImageUrl) {
-            setBannerImageUrl(data.section.bannerImageUrl);
-          }
+          setBannerImageUrl(data.section.bannerImageUrl || "");
         }
       } catch {
         if (isMounted) setYoutubeUrl(DEFAULT_EMBED);
@@ -49,23 +47,11 @@ export default function BeginLifeStyle() {
       <div className="container max-w-[1110px] mx-auto">
         <div className="video-area-life" style={{ paddingBottom: "40px" }}>
           <div className="lifestyle-banner">
-            {bannerImageUrl ? (
+            {bannerImageUrl && (
               <img
                 src={bannerImageUrl}
                 alt="Begin een nieuwe lifestyle"
                 style={{ width: "auto", height: "auto", maxWidth: "100%" }}
-              />
-            ) : (
-              <div
-                className="lifestyle-banner-placeholder"
-                style={{
-                  width: "100%",
-                  minHeight: "400px",
-                  background: "linear-gradient(135deg, #f5f5f5 0%, #ebebeb 100%)",
-                  borderRadius: "8px",
-                  border: "1px dashed #d1d5db",
-                }}
-                aria-hidden="true"
               />
             )}
           </div>

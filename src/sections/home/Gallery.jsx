@@ -9,8 +9,8 @@ import { getBackendBaseUrl } from "../../utils/backend";
 
 const SECTION_KEY = "gallery";
 const GALLERY_DIV_CLASSES = ["div1", "div2", "div3", "div4", "div5"];
-const DEFAULT_PHOTOS_URL = "https://mysummerbodyclub.nl/fotos/";
-const DEFAULT_VIDEOS_URL = "https://mysummerbodyclub.nl/fotos/";
+const DEFAULT_PHOTOS_URL = "/fotos";
+const DEFAULT_VIDEOS_URL = "/fotos";
 
 const FALLBACK_ITEMS = [
   { image: Gallery1, linkUrl: "https://mysummerbodyclub.nl/trainingfotos/meeting-the-best-2/" },
@@ -89,10 +89,18 @@ const Gallery = () => {
               </div>
               <div className="flex gap-4">
                 <div className="button-gallery">
-                  <a href={photosButtonUrl}>Photos</a>
+                  {photosButtonUrl.startsWith("/") ? (
+                    <Link to={photosButtonUrl}>Photos</Link>
+                  ) : (
+                    <a href={photosButtonUrl}>Photos</a>
+                  )}
                 </div>
                 <div className="button-gallery">
-                  <a href={videosButtonUrl}>Videos</a>
+                  {videosButtonUrl.startsWith("/") ? (
+                    <Link to={videosButtonUrl}>Videos</Link>
+                  ) : (
+                    <a href={videosButtonUrl}>Videos</a>
+                  )}
                 </div>
               </div>
             </div>

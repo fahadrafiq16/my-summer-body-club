@@ -7,8 +7,8 @@ import { getBackendBaseUrl } from "../../utils/backend";
 
 const SECTION_KEY = "gallery";
 const GALLERY_COUNT = 5;
-const DEFAULT_PHOTOS_URL = "https://mysummerbodyclub.nl/fotos/";
-const DEFAULT_VIDEOS_URL = "https://mysummerbodyclub.nl/fotos/";
+const DEFAULT_PHOTOS_URL = "/fotos";
+const DEFAULT_VIDEOS_URL = "/fotos";
 
 const DEFAULT_LINKS = [
   "https://mysummerbodyclub.nl/trainingfotos/meeting-the-best-2/",
