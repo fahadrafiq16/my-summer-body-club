@@ -76,8 +76,8 @@ const Gallery = () => {
   }, [apiUrl]);
 
   return (
-    <section id="home-gallery" className="padding-bottom mt-[100px]">
-      <div className="container">
+    <section id="home-gallery" className="padding-bottom mt-[100px] max-md:mt-[60px]">
+      <div className="container max-w-[1110px] mx-auto px-4">
         <div className="gallery-inner">
           <div className="title-area">
             <div className="inner-title-area">

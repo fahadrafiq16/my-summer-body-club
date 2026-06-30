@@ -79,10 +79,23 @@ const AllTrainings = () => {
     const [groepPtImage, setGroepPtImage] = useState("");
     const [wedstrijdTrainingImage, setWedstrijdTrainingImage] = useState("");
     const [afvallenTrainingImage, setAfvallenTrainingImage] = useState("");
+    const [clubSubscriptionsVisible, setClubSubscriptionsVisible] = useState(true);
 
     useEffect(() => {
         let cancelled = false;
         const backendBase = getBackendBaseUrl();
+
+        const fetchClubSubscriptionsVisibility = async () => {
+            try {
+                const res = await axios.get(`${backendBase}/api/fetch-home-section/club-subscriptions`);
+                if (cancelled) return;
+                if (res.data?.success && res.data.section) {
+                    setClubSubscriptionsVisible(res.data.section.isActive !== false);
+                }
+            } catch {
+                if (!cancelled) setClubSubscriptionsVisible(true);
+            }
+        };
 
         const fetchProgram = async (key, fallback, setter, setFeaturedImage) => {
             try {
@@ -109,6 +122,7 @@ const AllTrainings = () => {
         fetchProgram('summerbody-1jarig', defaultSummerBodyTrainingDescription, setSummerBodyTrainingDescription, setSummerbody1jarigImage);
         fetchProgram('summerbody-6-maanden', defaultSummerBodyTrainingDescription6Maanden, setSummerBodyTrainingDescription6Maanden, setSummerbody6MaandenImage);
         fetchProgram('summerbody-flex', defaultSummerBodyTrainingDescriptionFlex, setSummerBodyTrainingDescriptionFlex, setSummerbodyFlexImage);
+        fetchClubSubscriptionsVisibility();
 
         return () => { cancelled = true; };
     }, []);
@@ -128,22 +142,27 @@ const AllTrainings = () => {
             </div>
             <section id="our-trainings" className="md:my-[0px]">
                 <div className="container max-w-[1110px] mx-auto">
-                    <div className="section-title">
-                        <h2>My Summerbody Club  <span>Abonnementen</span></h2>
-                    </div>
-                    <div className="our-trainers">
-                        <TrainingBox
-                            trainingDescription={summerBodyTrainingDescription}
-                            featuredImageUrl={summerbody1jarigImage}
-                        />
-                        <TrainingBox
-                            trainingDescription={summerBodyTrainingDescription6Maanden}
-                            featuredImageUrl={summerbody6MaandenImage}
-                        />
-                        <TrainingBox
-                            trainingDescription={summerBodyTrainingDescriptionFlex}
-                            featuredImageUrl={summerbodyFlexImage}
-                        />
+                    <div
+                        className="club-trainings"
+                        style={{ display: clubSubscriptionsVisible ? undefined : "none" }}
+                    >
+                        <div className="section-title">
+                            <h2>My Summerbody Club  <span>Abonnementen</span></h2>
+                        </div>
+                        <div className="our-trainers">
+                            <TrainingBox
+                                trainingDescription={summerBodyTrainingDescription}
+                                featuredImageUrl={summerbody1jarigImage}
+                            />
+                            <TrainingBox
+                                trainingDescription={summerBodyTrainingDescription6Maanden}
+                                featuredImageUrl={summerbody6MaandenImage}
+                            />
+                            <TrainingBox
+                                trainingDescription={summerBodyTrainingDescriptionFlex}
+                                featuredImageUrl={summerbodyFlexImage}
+                            />
+                        </div>
                     </div>
 
                     <div className="begin-lifestyle begin-lifestyle-home md:my-[100px]">

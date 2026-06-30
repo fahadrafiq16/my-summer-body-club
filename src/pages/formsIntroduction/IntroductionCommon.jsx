@@ -1,5 +1,25 @@
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+
+function IntroVideoPlayer({ video, title }) {
+    if (!video) return null;
+
+    const isEmbed = /youtube\.com|youtu\.be|vimeo\.com|\/embed\//i.test(String(video));
+
+    if (isEmbed) {
+        return (
+            <div className="embed-container">
+                <iframe src={video} allowFullScreen title={title} />
+            </div>
+        );
+    }
+
+    return (
+        <div className="embed-container intro-video-file">
+            <video src={video} controls playsInline className="intro-video-player" title={title} />
+        </div>
+    );
+}
 
 const IntroductionCommon = ({ title, img1, img2, video, quote, description, link }) => {
 
@@ -17,32 +37,24 @@ const IntroductionCommon = ({ title, img1, img2, video, quote, description, link
             </div>
             <div id="training-programs-short-des" className="padding-all">
                 <div className="container-800">
-                    {/* Banner Images Area */}
                     <div className="banner-images-area">
                         <div className="img-item">
                             <img
                                 src={img1}
-                                alt="Afvallen"
+                                alt={title}
                             />
                         </div>
                         <div className="img-item">
-                            <div className="embed-container">
-                                <iframe
-                                    src={video}
-                                    allowFullScreen
-                                    title="Afvallen Video"
-                                ></iframe>
-                            </div>
+                            <IntroVideoPlayer video={video} title={`${title} video`} />
                         </div>
                         <div className="img-item">
                             <img
                                 src={img2}
-                                alt="Afvallen"
+                                alt={title}
                             />
                         </div>
                     </div>
 
-                    {/* Fact Section */}
                     <div className="fact">
                         <div className="landing-icon">
                             <i className="fas fa-quote-left"></i>
@@ -50,12 +62,11 @@ const IntroductionCommon = ({ title, img1, img2, video, quote, description, link
                         <p>{quote}</p>
                     </div>
 
-                    {/* Training Program Short Description */}
                     <div className="training-program-short-des">
                         <p>{description}</p>
                         <div className="button-area">
                             <button>
-                                <Link to={`/trainingprograms/${link}/payment-form` }className="button-area">
+                                <Link to={`/trainingprograms/${link}/payment-form`} className="button-area">
                                     LID WORDEN
                                 </Link>
                             </button>

@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
+import "./Testimonials.css";
 
 const FALLBACK_TESTIMONIALS = [
     {
@@ -92,11 +93,11 @@ export default function Testimonials() {
                         return {
                             name: feedback.name?.trim() || "MSBC Member",
                             role: feedback.position?.trim() || "Lid",
-                            image: avatarPool[index % avatarPool.length],
+                            image: feedback.imageUrl?.trim() || avatarPool[index % avatarPool.length],
                             rating: Number.isFinite(rating) ? Math.min(Math.max(rating, 1), 5) : 5,
                             text: feedback.testimonial?.trim() || "",
                         };
-                    }).filter(item => item.text.length > 0);
+                    }).filter((item) => item.text.length > 0);
 
                     if (isMounted && normalized.length) {
                         setTestimonials(normalized);
@@ -130,95 +131,82 @@ export default function Testimonials() {
     }, [API_ENDPOINT, FEATURED_LIMIT, avatarPool]);
 
     return (
-        <>
-            <div className="section-title-testimonial">
-                <h2>RECENCIES EN FEEDBACK VAN ONZE LEDEN HIER TE LEZEN</h2>
-            </div>
-            {hasError && (
-                <p className="text-center text-sm text-gray-500 mb-4">
-                    We tonen momenteel voorbeeldreviews. Selecteer testimonials in het dashboard om ze hier te tonen.
-                </p>
-            )}
-            <div className="max-w-6xl mx-auto p-2">
+        <section className="home-testimonials-section">
+            <div className="home-testimonials-inner">
+                <div className="section-title-testimonial">
+                    <h2>
+                        RECENCIES EN FEEDBACK <span>VAN ONZE LEDEN</span>
+                    </h2>
+                </div>
+
+                {hasError && (
+                    <p className="home-testimonials-notice">
+                        We tonen momenteel voorbeeldreviews. Selecteer testimonials in het dashboard om ze hier te tonen.
+                    </p>
+                )}
+
                 {isLoading ? (
-                    <div className="py-12 text-center text-gray-500">Bezig met laden...</div>
+                    <div className="home-testimonials-loading">Bezig met laden...</div>
                 ) : (
                     <Swiper
+                        className="home-testimonials-swiper"
                         slidesPerView={1}
-                        spaceBetween={20}
+                        spaceBetween={24}
                         breakpoints={{
                             640: { slidesPerView: 1 },
                             768: { slidesPerView: 2 },
                             1024: { slidesPerView: 3 },
                         }}
                         pagination={{ clickable: true }}
-                        autoplay={{ delay: 5000 }}
+                        autoplay={{ delay: 5500, disableOnInteraction: false }}
                         modules={[Pagination, Autoplay]}
-                        loop={testimonials.length > 1}
+                        loop={testimonials.length > 3}
                     >
                         {testimonials.map((testimonial, index) => (
-                            <SwiperSlide key={`${testimonial.name}-${index}`}>
+                            <SwiperSlide key={`${testimonial.name}-${index}`} className="h-auto">
                                 <TestimonialCard testimonial={testimonial} />
                             </SwiperSlide>
                         ))}
                     </Swiper>
                 )}
             </div>
-        </>
+        </section>
     );
 }
 
 function TestimonialCard({ testimonial }) {
     const [expanded, setExpanded] = useState(false);
-    const MAX_LENGTH = 140; // Characters before truncation
+    const MAX_LENGTH = 160;
 
     const displayText =
         expanded || testimonial.text.length <= MAX_LENGTH
             ? testimonial.text
             : `${testimonial.text.substring(0, MAX_LENGTH)}…`;
 
-    const renderStars = () => {
-        const rating = Number(testimonial.rating) || 0;
-        return Array.from({ length: 5 }).map((_, index) => (
-            <span
-                key={index}
-                className={`text-lg ${index < rating ? "text-[#ef4d16]" : "text-gray-300"}`}
-            >
-                ★
-            </span>
-        ));
-    };
+    const rating = Number(testimonial.rating) || 0;
 
     return (
-        <div className="relative h-full rounded-2xl border border-white/60 bg-white/90 shadow-[0_25px_45px_-20px_rgba(15,23,42,0.18)] backdrop-blur transition hover:-translate-y-1 hover:shadow-[0_30px_55px_-24px_rgba(15,23,42,0.26)]">
-            <div className="flex h-full flex-col justify-between px-6 py-6">
-                <div className="space-y-4">
-                    <div className="flex flex-wrap items-center justify-between gap-3">
-                        <div className="flex items-center gap-3">
-                            <span className="inline-flex items-center justify-center rounded-full bg-gradient-to-br from-[#ef4d16] to-[#ff9368] p-[2px]">
-                                <img
-                                    src={testimonial.image}
-                                    alt={testimonial.name}
-                                    className="h-12 w-12 rounded-full border-4 border-white object-cover shadow-sm"
-                                />
-                            </span>
-                            <div>
-                                <h4 className="text-lg font-semibold text-slate-900">{testimonial.name}</h4>
-                                {testimonial.role && (
-                                    <p className="text-sm uppercase tracking-wide text-slate-500">
-                                        {testimonial.role}
-                                    </p>
-                                )}
-                            </div>
-                        </div>
-                        <div className="flex gap-0.5">{renderStars()}</div>
-                    </div>
-                    <p className="text-[15px] leading-relaxed text-slate-600">{displayText}</p>
+        <article className="testimonial-card">
+            <div className="testimonial-card__accent" aria-hidden="true" />
+            <span className="testimonial-card__quote" aria-hidden="true">&ldquo;</span>
+
+            <div className="testimonial-card__body">
+                <div className="testimonial-card__stars" aria-label={`${rating} van 5 sterren`}>
+                    {Array.from({ length: 5 }).map((_, index) => (
+                        <span
+                            key={index}
+                            className={index < rating ? "testimonial-card__star is-filled" : "testimonial-card__star"}
+                        >
+                            ★
+                        </span>
+                    ))}
                 </div>
+
+                <p className="testimonial-card__text">{displayText}</p>
 
                 {testimonial.text.length > MAX_LENGTH && (
                     <button
-                        className="mt-4 inline-flex items-center text-sm font-medium text-[#ef4d16] transition hover:text-[#c7390a]"
+                        className="testimonial-card__read-more"
                         onClick={() => setExpanded(!expanded)}
                         type="button"
                     >
@@ -226,6 +214,22 @@ function TestimonialCard({ testimonial }) {
                     </button>
                 )}
             </div>
-        </div>
+
+            <footer className="testimonial-card__footer">
+                <div className="testimonial-card__avatar-wrap">
+                    <img
+                        src={testimonial.image}
+                        alt={testimonial.name}
+                        className="testimonial-card__avatar"
+                    />
+                </div>
+                <div className="testimonial-card__meta">
+                    <h4 className="testimonial-card__name">{testimonial.name}</h4>
+                    {testimonial.role && (
+                        <span className="testimonial-card__role">{testimonial.role}</span>
+                    )}
+                </div>
+            </footer>
+        </article>
     );
 }

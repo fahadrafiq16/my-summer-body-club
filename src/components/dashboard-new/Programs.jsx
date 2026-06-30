@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import { Card, CardContent } from "../ui/card";
 import { Button } from "../ui/button";
-import { Plus, Trash2, Save, RefreshCw, CheckCircle2, AlertCircle, ImageIcon } from "lucide-react";
+import { Plus, Trash2, Save, RefreshCw, CheckCircle2, AlertCircle, ImageIcon, Film } from "lucide-react";
 import { useDropzone } from "react-dropzone";
 import { getBackendBaseUrl } from "../../utils/backend";
 
@@ -15,6 +15,13 @@ const AVAILABLE_PROGRAMS = [
   { key: "summerbody-6-maanden", label: "Summerbody 6 maanden" },
   { key: "summerbody-flex", label: "Summerbody Flex" },
 ];
+
+const INTRO_PROGRAM_KEYS = new Set([
+  "personal-training",
+  "groep-pt",
+  "wedstrijd-training",
+  "afvallen-training",
+]);
 
 const emptyPaymentOption = () => ({
   trainingTitle: "",
@@ -107,7 +114,7 @@ function StringListEditor({ label, items, onChange }) {
   );
 }
 
-function FeaturedImageUpload({ preview, onFile, disabled }) {
+function FeaturedImageUpload({ preview, onFile, disabled, label, hint }) {
   const onDrop = (accepted) => {
     const file = accepted?.[0];
     if (file) onFile(file);
@@ -122,24 +129,66 @@ function FeaturedImageUpload({ preview, onFile, disabled }) {
   });
 
   return (
-    <div
-      {...getRootProps()}
-      className={`border-2 border-dashed rounded-xl p-4 text-center cursor-pointer transition-colors min-h-[160px] flex items-center justify-center ${
-        isDragActive ? "border-[#ef4d16] bg-orange-50" : "border-gray-200 hover:border-[#ef4d16] hover:bg-orange-50"
-      } ${disabled ? "opacity-60 pointer-events-none" : ""}`}
-    >
-      <input {...getInputProps()} />
-      {preview ? (
-        <img src={preview} alt="" className="max-h-48 w-auto h-auto mx-auto rounded-lg object-contain" />
-      ) : (
-        <div className="text-sm text-gray-500 flex flex-col items-center gap-2">
-          <ImageIcon className="w-8 h-8 text-gray-400" />
-          <span>Sleep of klik om featured card image te uploaden</span>
-        </div>
-      )}
+    <div>
+      {label && <span className="block text-xs font-medium text-gray-600 mb-1">{label}</span>}
+      <div
+        {...getRootProps()}
+        className={`border-2 border-dashed rounded-xl p-4 text-center cursor-pointer transition-colors min-h-[160px] flex items-center justify-center ${
+          isDragActive ? "border-[#ef4d16] bg-orange-50" : "border-gray-200 hover:border-[#ef4d16] hover:bg-orange-50"
+        } ${disabled ? "opacity-60 pointer-events-none" : ""}`}
+      >
+        <input {...getInputProps()} />
+        {preview ? (
+          <img src={preview} alt="" className="max-h-48 w-auto h-auto mx-auto rounded-lg object-contain" />
+        ) : (
+          <div className="text-sm text-gray-500 flex flex-col items-center gap-2">
+            <ImageIcon className="w-8 h-8 text-gray-400" />
+            <span>{hint || "Sleep of klik om afbeelding te uploaden"}</span>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
+
+function IntroVideoUpload({ previewUrl, onFile, disabled }) {
+  const onDrop = (accepted) => {
+    const file = accepted?.[0];
+    if (file) onFile(file);
+  };
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    accept: { "video/*": [".mp4", ".webm", ".mov"] },
+    maxSize: 50 * 1024 * 1024,
+    multiple: false,
+    disabled,
+  });
+
+  return (
+    <div>
+      <span className="block text-xs font-medium text-gray-600 mb-1">Intro video (midden)</span>
+      <div
+        {...getRootProps()}
+        className={`border-2 border-dashed rounded-xl p-4 text-center cursor-pointer transition-colors min-h-[160px] flex items-center justify-center ${
+          isDragActive ? "border-[#ef4d16] bg-orange-50" : "border-gray-200 hover:border-[#ef4d16] hover:bg-orange-50"
+        } ${disabled ? "opacity-60 pointer-events-none" : ""}`}
+      >
+        <input {...getInputProps()} />
+        {previewUrl ? (
+          <video src={previewUrl} controls className="max-h-48 w-full rounded-lg" />
+        ) : (
+          <div className="text-sm text-gray-500 flex flex-col items-center gap-2">
+            <Film className="w-8 h-8 text-gray-400" />
+            <span>Sleep of klik om video te uploaden (MP4, max 50 MB)</span>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+const CLUB_SUBSCRIPTIONS_KEY = "club-subscriptions";
 
 export default function Programs() {
   const [programKey, setProgramKey] = useState(AVAILABLE_PROGRAMS[0].key);
@@ -156,8 +205,56 @@ export default function Programs() {
   const [featuredImagePublicId, setFeaturedImagePublicId] = useState("");
   const [pendingFeaturedFile, setPendingFeaturedFile] = useState(null);
   const [featuredPreview, setFeaturedPreview] = useState("");
+  const [introImage1Url, setIntroImage1Url] = useState("");
+  const [introImage1PublicId, setIntroImage1PublicId] = useState("");
+  const [introImage2Url, setIntroImage2Url] = useState("");
+  const [introImage2PublicId, setIntroImage2PublicId] = useState("");
+  const [introVideoUrl, setIntroVideoUrl] = useState("");
+  const [introVideoPublicId, setIntroVideoPublicId] = useState("");
+  const [pendingIntroImage1, setPendingIntroImage1] = useState(null);
+  const [pendingIntroImage2, setPendingIntroImage2] = useState(null);
+  const [pendingIntroVideo, setPendingIntroVideo] = useState(null);
+  const [introPreview1, setIntroPreview1] = useState("");
+  const [introPreview2, setIntroPreview2] = useState("");
+  const [introVideoPreview, setIntroVideoPreview] = useState("");
+  const [clubSubscriptionsVisible, setClubSubscriptionsVisible] = useState(true);
+  const [clubToggleSaving, setClubToggleSaving] = useState(false);
 
   const backendBaseUrl = useMemo(() => getBackendBaseUrl(), []);
+
+  const loadClubSubscriptionsVisibility = async () => {
+    try {
+      const res = await axios.get(`${backendBaseUrl}/api/fetch-home-section/${CLUB_SUBSCRIPTIONS_KEY}`);
+      if (res.data?.success && res.data.section) {
+        setClubSubscriptionsVisible(res.data.section.isActive !== false);
+      }
+    } catch {
+      setClubSubscriptionsVisible(true);
+    }
+  };
+
+  const toggleClubSubscriptions = async () => {
+    const nextVisible = !clubSubscriptionsVisible;
+    try {
+      setClubToggleSaving(true);
+      await axios.put(
+        `${backendBaseUrl}/api/home-sections/${CLUB_SUBSCRIPTIONS_KEY}`,
+        {
+          title: "Club Abonnementen",
+          isActive: nextVisible,
+        },
+        { headers: { "Content-Type": "application/json", ...authHeaders() } }
+      );
+      setClubSubscriptionsVisible(nextVisible);
+    } catch (e) {
+      setStatus({
+        type: "err",
+        text: e?.response?.data?.error || e?.message || "Club abonnementen toggle mislukt",
+      });
+    } finally {
+      setClubToggleSaving(false);
+    }
+  };
 
   const load = async (key = programKey) => {
     try {
@@ -171,9 +268,24 @@ export default function Programs() {
       setTrainingDescription(Array.isArray(res.data?.trainingDescription) ? res.data.trainingDescription : []);
       setFeaturedImageUrl(res.data?.featuredImageUrl || "");
       setFeaturedImagePublicId(res.data?.featuredImagePublicId || "");
+      setIntroImage1Url(res.data?.introImage1Url || "");
+      setIntroImage1PublicId(res.data?.introImage1PublicId || "");
+      setIntroImage2Url(res.data?.introImage2Url || "");
+      setIntroImage2PublicId(res.data?.introImage2PublicId || "");
+      setIntroVideoUrl(res.data?.introVideoUrl || "");
+      setIntroVideoPublicId(res.data?.introVideoPublicId || "");
       setPendingFeaturedFile(null);
+      setPendingIntroImage1(null);
+      setPendingIntroImage2(null);
+      setPendingIntroVideo(null);
       if (featuredPreview) URL.revokeObjectURL(featuredPreview);
+      if (introPreview1) URL.revokeObjectURL(introPreview1);
+      if (introPreview2) URL.revokeObjectURL(introPreview2);
+      if (introVideoPreview) URL.revokeObjectURL(introVideoPreview);
       setFeaturedPreview("");
+      setIntroPreview1("");
+      setIntroPreview2("");
+      setIntroVideoPreview("");
     } catch (e) {
       setError(e?.response?.data?.error || e?.message || "Failed to load program config");
     } finally {
@@ -185,6 +297,10 @@ export default function Programs() {
     load(programKey);
   }, [programKey]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  useEffect(() => {
+    loadClubSubscriptionsVisibility();
+  }, [backendBaseUrl]); // eslint-disable-line react-hooks/exhaustive-deps
+
   const uploadFeaturedImage = async (file) => {
     const formData = new FormData();
     formData.append("image", file);
@@ -195,6 +311,26 @@ export default function Programs() {
     return { url: res.data.url, publicId: res.data.publicId };
   };
 
+  const uploadIntroImage = async (file) => {
+    const formData = new FormData();
+    formData.append("image", file);
+    const res = await axios.post(`${backendBaseUrl}/api/upload-image?folder=msbc/intro`, formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+    if (!res.data?.success) throw new Error(res.data?.error || "Image upload failed");
+    return { url: res.data.url, publicId: res.data.publicId };
+  };
+
+  const uploadIntroVideo = async (file) => {
+    const formData = new FormData();
+    formData.append("video", file);
+    const res = await axios.post(`${backendBaseUrl}/api/upload-video?folder=msbc/intro-videos`, formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+    if (!res.data?.success) throw new Error(res.data?.error || "Video upload failed");
+    return { url: res.data.url, publicId: res.data.publicId };
+  };
+
   const save = async () => {
     try {
       setSaving(true);
@@ -202,11 +338,35 @@ export default function Programs() {
 
       let nextFeaturedUrl = featuredImageUrl;
       let nextFeaturedPublicId = featuredImagePublicId;
+      let nextIntroImage1Url = introImage1Url;
+      let nextIntroImage1PublicId = introImage1PublicId;
+      let nextIntroImage2Url = introImage2Url;
+      let nextIntroImage2PublicId = introImage2PublicId;
+      let nextIntroVideoUrl = introVideoUrl;
+      let nextIntroVideoPublicId = introVideoPublicId;
 
       if (pendingFeaturedFile) {
         const uploaded = await uploadFeaturedImage(pendingFeaturedFile);
         nextFeaturedUrl = uploaded.url;
         nextFeaturedPublicId = uploaded.publicId;
+      }
+
+      if (pendingIntroImage1) {
+        const uploaded = await uploadIntroImage(pendingIntroImage1);
+        nextIntroImage1Url = uploaded.url;
+        nextIntroImage1PublicId = uploaded.publicId;
+      }
+
+      if (pendingIntroImage2) {
+        const uploaded = await uploadIntroImage(pendingIntroImage2);
+        nextIntroImage2Url = uploaded.url;
+        nextIntroImage2PublicId = uploaded.publicId;
+      }
+
+      if (pendingIntroVideo) {
+        const uploaded = await uploadIntroVideo(pendingIntroVideo);
+        nextIntroVideoUrl = uploaded.url;
+        nextIntroVideoPublicId = uploaded.publicId;
       }
 
       const res = await axios.put(
@@ -218,15 +378,36 @@ export default function Programs() {
           trainingDescription,
           featuredImageUrl: nextFeaturedUrl,
           featuredImagePublicId: nextFeaturedPublicId,
+          introImage1Url: nextIntroImage1Url,
+          introImage1PublicId: nextIntroImage1PublicId,
+          introImage2Url: nextIntroImage2Url,
+          introImage2PublicId: nextIntroImage2PublicId,
+          introVideoUrl: nextIntroVideoUrl,
+          introVideoPublicId: nextIntroVideoPublicId,
         },
         { headers: { "Content-Type": "application/json", ...authHeaders() } }
       );
       if (res.data?.success !== false) {
         setFeaturedImageUrl(res.data?.featuredImageUrl || nextFeaturedUrl);
         setFeaturedImagePublicId(res.data?.featuredImagePublicId || nextFeaturedPublicId);
+        setIntroImage1Url(res.data?.introImage1Url || nextIntroImage1Url);
+        setIntroImage1PublicId(res.data?.introImage1PublicId || nextIntroImage1PublicId);
+        setIntroImage2Url(res.data?.introImage2Url || nextIntroImage2Url);
+        setIntroImage2PublicId(res.data?.introImage2PublicId || nextIntroImage2PublicId);
+        setIntroVideoUrl(res.data?.introVideoUrl || nextIntroVideoUrl);
+        setIntroVideoPublicId(res.data?.introVideoPublicId || nextIntroVideoPublicId);
         setPendingFeaturedFile(null);
+        setPendingIntroImage1(null);
+        setPendingIntroImage2(null);
+        setPendingIntroVideo(null);
         if (featuredPreview) URL.revokeObjectURL(featuredPreview);
+        if (introPreview1) URL.revokeObjectURL(introPreview1);
+        if (introPreview2) URL.revokeObjectURL(introPreview2);
+        if (introVideoPreview) URL.revokeObjectURL(introVideoPreview);
         setFeaturedPreview("");
+        setIntroPreview1("");
+        setIntroPreview2("");
+        setIntroVideoPreview("");
         setStatus({ type: "ok", text: "Opgeslagen in MongoDB" });
       } else {
         setStatus({ type: "err", text: res.data?.error || "Opslaan mislukt" });
@@ -257,6 +438,8 @@ export default function Programs() {
     setTrainingDescription((prev) => prev.map((p, i) => (i === idx ? { ...p, ...patch } : p)));
   };
 
+  const showIntroSection = INTRO_PROGRAM_KEYS.has(programKey);
+
   return (
     <div className="space-y-6">
       <div className="flex items-end justify-between gap-4 flex-wrap">
@@ -265,6 +448,28 @@ export default function Programs() {
           <div className="text-sm text-gray-500">Beheer trainings­pakketten, prijzen en pagina inhoud (opgeslagen in MongoDB).</div>
         </div>
         <div className="flex flex-wrap items-center gap-2">
+          <div className="flex items-center gap-3 rounded-xl border border-gray-200 bg-white px-3 py-2">
+            <span className="text-sm text-gray-600 whitespace-nowrap">Club abonnementen</span>
+            <button
+              type="button"
+              role="switch"
+              aria-checked={clubSubscriptionsVisible}
+              disabled={clubToggleSaving}
+              onClick={toggleClubSubscriptions}
+              className={`relative inline-flex h-7 w-12 shrink-0 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-[#ef4d16] focus:ring-offset-2 disabled:opacity-60 ${
+                clubSubscriptionsVisible ? "bg-[#ef4d16]" : "bg-gray-300"
+              }`}
+            >
+              <span
+                className={`inline-block h-5 w-5 transform rounded-full bg-white shadow transition-transform ${
+                  clubSubscriptionsVisible ? "translate-x-6" : "translate-x-1"
+                }`}
+              />
+            </button>
+            <span className={`text-xs font-medium ${clubSubscriptionsVisible ? "text-green-600" : "text-gray-400"}`}>
+              {clubSubscriptionsVisible ? "Aan" : "Uit"}
+            </span>
+          </div>
           <div className="flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-3 py-2">
             <span className="text-sm text-gray-600">Programma</span>
             <select
@@ -327,6 +532,52 @@ export default function Programs() {
               />
             </CardContent>
           </Card>
+
+          {showIntroSection && (
+            <Card className="bg-white shadow-sm border border-gray-200 rounded-2xl">
+              <CardContent className="p-6">
+                <h2 className="text-lg font-semibold mb-1">Introduction Section Images &amp; Video</h2>
+                <p className="text-sm text-gray-500 mb-4">
+                  Twee afbeeldingen en één video op de intro-pagina (
+                  <span className="font-medium text-gray-700">/trainingprograms/{programKey}</span>
+                  ).
+                </p>
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                  <FeaturedImageUpload
+                    label="Intro afbeelding 1 (links)"
+                    hint="Eerste bannerafbeelding"
+                    preview={introPreview1 || introImage1Url}
+                    disabled={loading || saving}
+                    onFile={(file) => {
+                      if (introPreview1) URL.revokeObjectURL(introPreview1);
+                      setPendingIntroImage1(file);
+                      setIntroPreview1(URL.createObjectURL(file));
+                    }}
+                  />
+                  <IntroVideoUpload
+                    previewUrl={introVideoPreview || introVideoUrl}
+                    disabled={loading || saving}
+                    onFile={(file) => {
+                      if (introVideoPreview) URL.revokeObjectURL(introVideoPreview);
+                      setPendingIntroVideo(file);
+                      setIntroVideoPreview(URL.createObjectURL(file));
+                    }}
+                  />
+                  <FeaturedImageUpload
+                    label="Intro afbeelding 2 (rechts)"
+                    hint="Tweede bannerafbeelding"
+                    preview={introPreview2 || introImage2Url}
+                    disabled={loading || saving}
+                    onFile={(file) => {
+                      if (introPreview2) URL.revokeObjectURL(introPreview2);
+                      setPendingIntroImage2(file);
+                      setIntroPreview2(URL.createObjectURL(file));
+                    }}
+                  />
+                </div>
+              </CardContent>
+            </Card>
+          )}
 
           {/* Payment Options */}
           <Card className="bg-white shadow-sm border border-gray-200 rounded-2xl">

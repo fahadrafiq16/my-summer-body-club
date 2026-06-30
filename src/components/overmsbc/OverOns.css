@@ -1,0 +1,124 @@
+/* Over MSBC — custom image carousel (no Swiper) */
+
+.over-ons-carousel {
+  width: 100%;
+}
+
+.over-ons-carousel--loading img {
+  width: 100%;
+  max-width: 100%;
+  display: block;
+  border-radius: 10px;
+}
+
+.over-ons-carousel__viewport {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #f5f5f5;
+}
+
+.over-ons-carousel__viewport--draggable {
+  cursor: grab;
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.over-ons-carousel__viewport.is-grabbing {
+  cursor: grabbing;
+}
+
+.over-ons-carousel__track {
+  display: flex;
+  width: 100%;
+  transition: transform 0.45s ease;
+  will-change: transform;
+}
+
+.over-ons-carousel__track.is-dragging {
+  transition: none;
+}
+
+.over-ons-carousel__slide {
+  flex: 0 0 100%;
+  width: 100%;
+  min-width: 100%;
+}
+
+.over-ons-carousel__slide img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  object-fit: cover;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.over-ons-carousel__nav {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  transform: translateY(-50%);
+  width: 38px;
+  height: 38px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  color: #ef4d16;
+  font-size: 28px;
+  line-height: 1;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0 2px 0;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.over-ons-carousel__nav:hover {
+  background: #ef4d16;
+  color: #ffffff;
+  transform: translateY(-50%) scale(1.05);
+}
+
+.over-ons-carousel__nav--prev {
+  left: 10px;
+}
+
+.over-ons-carousel__nav--next {
+  right: 10px;
+}
+
+.over-ons-carousel__dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.over-ons-carousel__dot {
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: #d1d5db;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.over-ons-carousel__dot.is-active {
+  background: #ef4d16;
+  transform: scale(1.15);
+}
+
+.over-ons-carousel__dot:hover {
+  background: #ef4d16;
+  opacity: 0.85;
+}

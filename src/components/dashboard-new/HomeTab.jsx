@@ -7,6 +7,7 @@ import HomePopUpVideo from "./HomePopUpVideo";
 import HomeGallery from "./HomeGallery";
 import HomeFooter from "./HomeFooter";
 import HomePageHeroImage from "./HomePageHeroImage";
+import HomeOverMsbc from "./HomeOverMsbc";
 
 const SECTIONS = [
   {
@@ -48,6 +49,14 @@ const SECTIONS = [
     descriptionNl: "4 kolommen: menu's, logo, Facebook feed en social media links.",
     descriptionEn: "4 columns: menus, logo, Facebook feed and social media links.",
     render: (lang) => <HomeFooter lang={lang} embedded />,
+  },
+  {
+    key: "over-msbc",
+    labelNl: "Over MSBC",
+    labelEn: "Over MSBC",
+    descriptionNl: "Slider-afbeeldingen rechts op de Over MSBC-pagina (/over-msbc).",
+    descriptionEn: "Slider images on the right side of the Over MSBC page (/over-msbc).",
+    render: (lang) => <HomeOverMsbc lang={lang} embedded />,
   },
   {
     key: "bootcamp",
