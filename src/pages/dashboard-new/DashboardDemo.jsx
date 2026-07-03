@@ -1984,8 +1984,8 @@ export default function DashboardDemo() {
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900">
       <div className="flex">
-        <aside className={`sticky top-0 h-screen border-r border-gray-200 bg-white ${collapsed ? "w-20" : "w-72"} transition-all duration-200`}>
-          <div className="p-4 flex items-center justify-between">
+        <aside className={`sticky top-0 h-screen flex flex-col border-r border-gray-200 bg-white ${collapsed ? "w-20" : "w-72"} transition-all duration-200`}>
+          <div className="shrink-0 p-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-2xl bg-gray-900 text-white flex items-center justify-center font-bold">MS</div>
               {!collapsed && <div><div className="font-extrabold leading-tight">{t.app.title}</div><div className="text-xs text-gray-500">{location.city} • {t.app.subtitle}</div></div>}
@@ -1994,6 +1994,7 @@ export default function DashboardDemo() {
               {collapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
             </button>
           </div>
+          <div className="flex-1 min-h-0 overflow-y-auto">
           <div className="px-4 pb-4 space-y-2">
             <NavButton icon={<LayoutDashboard className="w-5 h-5" />} label={t.tabs.dashboard} active={tab === "dashboard"} collapsed={collapsed} onClick={() => setTab("dashboard")} />
             <NavButton icon={<Users className="w-5 h-5" />} label={t.tabs.members} active={tab === "members"} collapsed={collapsed} onClick={() => setTab("members")} />
@@ -2049,6 +2050,7 @@ export default function DashboardDemo() {
               </div>
             </div>
           )}
+          </div>
         </aside>
         <main className="flex-1 p-6 lg:p-10">
           {tab === "dashboard" && <Dashboard lang={lang} />}

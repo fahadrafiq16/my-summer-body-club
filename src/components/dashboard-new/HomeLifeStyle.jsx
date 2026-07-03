@@ -71,8 +71,8 @@ function BannerUpload({ preview, onFile, onDelete, lang, disabled, canDelete }) 
       </div>
       <span className="block text-xs text-gray-400 mt-1">
         {lang === "nl"
-          ? "Wordt getoond links van de sectietitel — auto breedte en hoogte op de homepage."
-          : "Shown left of the section title — auto width and height on the homepage."}
+          ? "Wordt getoond links van de sectietitel op de homepage. Standaard bannerformaat: 410 × 324 pixels."
+          : "Shown left of the section title on the homepage. Standard banner size: 410 × 324 pixels."}
       </span>
     </div>
   );

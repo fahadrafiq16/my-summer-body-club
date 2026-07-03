@@ -10,6 +10,7 @@ import {
   Image as ImageIcon,
   Video,
   Film,
+  Youtube,
   Save,
   X,
   ChevronLeft,
@@ -20,6 +21,11 @@ import {
   EyeOff,
 } from "lucide-react";
 import { getBackendBaseUrl } from "../../utils/backend";
+import {
+  extractYoutubeVideoId,
+  getYoutubeThumbnailUrl,
+  toYoutubeEmbedUrl,
+} from "../../pages/Fotos/galleryUtils";
 
 function authHeaders() {
   try {
@@ -138,8 +144,11 @@ function MediaItemsDropzone({ galleryType, onFiles, disabled, count }) {
 }
 
 function MediaThumb({ item, index, isPending, onRemove, disabled }) {
-  const src = isPending ? item.preview : item.mediaUrl;
+  const src = isPending ? item.preview || item.mediaUrl : item.mediaUrl;
   const isVideo = item.mediaType === "video";
+  const youtubeId = isVideo ? extractYoutubeVideoId(item.mediaUrl || src) : "";
+  const isYoutube = Boolean(youtubeId);
+  const youtubeThumb = isYoutube ? getYoutubeThumbnailUrl(youtubeId) : "";
 
   return (
     <div
@@ -147,7 +156,16 @@ function MediaThumb({ item, index, isPending, onRemove, disabled }) {
         isPending ? "border-[#ef4d16] border-2" : "border-gray-200"
       }`}
     >
-      {isVideo ? (
+      {isYoutube ? (
+        <>
+          <img src={youtubeThumb} alt="" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 flex items-center justify-center bg-black/25 pointer-events-none">
+            <div className="w-10 h-10 rounded-full bg-red-600 flex items-center justify-center shadow-lg">
+              <Youtube className="w-5 h-5 text-white" />
+            </div>
+          </div>
+        </>
+      ) : isVideo ? (
         <video src={src} className="w-full h-full object-cover" muted />
       ) : (
         <img src={src} alt="" className="w-full h-full object-cover" />
@@ -195,6 +213,7 @@ export default function FotosGalleryAdmin() {
   const [pendingFeatured, setPendingFeatured] = useState(null);
   const [featuredPreview, setFeaturedPreview] = useState("");
   const [pendingItems, setPendingItems] = useState([]);
+  const [youtubeInput, setYoutubeInput] = useState("");
   const [saving, setSaving] = useState(false);
   const [deletingId, setDeletingId] = useState(null);
 
@@ -225,6 +244,7 @@ export default function FotosGalleryAdmin() {
     setPendingFeatured(null);
     setFeaturedPreview("");
     setPendingItems([]);
+    setYoutubeInput("");
     setEditorOpen(false);
     setStatus(null);
   };
@@ -235,6 +255,7 @@ export default function FotosGalleryAdmin() {
     setFeaturedPreview("");
     setPendingFeatured(null);
     setPendingItems([]);
+    setYoutubeInput("");
     setEditorOpen(true);
     setStatus(null);
   };
@@ -253,6 +274,7 @@ export default function FotosGalleryAdmin() {
     setFeaturedPreview(gallery.featuredImageUrl || "");
     setPendingFeatured(null);
     setPendingItems([]);
+    setYoutubeInput("");
     setEditorOpen(true);
     setStatus(null);
   };
@@ -294,6 +316,26 @@ export default function FotosGalleryAdmin() {
     setPendingItems((prev) => [...prev, ...next]);
   };
 
+  const addYoutubeVideo = () => {
+    const embed = toYoutubeEmbedUrl(youtubeInput);
+    if (!embed || !embed.includes("youtube.com/embed/")) {
+      setStatus({ type: "err", text: "Ongeldige YouTube URL. Gebruik een watch-, embed- of youtu.be-link." });
+      return;
+    }
+    setStatus(null);
+    setPendingItems((prev) => [
+      ...prev,
+      {
+        key: `yt-${Date.now()}`,
+        source: "youtube",
+        mediaType: "video",
+        mediaUrl: embed,
+        preview: getYoutubeThumbnailUrl(embed),
+      },
+    ]);
+    setYoutubeInput("");
+  };
+
   const removeExistingItem = (index) => {
     setForm((prev) => ({
       ...prev,
@@ -329,13 +371,22 @@ export default function FotosGalleryAdmin() {
       const uploadedItems = [];
       for (let i = 0; i < pendingItems.length; i++) {
         const p = pendingItems[i];
+        if (p.source === "youtube") {
+          uploadedItems.push({
+            mediaUrl: p.mediaUrl,
+            mediaPublicId: "",
+            mediaType: "video",
+            displayOrder: form.items.length + uploadedItems.length,
+          });
+          continue;
+        }
         const uploaded =
           p.mediaType === "video" ? await uploadVideo(p.file) : await uploadImage(p.file);
         uploadedItems.push({
           mediaUrl: uploaded.url,
           mediaPublicId: uploaded.publicId,
           mediaType: p.mediaType,
-          displayOrder: form.items.length + i,
+          displayOrder: form.items.length + uploadedItems.length,
         });
       }
 
@@ -460,6 +511,12 @@ export default function FotosGalleryAdmin() {
   );
 
   const totalItems = form.items.length + pendingItems.length;
+
+  const youtubeInputPreview = useMemo(() => {
+    if (!youtubeInput.trim()) return "";
+    const embed = toYoutubeEmbedUrl(youtubeInput);
+    return getYoutubeThumbnailUrl(embed);
+  }, [youtubeInput]);
 
   return (
     <div className="space-y-6">
@@ -636,6 +693,47 @@ export default function FotosGalleryAdmin() {
                     disabled={saving}
                     count={totalItems}
                   />
+
+                  {form.galleryType === "videos" && (
+                    <div className="rounded-xl border border-gray-200 bg-white p-4 space-y-3">
+                      <div className="flex items-center gap-2 text-xs font-medium text-gray-600">
+                        <Youtube className="w-4 h-4 text-red-500" />
+                        YouTube video toevoegen
+                      </div>
+                      <div className="flex flex-col sm:flex-row gap-2">
+                        <input
+                          type="text"
+                          value={youtubeInput}
+                          onChange={(e) => setYoutubeInput(e.target.value)}
+                          className={inputCls}
+                          placeholder="https://www.youtube.com/watch?v=..."
+                          disabled={saving}
+                        />
+                        <Button
+                          type="button"
+                          variant="outline"
+                          className="rounded-lg shrink-0"
+                          onClick={addYoutubeVideo}
+                          disabled={saving || !youtubeInput.trim()}
+                        >
+                          <Plus className="w-4 h-4 mr-1.5" />
+                          Toevoegen
+                        </Button>
+                      </div>
+                      <p className="text-xs text-gray-400">
+                        Embed-, watch- of youtu.be-link — wordt automatisch omgezet naar een embed.
+                      </p>
+                      {youtubeInputPreview && (
+                        <div className="rounded-xl overflow-hidden border border-gray-200 aspect-video max-w-xs bg-gray-100">
+                          <img
+                            src={youtubeInputPreview}
+                            alt="YouTube preview"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      )}
+                    </div>
+                  )}
 
                   {(form.items.length > 0 || pendingItems.length > 0) && (
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">

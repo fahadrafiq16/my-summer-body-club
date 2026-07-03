@@ -12,7 +12,7 @@ import PTRuimteForm from './pages/paymentForms/PTRuimteForm';
 import BootcampForm from './pages/paymentForms/BootcampTraining';
 import PtRent from './pages/PtRent/PtRent';
 
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Home from './pages/home/Home'
 import Abonnement from './pages/abonnement/Abonnement';
 import Footer from './components/header/Footer';
@@ -42,16 +42,9 @@ import PersonalIntro from './pages/formsIntroduction/PersonalIntro';
 import GroepPTIntro from './pages/formsIntroduction/GroepPTIntro';
 import WedstrijdIntro from './pages/formsIntroduction/WedstrijdIntro';
 
-import Layout from './pages/dashboard/Layout';
-import MainLayout from './layouts/MainLayout';
-import DashboardHome from './pages/dashboard/Home';
-import AllPayments from './pages/dashboard/AllPayments';
-import PaymentDetails from './pages/dashboard/PaymentDetails';
-import CustomersReviews from './pages/dashboard/CustomersReviews';
-import RevenueDashboardMock from './pages/dashboard/my_summerbody_club (1)';
-import TrainingPrograms from './pages/dashboard/TrainingPrograms';
 import Login from './pages/auth/Login';
 import DashboardDemo from './pages/dashboard-new/DashboardDemo';
+import MainLayout from './layouts/MainLayout';
 
 import ScrollToTop from "react-scroll-to-top";
 
@@ -133,7 +126,8 @@ function App() {
               <Route path="/recurring-redirect" element={<RecurringRedirect />} />
             </Route>
 
-            <Route path="/dashboard/login" element={<Login />} />
+            <Route path="/dashboard/login" element={<Navigate to="/dashboard-new/login" replace />} />
+            <Route path="/dashboard/*" element={<Navigate to="/dashboard-new" replace />} />
             <Route path="/dashboard-new/login" element={<Login />} />
             <Route
               path="/dashboard-new"
@@ -143,22 +137,6 @@ function App() {
                 </ProtectedRoute>
               }
             />
-
-            <Route
-              path="/dashboard"
-              element={
-                <ProtectedRoute>
-                  <Layout />
-                </ProtectedRoute>
-              }
-            >
-              <Route index element={<DashboardHome />} />
-              <Route path="payments" element={<AllPayments />} />
-              <Route path="testimonials" element={<CustomersReviews />} />
-              <Route path="charts" element={<RevenueDashboardMock />} />
-              <Route path="training-programs" element={<TrainingPrograms />} />
-              <Route path="payments/:id" element={<PaymentDetails />} />
-            </Route>
 
           </Routes>
 

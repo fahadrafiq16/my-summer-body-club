@@ -6,7 +6,7 @@ import { A11y } from "swiper/modules";
 import { ChevronLeft, ChevronRight, ArrowLeft } from "lucide-react";
 import TitleHeader from "../../components/common/TitleHeader";
 import { getBackendBaseUrl } from "../../utils/backend";
-import { slugify } from "./galleryUtils";
+import { slugify, isYoutubeEmbedUrl } from "./galleryUtils";
 import "swiper/css";
 import "./FotosPage.css";
 
@@ -107,7 +107,15 @@ export default function FotosGalleryDetail() {
                       {items.map((item, index) => (
                         <SwiperSlide key={`${item.mediaUrl}-${index}`}>
                           <div className="fotos-detail__media-wrap">
-                            {item.mediaType === "video" ? (
+                            {item.mediaType === "video" && isYoutubeEmbedUrl(item.mediaUrl) ? (
+                              <iframe
+                                src={item.mediaUrl}
+                                title={`YouTube video ${index + 1}`}
+                                className="fotos-detail__media fotos-detail__media--youtube"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                              />
+                            ) : item.mediaType === "video" ? (
                               <video src={item.mediaUrl} controls playsInline className="fotos-detail__media" />
                             ) : (
                               <img src={item.mediaUrl} alt="" className="fotos-detail__media" loading="lazy" />

@@ -14,7 +14,7 @@ const ProtectedRoute = ({ children }) => {
     }
 
     if (!isAuthenticated) {
-        return <Navigate to="/dashboard/login" state={{ from: location }} replace />;
+        return <Navigate to="/dashboard-new/login" state={{ from: location }} replace />;
     }
 
     return children;

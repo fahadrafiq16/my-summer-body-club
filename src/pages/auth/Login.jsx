@@ -34,13 +34,7 @@ const Login = () => {
                 const userRole = response.data.user?.role;
                 let redirectTo = location.state?.from?.pathname;
                 if (!redirectTo) {
-                    if (userRole === "member") {
-                        redirectTo = "/dashboard-new";
-                    } else if (location.pathname.startsWith("/dashboard-new")) {
-                        redirectTo = "/dashboard-new";
-                    } else {
-                        redirectTo = "/dashboard";
-                    }
+                    redirectTo = "/dashboard-new";
                 }
                 navigate(redirectTo, { replace: true });
             } else {
