@@ -201,17 +201,22 @@ const OverOns = () => {
                                 Is je motivatie vervlogen en lijkt jouw doel verder weg dan ooit?
                             </p>
                             <p>
-                                Dan is het tijd voor verandering. <br />
+                                Dan is het tijd voor verandering.{' '}
+                                <br className="hidden md:inline" />
                                 Kies een van onze diensten en ontdek wat écht trainen betekent.
                             </p>
                             <p className="mt-4">
-                                Bij My Summerbody Club train je met personal trainer Marlon — <br />
+                                Bij My Summerbody Club train je met personal trainer Marlon —{' '}
+                                <br className="hidden md:inline" />
                                 meer dan 30 jaar praktijkervaring en bewezen succes als wedstrijdtrainer en coach.
                             </p>
                             <p className="mt-4">
-                                Marlon ziet wat anderen missen.<br />
-                                Hij heeft oog voor detail en tilt jouw training naar het hoogste niveau.<br />
-                                Je leert opnieuw trainen — anders dan je gewend bent —<br />
+                                Marlon ziet wat anderen missen.
+                                <br className="hidden md:inline" />{' '}
+                                Hij heeft oog voor detail en tilt jouw training naar het hoogste niveau.
+                                <br className="hidden md:inline" />{' '}
+                                Je leert opnieuw trainen — anders dan je gewend bent —
+                                <br className="hidden md:inline" />{' '}
                                 en ontdekt spiergroepen waarvan je niet wist dat je ze had.
                             </p>
 
@@ -233,13 +238,16 @@ const OverOns = () => {
                                 Verwacht geen standaardschema's of snelle oplossingen.
                             </p>
                             <p>
-                                Wij bieden persoonlijke coaching voor duurzame, zichtbare resultaten — <br />
+                                Wij bieden persoonlijke coaching voor duurzame, zichtbare resultaten —{' '}
+                                <br className="hidden md:inline" />
                                 met focus op <strong>mindset, techniek, houding, spieractivatie, doorzettingsvermogen en structuur.</strong>
                             </p>
 
-                            <blockquote className="italic border-l-4 [border-color:#EF4D16] pl-4 text-[#000000] mx-auto mt-8">
-                                "No rush, because nobody waits for you and nobody loves you.<br />
-                                I don't train construction workers, but sculptors.<br />
+                            <blockquote className="italic border-l-4 [border-color:#EF4D16] pl-4 text-[#000000] mx-auto mt-8 text-sm sm:text-base">
+                                "No rush, because nobody waits for you and nobody loves you.
+                                <br className="hidden md:inline" />{' '}
+                                I don't train construction workers, but sculptors.
+                                <br className="hidden md:inline" />{' '}
                                 To become a masterpiece, you must edit yourself."
                                 <span className="block mt-2 text-center font-semibold not-italic">— Marlon</span>
                             </blockquote>
@@ -317,7 +325,7 @@ const OverOns = () => {
                             ) : (
                                 <OverMsbcImageCarousel images={imagesToShow} />
                             )}
-                            <div className="popup-btn" style={{ marginTop: '120px', display: 'flex', justifyContent: 'center' }}>
+                            <div className="popup-btn mt-10 md:mt-[120px] flex justify-center">
                                 <div id="video-button" className="video-button">
                                     <VideoModal showAnimation />
                                     <div id="vidBox"></div>

@@ -149,23 +149,40 @@ const AllTrainings = () => {
                         <div className="section-title">
                             <h2>My Summerbody Club  <span>Abonnementen</span></h2>
                         </div>
-                        <div className="our-trainers">
-                            <TrainingBox
-                                trainingDescription={summerBodyTrainingDescription}
-                                featuredImageUrl={summerbody1jarigImage}
-                            />
-                            <TrainingBox
-                                trainingDescription={summerBodyTrainingDescription6Maanden}
-                                featuredImageUrl={summerbody6MaandenImage}
-                            />
-                            <TrainingBox
-                                trainingDescription={summerBodyTrainingDescriptionFlex}
-                                featuredImageUrl={summerbodyFlexImage}
-                            />
-                        </div>
+                        <Swiper
+                            modules={[Navigation, Pagination, Scrollbar, A11y]}
+                            spaceBetween={20}
+                            slidesPerView={1}
+                            breakpoints={{
+                                768: {
+                                    slidesPerView: 3,
+                                },
+                            }}
+                            navigation
+                            scrollbar={{ draggable: true }}
+                        >
+                            <SwiperSlide>
+                                <TrainingBox
+                                    trainingDescription={summerBodyTrainingDescription}
+                                    featuredImageUrl={summerbody1jarigImage}
+                                />
+                            </SwiperSlide>
+                            <SwiperSlide>
+                                <TrainingBox
+                                    trainingDescription={summerBodyTrainingDescription6Maanden}
+                                    featuredImageUrl={summerbody6MaandenImage}
+                                />
+                            </SwiperSlide>
+                            <SwiperSlide>
+                                <TrainingBox
+                                    trainingDescription={summerBodyTrainingDescriptionFlex}
+                                    featuredImageUrl={summerbodyFlexImage}
+                                />
+                            </SwiperSlide>
+                        </Swiper>
                     </div>
 
-                    <div className="begin-lifestyle begin-lifestyle-home md:my-[100px]">
+                    <div className="begin-lifestyle begin-lifestyle-home mt-[60px] md:my-[100px]">
 
                         {
                             lifeStyle.map((style) => (

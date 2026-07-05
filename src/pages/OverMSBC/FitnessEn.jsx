@@ -3,9 +3,8 @@ import React from 'react'
 const FitnessEn = () => {
     return (
         <>
-            <section id="begin-lifestyle" style={{ paddingBottom: "100px" }}>
+            <section id="begin-lifestyle" className="pb-12 sm:pb-16 md:pb-[100px]">
                 <div className="container">
-                    {/* Video Section */}
                     <div className="video-area-life" style={{ paddingBottom: "40px" }}>
                         <div></div>
                         <div className="section-title flex align-center">
@@ -13,12 +12,9 @@ const FitnessEn = () => {
                                 Fitness en <span>Gezondheid</span>
                             </h2>
                         </div>
-                       
                     </div>
 
-                    {/* Lifestyle Section */}
                     <div className="begin-lifestyle for-over-msbc">
-                        {/* Lifestyle Item 1 */}
                         <div className="lifestyle">
                             <img
                                 src="https://mysummerbodyclub.nl/wp-content/themes/my-summer-body-club/assets/img-20.png"
@@ -35,7 +31,6 @@ const FitnessEn = () => {
                             </p>
                         </div>
 
-                        {/* Lifestyle Item 2 */}
                         <div className="lifestyle">
                             <img
                                 src="https://mysummerbodyclub.nl/wp-content/themes/my-summer-body-club/assets/img-21.png"
@@ -52,7 +47,6 @@ const FitnessEn = () => {
                             </p>
                         </div>
 
-                        {/* Lifestyle Item 3 */}
                         <div className="lifestyle">
                             <img
                                 src="https://mysummerbodyclub.nl/wp-content/themes/my-summer-body-club/assets/img-22.png"

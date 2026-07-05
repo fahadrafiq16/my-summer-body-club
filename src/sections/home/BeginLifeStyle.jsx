@@ -55,7 +55,7 @@ export default function BeginLifeStyle() {
               />
             )}
           </div>
-          <div className="section-title flex align-center justify-center">
+          <div className="section-title section-title-begin-lifestyle flex align-center justify-center">
             <h2 style={{ padding: "0" }}>
               Begin Een Nieuwe Life <span>Style</span>
             </h2>
