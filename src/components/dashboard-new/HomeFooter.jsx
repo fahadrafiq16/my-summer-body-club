@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import { useDropzone } from "react-dropzone";
 import { Button } from "../ui/button";
-import { Plus, Trash2, Save, RefreshCw, CheckCircle2, AlertCircle, ImageIcon } from "lucide-react";
+import { Plus, Trash2, Save, RefreshCw, CheckCircle2, AlertCircle, ImageIcon, ChevronUp, ChevronDown } from "lucide-react";
 import { getBackendBaseUrl } from "../../utils/backend";
 import { PLATFORM_LABELS } from "../footer/FooterSocialLinks";
 
@@ -23,6 +23,10 @@ const DEFAULT_COLUMN1_LINKS = [
 const DEFAULT_COLUMN4_LINKS = [
   { title: "Algemene voorwaarden", url: "/algemene-voorwaarden/" },
   { title: "Privacyverklaring", url: "/privacyverklaring/" },
+  { title: "Huisregels", url: "/" },
+  { title: "Cookies", url: "/" },
+  { title: "Herroepings-Recht", url: "/" },
+  { title: "SEPA", url: "/" },
 ];
 
 const DEFAULT_SOCIAL = [
@@ -51,6 +55,21 @@ function emptyLink() {
   return { title: "", url: "" };
 }
 
+function sortLinksByOrder(links) {
+  return [...(Array.isArray(links) ? links : [])].sort(
+    (a, b) => (Number(a?.displayOrder) || 0) - (Number(b?.displayOrder) || 0)
+  );
+}
+
+function moveLink(items, index, direction) {
+  const nextIndex = index + direction;
+  if (nextIndex < 0 || nextIndex >= items.length) return items;
+  const next = [...items];
+  const [item] = next.splice(index, 1);
+  next.splice(nextIndex, 0, item);
+  return next;
+}
+
 function MenuLinksEditor({ label, links, onChange, disabled }) {
   const items = Array.isArray(links) ? links : [];
 
@@ -58,7 +77,32 @@ function MenuLinksEditor({ label, links, onChange, disabled }) {
     <div className="space-y-3">
       <div className="text-sm font-semibold text-gray-800">{label}</div>
       {items.map((link, index) => (
-        <div key={index} className="rounded-xl border border-gray-200 p-3 bg-gray-50 grid grid-cols-1 md:grid-cols-[1fr_1fr_auto] gap-2 items-end">
+        <div
+          key={index}
+          className="rounded-xl border border-gray-200 p-3 bg-gray-50 grid grid-cols-1 md:grid-cols-[auto_1fr_1fr_auto] gap-2 items-end"
+        >
+          <div className="flex md:flex-col gap-1 mb-0.5">
+            <button
+              type="button"
+              className="rounded-lg border border-gray-200 bg-white p-1.5 text-gray-600 hover:bg-gray-100 disabled:opacity-40"
+              disabled={disabled || index === 0}
+              onClick={() => onChange(moveLink(items, index, -1))}
+              aria-label="Omhoog"
+              title="Omhoog"
+            >
+              <ChevronUp className="w-4 h-4" />
+            </button>
+            <button
+              type="button"
+              className="rounded-lg border border-gray-200 bg-white p-1.5 text-gray-600 hover:bg-gray-100 disabled:opacity-40"
+              disabled={disabled || index === items.length - 1}
+              onClick={() => onChange(moveLink(items, index, 1))}
+              aria-label="Omlaag"
+              title="Omlaag"
+            >
+              <ChevronDown className="w-4 h-4" />
+            </button>
+          </div>
           <label className="block">
             <span className="block text-xs font-medium text-gray-600 mb-1">Titel</span>
             <input
@@ -91,6 +135,7 @@ function MenuLinksEditor({ label, links, onChange, disabled }) {
             className="text-red-600 hover:bg-red-50 rounded-lg p-2 mb-0.5"
             disabled={disabled}
             onClick={() => onChange(items.filter((_, i) => i !== index))}
+            aria-label="Verwijderen"
           >
             <Trash2 className="w-4 h-4" />
           </button>
@@ -179,9 +224,9 @@ export default function HomeFooter({ lang = "nl", embedded = false }) {
       if (res.data?.success && res.data.section) {
         const s = res.data.section;
         setColumn1Title(s.footerColumn1Title || DEFAULT_COLUMN1_TITLE);
-        setColumn1Links(s.footerColumn1Links?.length ? s.footerColumn1Links : DEFAULT_COLUMN1_LINKS);
+        setColumn1Links(s.footerColumn1Links?.length ? sortLinksByOrder(s.footerColumn1Links) : DEFAULT_COLUMN1_LINKS);
         setColumn4Title(s.footerColumn4Title || DEFAULT_COLUMN4_TITLE);
-        setColumn4Links(s.footerColumn4Links?.length ? s.footerColumn4Links : DEFAULT_COLUMN4_LINKS);
+        setColumn4Links(s.footerColumn4Links?.length ? sortLinksByOrder(s.footerColumn4Links) : DEFAULT_COLUMN4_LINKS);
         setLogoImageUrl(s.footerLogoImageUrl || "");
         setLogoImagePublicId(s.footerLogoImagePublicId || "");
         setLegalText(s.footerLegalText || DEFAULT_LEGAL_TEXT);
@@ -251,9 +296,9 @@ export default function HomeFooter({ lang = "nl", embedded = false }) {
       if (res.data?.section) {
         const s = res.data.section;
         setColumn1Title(s.footerColumn1Title || DEFAULT_COLUMN1_TITLE);
-        setColumn1Links(s.footerColumn1Links?.length ? s.footerColumn1Links : DEFAULT_COLUMN1_LINKS);
+        setColumn1Links(s.footerColumn1Links?.length ? sortLinksByOrder(s.footerColumn1Links) : DEFAULT_COLUMN1_LINKS);
         setColumn4Title(s.footerColumn4Title || DEFAULT_COLUMN4_TITLE);
-        setColumn4Links(s.footerColumn4Links?.length ? s.footerColumn4Links : DEFAULT_COLUMN4_LINKS);
+        setColumn4Links(s.footerColumn4Links?.length ? sortLinksByOrder(s.footerColumn4Links) : DEFAULT_COLUMN4_LINKS);
         setLogoImageUrl(s.footerLogoImageUrl || "");
         setLogoImagePublicId(s.footerLogoImagePublicId || "");
         setLegalText(s.footerLegalText || DEFAULT_LEGAL_TEXT);

@@ -8,6 +8,7 @@ import HomeGallery from "./HomeGallery";
 import HomeFooter from "./HomeFooter";
 import HomePageHeroImage from "./HomePageHeroImage";
 import HomeOverMsbc from "./HomeOverMsbc";
+import HomeAbonnement from "./HomeAbonnement";
 
 const SECTIONS = [
   {
@@ -57,6 +58,14 @@ const SECTIONS = [
     descriptionNl: "Slider-afbeeldingen rechts op de Over MSBC-pagina (/over-msbc).",
     descriptionEn: "Slider images on the right side of the Over MSBC page (/over-msbc).",
     render: (lang) => <HomeOverMsbc lang={lang} embedded />,
+  },
+  {
+    key: "abonnement",
+    labelNl: "Abonnement",
+    labelEn: "Abonnement",
+    descriptionNl: "Banner op de Abonnement-pagina: titel, tekst, knop en afbeelding (/abonnement).",
+    descriptionEn: "Banner on the Abonnement page: title, text, button and image (/abonnement).",
+    render: (lang) => <HomeAbonnement lang={lang} embedded />,
   },
   {
     key: "bootcamp",

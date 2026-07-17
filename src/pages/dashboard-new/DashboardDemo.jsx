@@ -404,7 +404,7 @@ function vatAmount(subtotal, percent) {
 }
 
 const LOCATIONS = [
-  { id: "ams", name: "MSBC Amsterdam", city: "Amsterdam" },
+  { id: "ams", name: "MSBC Almere", city: "Almere" },
   { id: "utr", name: "MSBC Utrecht", city: "Utrecht" },
 ];
 

@@ -7,8 +7,7 @@ export default function PrivacyVerklaring() {
       <div className="static-content-prose">
         <section className="static-article">
           <p>
-            Dit is de privacyverklaring van My Summerbody Club Schoutstraat 21 | 1315 EV | Almere – Stad
-            ingeschreven in het Handelsregister bij de Kamer van Koophandel onder nummer 59250097.
+          Dit is de privacyverklaring van My Summerbody Club |   KvK: 59250097.
           </p>
         </section>
 

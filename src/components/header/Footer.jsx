@@ -19,6 +19,10 @@ const FALLBACK = {
   column4Links: [
     { title: "Algemene voorwaarden", url: "/algemene-voorwaarden/" },
     { title: "Privacyverklaring", url: "/privacyverklaring/" },
+    { title: "Huisregels", url: "/" },
+    { title: "Cookies", url: "/" },
+    { title: "Herroepings-Recht", url: "/" },
+    { title: "SEPA", url: "/" },
   ],
   legalText: "Algemene voorwaarden | Privacybeleid | KVK 59250097 | Btw: NL003699102B10",
   facebookPageUrl: "https://www.facebook.com/mysummerbodyclub",
@@ -41,14 +45,24 @@ function FooterNavLink({ url, children }) {
   );
 }
 
+function sortFooterLinks(links) {
+  return [...(Array.isArray(links) ? links : [])].sort(
+    (a, b) => (Number(a?.displayOrder) || 0) - (Number(b?.displayOrder) || 0)
+  );
+}
+
 function buildFooterState(section) {
   if (!section) return { ...FALLBACK, logoImage: animatedLogo };
 
   return {
     column1Title: section.footerColumn1Title || FALLBACK.column1Title,
-    column1Links: section.footerColumn1Links?.length ? section.footerColumn1Links : FALLBACK.column1Links,
+    column1Links: section.footerColumn1Links?.length
+      ? sortFooterLinks(section.footerColumn1Links)
+      : FALLBACK.column1Links,
     column4Title: section.footerColumn4Title || FALLBACK.column4Title,
-    column4Links: section.footerColumn4Links?.length ? section.footerColumn4Links : FALLBACK.column4Links,
+    column4Links: section.footerColumn4Links?.length
+      ? sortFooterLinks(section.footerColumn4Links)
+      : FALLBACK.column4Links,
     logoImage: section.footerLogoImageUrl || animatedLogo,
     legalText: section.footerLegalText || FALLBACK.legalText,
     facebookPageUrl: section.facebookPageUrl || FALLBACK.facebookPageUrl,

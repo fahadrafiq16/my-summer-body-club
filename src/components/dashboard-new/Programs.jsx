@@ -211,6 +211,8 @@ export default function Programs() {
   const [introImage2PublicId, setIntroImage2PublicId] = useState("");
   const [introVideoUrl, setIntroVideoUrl] = useState("");
   const [introVideoPublicId, setIntroVideoPublicId] = useState("");
+  const [introQuote, setIntroQuote] = useState("");
+  const [introDescription, setIntroDescription] = useState("");
   const [pendingIntroImage1, setPendingIntroImage1] = useState(null);
   const [pendingIntroImage2, setPendingIntroImage2] = useState(null);
   const [pendingIntroVideo, setPendingIntroVideo] = useState(null);
@@ -274,6 +276,8 @@ export default function Programs() {
       setIntroImage2PublicId(res.data?.introImage2PublicId || "");
       setIntroVideoUrl(res.data?.introVideoUrl || "");
       setIntroVideoPublicId(res.data?.introVideoPublicId || "");
+      setIntroQuote(res.data?.introQuote || "");
+      setIntroDescription(res.data?.introDescription || "");
       setPendingFeaturedFile(null);
       setPendingIntroImage1(null);
       setPendingIntroImage2(null);
@@ -384,6 +388,8 @@ export default function Programs() {
           introImage2PublicId: nextIntroImage2PublicId,
           introVideoUrl: nextIntroVideoUrl,
           introVideoPublicId: nextIntroVideoPublicId,
+          introQuote,
+          introDescription,
         },
         { headers: { "Content-Type": "application/json", ...authHeaders() } }
       );
@@ -396,6 +402,8 @@ export default function Programs() {
         setIntroImage2PublicId(res.data?.introImage2PublicId || nextIntroImage2PublicId);
         setIntroVideoUrl(res.data?.introVideoUrl || nextIntroVideoUrl);
         setIntroVideoPublicId(res.data?.introVideoPublicId || nextIntroVideoPublicId);
+        setIntroQuote(res.data?.introQuote ?? introQuote);
+        setIntroDescription(res.data?.introDescription ?? introDescription);
         setPendingFeaturedFile(null);
         setPendingIntroImage1(null);
         setPendingIntroImage2(null);
@@ -574,6 +582,26 @@ export default function Programs() {
                       setIntroPreview2(URL.createObjectURL(file));
                     }}
                   />
+                </div>
+                <div className="grid grid-cols-1 gap-4 mt-4">
+                  <Field label="Quote">
+                    <textarea
+                      className={`${inputCls} min-h-[80px] resize-y`}
+                      value={introQuote}
+                      onChange={(e) => setIntroQuote(e.target.value)}
+                      disabled={loading || saving}
+                      placeholder='"Alleen ik kan mijn levensstijl veranderen, niemand kan het voor mij doen."'
+                    />
+                  </Field>
+                  <Field label="Beschrijving">
+                    <textarea
+                      className={`${inputCls} min-h-[120px] resize-y`}
+                      value={introDescription}
+                      onChange={(e) => setIntroDescription(e.target.value)}
+                      disabled={loading || saving}
+                      placeholder="Tekst onder de quote op de intro-pagina"
+                    />
+                  </Field>
                 </div>
               </CardContent>
             </Card>
