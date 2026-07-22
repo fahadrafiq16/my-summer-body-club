@@ -649,7 +649,7 @@ function MembersTable({ rows, role, lang, onChangePlan, onOpen, onToggleBlock, o
                       <input type="checkbox" checked={isChecked} onChange={() => toggleOne(m.id)} className="rounded border-gray-300" />
                     </td>
                     <td className="px-4 py-3">
-                      <div className="font-medium">{m.firstName} {m.lastName}</div>
+                      <div className="font-medium">{m.firstName} {m.lastName}{m.tussenvoegsel ? ` - ${m.tussenvoegsel}` : ""}</div>
                       <div className="text-xs text-gray-500">{m.email ?? "—"}</div>
                     </td>
                     <td className="px-4 py-3 text-gray-700">{m.customerId}</td>
@@ -849,24 +849,49 @@ function MemberDetail({ member, role, lang, locationId, provider, setProvider, o
           <CardContent className="p-6">
             <div className="text-lg font-semibold">{t.members.detail.personal}</div>
             <div className="mt-4 space-y-3 text-sm">
-              <div className="flex items-center justify-between"><span className="text-gray-500">Email</span><span className="font-medium">{member.email ?? "—"}</span></div>
-              <div className="flex items-center justify-between"><span className="text-gray-500">Plan</span><span className="font-medium">{planLabel}</span></div>
-              {member.planTypeLabel && (
-                <div className="flex items-center justify-between"><span className="text-gray-500">Plan type</span><span className="font-medium">{member.planTypeLabel}</span></div>
-              )}
-              <div className="flex items-center justify-between"><span className="text-gray-500">Start</span><span className="font-medium">{formatDateDMY(member.startDate)}</span></div>
-              <div className="flex items-center justify-between"><span className="text-gray-500">End</span><span className="font-medium">{formatDateDMY(member.endDate)}</span></div>
-              <div className="flex items-center justify-between"><span className="text-gray-500">Payment</span><span className="font-medium">{member.paymentStatus === "PAID" ? t.members.paid : t.members.open}</span></div>
-              {mongo && (
-                <>
-                  <div className="flex items-center justify-between"><span className="text-gray-500">Phone</span><span className="font-medium">{mongo.telefoonnummer || "—"}</span></div>
-                  <div className="flex items-center justify-between"><span className="text-gray-500">Address</span><span className="font-medium">{mongo.adres || "—"}</span></div>
-                  <div className="flex items-center justify-between"><span className="text-gray-500">City</span><span className="font-medium">{mongo.woonplaats || "—"}</span></div>
-                  <div className="flex items-center justify-between"><span className="text-gray-500">Postcode</span><span className="font-medium">{mongo.postcode || "—"}</span></div>
-                  <div className="flex items-center justify-between"><span className="text-gray-500">House no</span><span className="font-medium">{mongo.huisnummer || "—"}</span></div>
-                  <div className="flex items-center justify-between"><span className="text-gray-500">Extra</span><span className="font-medium">{mongo.extraOption?.title ?? "—"}</span></div>
-                </>
-              )}
+              {(() => {
+                const voornaam = mongo?.voornaam || member.firstName || "—";
+                const tussenvoegsel = (mongo?.tussenvoegsel ?? member.tussenvoegsel ?? "").trim() || "—";
+                const achternaam = mongo?.achternaam || member.lastName || "—";
+                const geslachtRaw = mongo?.geslachtooptions;
+                const geslachtMap = { man: "Man", vrouw: "Vrouw", neutraal: "Neutraal" };
+                const geslacht =
+                  typeof geslachtRaw === "object" && geslachtRaw
+                    ? (geslachtRaw.title || geslachtRaw.amount || "—")
+                    : (geslachtMap[String(geslachtRaw || "").toLowerCase()] || geslachtRaw || "—");
+                const geboortedatum =
+                  mongo?.dayOfMonth && mongo?.month && mongo?.years
+                    ? `${mongo.dayOfMonth}-${mongo.month}-${mongo.years}`
+                    : "—";
+                const planType =
+                  mongoSelectedOption?.title || member.planTypeLabel || "—";
+                const extraTitle = String(mongo?.extraOption?.title ?? "").replace(/^\s*-\s*/, "").trim();
+                const rows = [
+                  ["Voornaam", voornaam],
+                  ["Tussenvoegsel", tussenvoegsel],
+                  ["Achternaam", achternaam],
+                  ["Geslacht", geslacht],
+                  ["Geboortedatum", geboortedatum],
+                  ["Email", member.email || mongo?.email || "—"],
+                  ["Plan", planLabel],
+                  ["Plan type", planType],
+                  ["Start", formatDateDMY(member.startDate)],
+                  ["End", formatDateDMY(member.endDate)],
+                  ["Payment", member.paymentStatus === "PAID" ? t.members.paid : t.members.open],
+                  ["Phone", mongo?.telefoonnummer || "—"],
+                  ["Address", mongo?.adres || "—"],
+                  ["City", mongo?.woonplaats || "—"],
+                  ["Postcode", mongo?.postcode || "—"],
+                  ["House no", mongo?.huisnummer || "—"],
+                  ["Extra", extraTitle || "—"],
+                ];
+                return rows.map(([label, value]) => (
+                  <div key={label} className="flex items-start justify-between gap-3">
+                    <span className="text-gray-500 shrink-0">{label}</span>
+                    <span className="font-medium text-right">{value}</span>
+                  </div>
+                ));
+              })()}
               {member.category === "RENTAL" && <div className="text-xs text-gray-500 pt-2">VAT (Rental) currently: <b>{vatSettings.percentByCategory.RENTAL}%</b></div>}
             </div>
           </CardContent>
@@ -1114,6 +1139,7 @@ function MembersTab({ lang, role, locationId }) {
       category,
       customerId: String(doc?.mollieCustomerId ?? doc?.molliePaymentId ?? doc?._id ?? category),
       firstName: String(doc?.voornaam ?? ""),
+      tussenvoegsel: String(doc?.tussenvoegsel ?? "").trim(),
       lastName: String(doc?.achternaam ?? ""),
       email: doc?.email ?? undefined,
       mollieCustomerId: doc?.mollieCustomerId ?? "",
@@ -1182,6 +1208,7 @@ function MembersTab({ lang, role, locationId }) {
             category: "PT",
             customerId: String(doc?.mollieCustomerId ?? doc?.molliePaymentId ?? doc?._id ?? "PT"),
             firstName: String(doc?.voornaam ?? ""),
+            tussenvoegsel: String(doc?.tussenvoegsel ?? "").trim(),
             lastName: String(doc?.achternaam ?? ""),
             email: doc?.email ?? undefined,
             mollieCustomerId: doc?.mollieCustomerId ?? "",
@@ -1238,6 +1265,7 @@ function MembersTab({ lang, role, locationId }) {
             category: "CLUB",
             customerId: String(doc?.mollieCustomerId ?? doc?.molliePaymentId ?? doc?._id ?? "CLUB"),
             firstName: String(doc?.voornaam ?? ""),
+            tussenvoegsel: String(doc?.tussenvoegsel ?? "").trim(),
             lastName: String(doc?.achternaam ?? ""),
             email: doc?.email ?? undefined,
             mollieCustomerId: doc?.mollieCustomerId ?? "",
@@ -1297,6 +1325,7 @@ function MembersTab({ lang, role, locationId }) {
               category: "RENTAL",
               customerId: String(doc?.mollieCustomerId ?? doc?.molliePaymentId ?? doc?._id ?? "RENTAL"),
               firstName: String(doc?.voornaam ?? ""),
+              tussenvoegsel: String(doc?.tussenvoegsel ?? "").trim(),
               lastName: String(doc?.achternaam ?? ""),
               email: doc?.email ?? undefined,
               mollieCustomerId: doc?.mollieCustomerId ?? "",
@@ -1386,6 +1415,7 @@ function MembersTab({ lang, role, locationId }) {
         category,
         customerId: String(doc?.mollieCustomerId ?? doc?.customerId ?? doc?.molliePaymentId ?? doc?._id ?? category),
         firstName: String(doc?.voornaam ?? ""),
+        tussenvoegsel: String(doc?.tussenvoegsel ?? "").trim(),
         lastName: String(doc?.achternaam ?? ""),
         email: doc?.email ?? undefined,
         mollieCustomerId: resolvedCustomerId,
@@ -1411,7 +1441,7 @@ function MembersTab({ lang, role, locationId }) {
     return members.filter((m) => {
       const plan = getPlan(m.planId);
       const fallbackPlanLabel = lang === "nl" ? plan.labelNL : plan.labelEN;
-      const name = `${m.firstName || ""} ${m.lastName || ""}`.toLowerCase();
+      const name = `${m.firstName || ""} ${m.tussenvoegsel || ""} ${m.lastName || ""}`.toLowerCase();
       const customerId = String(m.customerId || "").toLowerCase();
       const email = String(m.email || "").toLowerCase();
       const planLabel = String(m.planLabel || fallbackPlanLabel || "").toLowerCase();
