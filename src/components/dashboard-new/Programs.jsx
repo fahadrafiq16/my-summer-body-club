@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import { Card, CardContent } from "../ui/card";
 import { Button } from "../ui/button";
-import { Plus, Trash2, Save, RefreshCw, CheckCircle2, AlertCircle, ImageIcon, Film } from "lucide-react";
+import { Plus, Trash2, Save, RefreshCw, CheckCircle2, AlertCircle, ImageIcon, Film, GripVertical } from "lucide-react";
 import { useDropzone } from "react-dropzone";
 import { getBackendBaseUrl } from "../../utils/backend";
 
@@ -221,6 +221,8 @@ export default function Programs() {
   const [introVideoPreview, setIntroVideoPreview] = useState("");
   const [clubSubscriptionsVisible, setClubSubscriptionsVisible] = useState(true);
   const [clubToggleSaving, setClubToggleSaving] = useState(false);
+  const [dragOptionIndex, setDragOptionIndex] = useState(null);
+  const [dragOverOptionIndex, setDragOverOptionIndex] = useState(null);
 
   const backendBaseUrl = useMemo(() => getBackendBaseUrl(), []);
 
@@ -433,6 +435,16 @@ export default function Programs() {
   const removePaymentOption = (idx) => {
     setPaymentOptions((prev) => prev.filter((_, i) => i !== idx));
   };
+  const reorderPaymentOptions = (fromIndex, toIndex) => {
+    if (fromIndex === toIndex || fromIndex == null || toIndex == null) return;
+    setPaymentOptions((prev) => {
+      if (fromIndex < 0 || toIndex < 0 || fromIndex >= prev.length || toIndex >= prev.length) return prev;
+      const next = [...prev];
+      const [moved] = next.splice(fromIndex, 1);
+      next.splice(toIndex, 0, moved);
+      return next;
+    });
+  };
 
   const updateExtra = (idx, patch) => {
     setExtraOptions((prev) => prev.map((p, i) => (i === idx ? { ...p, ...patch } : p)));
@@ -611,7 +623,10 @@ export default function Programs() {
           <Card className="bg-white shadow-sm border border-gray-200 rounded-2xl">
             <CardContent className="p-6">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-semibold">Payment Options</h2>
+                <div>
+                  <h2 className="text-lg font-semibold">Payment Options</h2>
+                  <p className="text-xs text-gray-500 mt-0.5">Sleep opties om de volgorde te wijzigen</p>
+                </div>
                 <Button
                   variant="outline"
                   className="rounded-xl"
@@ -622,9 +637,53 @@ export default function Programs() {
               </div>
               <div className="space-y-4">
                 {paymentOptions.map((p, idx) => (
-                  <div key={idx} className="rounded-xl border border-gray-200 p-4 bg-gray-50">
+                  <div
+                    key={idx}
+                    draggable={false}
+                    onDragOver={(e) => {
+                      e.preventDefault();
+                      if (dragOptionIndex !== null && dragOptionIndex !== idx) {
+                        setDragOverOptionIndex(idx);
+                      }
+                    }}
+                    onDrop={(e) => {
+                      e.preventDefault();
+                      reorderPaymentOptions(dragOptionIndex, idx);
+                      setDragOptionIndex(null);
+                      setDragOverOptionIndex(null);
+                    }}
+                    onDragLeave={() => {
+                      if (dragOverOptionIndex === idx) setDragOverOptionIndex(null);
+                    }}
+                    className={`rounded-xl border p-4 bg-gray-50 transition-all ${
+                      dragOptionIndex === idx
+                        ? "opacity-50 border-[#ef4d16] border-dashed"
+                        : dragOverOptionIndex === idx
+                        ? "border-[#ef4d16] ring-2 ring-[#ef4d16]/20"
+                        : "border-gray-200"
+                    }`}
+                  >
                     <div className="flex items-center justify-between mb-3">
-                      <div className="text-sm font-semibold text-gray-700">Optie #{idx + 1}</div>
+                      <div className="flex items-center gap-2">
+                        <div
+                          draggable
+                          onDragStart={(e) => {
+                            setDragOptionIndex(idx);
+                            e.dataTransfer.effectAllowed = "move";
+                            e.dataTransfer.setData("text/plain", String(idx));
+                          }}
+                          onDragEnd={() => {
+                            setDragOptionIndex(null);
+                            setDragOverOptionIndex(null);
+                          }}
+                          className="cursor-grab active:cursor-grabbing text-gray-400 hover:text-gray-600 p-1 rounded-lg hover:bg-gray-200 select-none"
+                          title="Sleep om te herordenen"
+                          aria-label="Sleep om te herordenen"
+                        >
+                          <GripVertical className="w-5 h-5 pointer-events-none" />
+                        </div>
+                        <div className="text-sm font-semibold text-gray-700">Optie #{idx + 1}</div>
+                      </div>
                       <button
                         type="button"
                         className="text-red-600 hover:bg-red-50 rounded-lg p-1"
