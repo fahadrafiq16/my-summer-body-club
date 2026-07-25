@@ -189,6 +189,8 @@ function IntroVideoUpload({ previewUrl, onFile, disabled }) {
 }
 
 const CLUB_SUBSCRIPTIONS_KEY = "club-subscriptions";
+const BOOTCAMP_NAV_KEY = "bootcamp-page";
+const PT_RENT_NAV_KEY = "pt-rent-page";
 
 export default function Programs() {
   const [programKey, setProgramKey] = useState(AVAILABLE_PROGRAMS[0].key);
@@ -220,44 +222,51 @@ export default function Programs() {
   const [introPreview2, setIntroPreview2] = useState("");
   const [introVideoPreview, setIntroVideoPreview] = useState("");
   const [clubSubscriptionsVisible, setClubSubscriptionsVisible] = useState(true);
-  const [clubToggleSaving, setClubToggleSaving] = useState(false);
+  const [bootcampNavVisible, setBootcampNavVisible] = useState(true);
+  const [ptRentNavVisible, setPtRentNavVisible] = useState(true);
+  const [toggleSavingKey, setToggleSavingKey] = useState("");
   const [dragOptionIndex, setDragOptionIndex] = useState(null);
   const [dragOverOptionIndex, setDragOverOptionIndex] = useState(null);
 
   const backendBaseUrl = useMemo(() => getBackendBaseUrl(), []);
 
-  const loadClubSubscriptionsVisibility = async () => {
+  const loadSectionVisibility = async (sectionKey, setVisible) => {
     try {
-      const res = await axios.get(`${backendBaseUrl}/api/fetch-home-section/${CLUB_SUBSCRIPTIONS_KEY}`);
+      const res = await axios.get(`${backendBaseUrl}/api/fetch-home-section/${sectionKey}`);
       if (res.data?.success && res.data.section) {
-        setClubSubscriptionsVisible(res.data.section.isActive !== false);
+        setVisible(res.data.section.isActive !== false);
       }
     } catch {
-      setClubSubscriptionsVisible(true);
+      setVisible(true);
     }
   };
 
-  const toggleClubSubscriptions = async () => {
-    const nextVisible = !clubSubscriptionsVisible;
+  const toggleSectionVisibility = async ({ sectionKey, title, visible, setVisible }) => {
+    const nextVisible = !visible;
     try {
-      setClubToggleSaving(true);
+      setToggleSavingKey(sectionKey);
       await axios.put(
-        `${backendBaseUrl}/api/home-sections/${CLUB_SUBSCRIPTIONS_KEY}`,
-        {
-          title: "Club Abonnementen",
-          isActive: nextVisible,
-        },
+        `${backendBaseUrl}/api/home-sections/${sectionKey}`,
+        { title, isActive: nextVisible },
         { headers: { "Content-Type": "application/json", ...authHeaders() } }
       );
-      setClubSubscriptionsVisible(nextVisible);
+      setVisible(nextVisible);
     } catch (e) {
       setStatus({
         type: "err",
-        text: e?.response?.data?.error || e?.message || "Club abonnementen toggle mislukt",
+        text: e?.response?.data?.error || e?.message || `${title} toggle mislukt`,
       });
     } finally {
-      setClubToggleSaving(false);
+      setToggleSavingKey("");
     }
+  };
+
+  const loadNavToggles = async () => {
+    await Promise.all([
+      loadSectionVisibility(CLUB_SUBSCRIPTIONS_KEY, setClubSubscriptionsVisible),
+      loadSectionVisibility(BOOTCAMP_NAV_KEY, setBootcampNavVisible),
+      loadSectionVisibility(PT_RENT_NAV_KEY, setPtRentNavVisible),
+    ]);
   };
 
   const load = async (key = programKey) => {
@@ -304,7 +313,7 @@ export default function Programs() {
   }, [programKey]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    loadClubSubscriptionsVisibility();
+    loadNavToggles();
   }, [backendBaseUrl]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const uploadFeaturedImage = async (file) => {
@@ -468,28 +477,59 @@ export default function Programs() {
           <div className="text-sm text-gray-500">Beheer trainings­pakketten, prijzen en pagina inhoud (opgeslagen in MongoDB).</div>
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          <div className="flex items-center gap-3 rounded-xl border border-gray-200 bg-white px-3 py-2">
-            <span className="text-sm text-gray-600 whitespace-nowrap">Club abonnementen</span>
-            <button
-              type="button"
-              role="switch"
-              aria-checked={clubSubscriptionsVisible}
-              disabled={clubToggleSaving}
-              onClick={toggleClubSubscriptions}
-              className={`relative inline-flex h-7 w-12 shrink-0 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-[#ef4d16] focus:ring-offset-2 disabled:opacity-60 ${
-                clubSubscriptionsVisible ? "bg-[#ef4d16]" : "bg-gray-300"
-              }`}
-            >
-              <span
-                className={`inline-block h-5 w-5 transform rounded-full bg-white shadow transition-transform ${
-                  clubSubscriptionsVisible ? "translate-x-6" : "translate-x-1"
+          {[
+            {
+              key: CLUB_SUBSCRIPTIONS_KEY,
+              label: "Club abonnementen",
+              visible: clubSubscriptionsVisible,
+              setVisible: setClubSubscriptionsVisible,
+              title: "Club Abonnementen",
+            },
+            {
+              key: BOOTCAMP_NAV_KEY,
+              label: "Bootcamp",
+              visible: bootcampNavVisible,
+              setVisible: setBootcampNavVisible,
+              title: "Bootcamp",
+            },
+            {
+              key: PT_RENT_NAV_KEY,
+              label: "PT Ruimte Huren",
+              visible: ptRentNavVisible,
+              setVisible: setPtRentNavVisible,
+              title: "PT Ruimte Huren",
+            },
+          ].map((toggle) => (
+            <div key={toggle.key} className="flex items-center gap-3 rounded-xl border border-gray-200 bg-white px-3 py-2">
+              <span className="text-sm text-gray-600 whitespace-nowrap">{toggle.label}</span>
+              <button
+                type="button"
+                role="switch"
+                aria-checked={toggle.visible}
+                disabled={toggleSavingKey === toggle.key}
+                onClick={() =>
+                  toggleSectionVisibility({
+                    sectionKey: toggle.key,
+                    title: toggle.title,
+                    visible: toggle.visible,
+                    setVisible: toggle.setVisible,
+                  })
+                }
+                className={`relative inline-flex h-7 w-12 shrink-0 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-[#ef4d16] focus:ring-offset-2 disabled:opacity-60 ${
+                  toggle.visible ? "bg-[#ef4d16]" : "bg-gray-300"
                 }`}
-              />
-            </button>
-            <span className={`text-xs font-medium ${clubSubscriptionsVisible ? "text-green-600" : "text-gray-400"}`}>
-              {clubSubscriptionsVisible ? "Aan" : "Uit"}
-            </span>
-          </div>
+              >
+                <span
+                  className={`inline-block h-5 w-5 transform rounded-full bg-white shadow transition-transform ${
+                    toggle.visible ? "translate-x-6" : "translate-x-1"
+                  }`}
+                />
+              </button>
+              <span className={`text-xs font-medium ${toggle.visible ? "text-green-600" : "text-gray-400"}`}>
+                {toggle.visible ? "Aan" : "Uit"}
+              </span>
+            </div>
+          ))}
           <div className="flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-3 py-2">
             <span className="text-sm text-gray-600">Programma</span>
             <select

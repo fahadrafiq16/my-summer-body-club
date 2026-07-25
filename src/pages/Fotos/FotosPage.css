@@ -7,6 +7,10 @@
   min-height: 50vh;
 }
 
+.fotos-section {
+  scroll-margin-top: 100px;
+}
+
 .fotos-page__inner {
   position: relative;
 }

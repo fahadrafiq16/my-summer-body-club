@@ -1,12 +1,11 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import TitleHeader from '../../components/common/TitleHeader';
 import { useForm } from 'react-hook-form';
 import TextField from '../../components/common/TextField';
 import RadioGroup from '../../components/common/RadioGroup';
 import BorderedHeader from '../../components/multistepsform/BorderedHeader';
 import axios from "axios"
-
-const BASE_BACKEND_URL = process.env.REACT_APP_BASE_BACKEND_URL;
+import { getBackendBaseUrl } from '../../utils/backend';
 
 const geslachtoOptions = [
     { title: 'Man', amount: 'man' },
@@ -14,7 +13,7 @@ const geslachtoOptions = [
     { title: 'Neutraal', amount: 'neutraal' },
 ];
 
-const trainingPrograms = [
+const DEFAULT_TRAINING_PROGRAMS = [
     { title: 'Small Group Training', amount: 'small-group-training' },
     { title: 'Personal Training', amount: 'personal-training' },
     { title: 'Duo PT', amount: 'duo-pt' },
@@ -22,18 +21,67 @@ const trainingPrograms = [
     { title: 'Afvallen', amount: 'afvallen' },
 ];
 
+const DEFAULT_CONTENT = {
+    pageHeading: 'Ik wil graag meer informatie over:',
+    gegevensHeading: 'Mijn gegevens',
+    introText:
+        'Je ontvangt de informatie over de door jouw aangevraagde training zo snel mogelijk! Vul eerst nog even je gegevens in.',
+    personalHeading: 'Persoonlijke gegevens',
+    contactHeading: 'Contactgegevens',
+    trainingPrograms: DEFAULT_TRAINING_PROGRAMS,
+};
+
+function mapTrainingOptions(links) {
+    if (!Array.isArray(links) || !links.length) return DEFAULT_TRAINING_PROGRAMS;
+    const mapped = links
+        .slice()
+        .sort((a, b) => (Number(a.displayOrder) || 0) - (Number(b.displayOrder) || 0))
+        .map((item) => ({
+            title: String(item?.title || '').trim(),
+            amount: String(item?.url || '').trim(),
+        }))
+        .filter((item) => item.title && item.amount);
+    return mapped.length ? mapped : DEFAULT_TRAINING_PROGRAMS;
+}
+
 const Informatie = () => {
     const { register, handleSubmit, control, formState: { errors } } = useForm({});
-    const [loading, setLoading] = React.useState(false);
+    const [loading, setLoading] = useState(false);
+    const [content, setContent] = useState(DEFAULT_CONTENT);
+
+    useEffect(() => {
+        let isMounted = true;
+        const load = async () => {
+            try {
+                const base = getBackendBaseUrl();
+                const res = await axios.get(`${base}/api/fetch-home-section/informatie-page`);
+                if (!isMounted || !res.data?.success || !res.data.section) return;
+                const section = res.data.section;
+                setContent({
+                    pageHeading: section.title || DEFAULT_CONTENT.pageHeading,
+                    gegevensHeading: section.buttonLabel || DEFAULT_CONTENT.gegevensHeading,
+                    introText: section.bodyText || DEFAULT_CONTENT.introText,
+                    personalHeading: section.footerColumn1Title || DEFAULT_CONTENT.personalHeading,
+                    contactHeading: section.footerColumn4Title || DEFAULT_CONTENT.contactHeading,
+                    trainingPrograms: mapTrainingOptions(section.footerColumn1Links),
+                });
+            } catch {
+                /* keep defaults */
+            }
+        };
+        load();
+        return () => {
+            isMounted = false;
+        };
+    }, []);
 
     const onSubmit = async (data) => {
         try {
             setLoading(true);
-            console.log("Form Data:", data);
-
+            const base = getBackendBaseUrl();
             const res = await axios.post(
-                `${BASE_BACKEND_URL}/api/informatie-email`,
-                { data } // ✅ backend expects { data }
+                `${base}/api/informatie-email`,
+                { data }
             );
 
             if (res.data.success) {
@@ -53,7 +101,7 @@ const Informatie = () => {
         <>
             <TitleHeader title={'Informatie'} />
             <div className="payment-form-page informatie max-w-[800px] mx-auto my-[100px]">
-                <h3 className="form-h3">Ik wil graag meer informatie over:</h3>
+                <h3 className="form-h3">{content.pageHeading}</h3>
                 <form onSubmit={handleSubmit(onSubmit)}>
 
                     <div className="select-gender training-options">
@@ -61,20 +109,20 @@ const Informatie = () => {
                         <RadioGroup
                             name="trainingsoptions"
                             control={control}
-                            options={trainingPrograms}
+                            options={content.trainingPrograms}
+                            showPrice={false}
                         />
                         {errors.trainingsoptions && (
                             <p className="text-red-500 text-left">{"This field is required"}</p>
                         )}
                     </div>
 
-                    <BorderedHeader heading={'Mijn gegevens'} />
+                    <BorderedHeader heading={content.gegevensHeading} />
                     <p className="form-h3-p">
-                        Je ontvangt de informatie over de door jouw aangevraagde training zo snel mogelijk!
-                        Vul eerst nog even je gegevens in.
+                        {content.introText}
                     </p>
 
-                    <BorderedHeader heading={'Persoonlijke gegevens'} />
+                    <BorderedHeader heading={content.personalHeading} />
 
                     <TextField
                         label="Voornaam:"
@@ -109,13 +157,14 @@ const Informatie = () => {
                             name="geslachtooptions"
                             control={control}
                             options={geslachtoOptions}
+                            showPrice={false}
                         />
                         {errors.geslachtooptions && (
                             <p className="text-red-500 text-left">{"This field is required"}</p>
                         )}
                     </div>
 
-                    <BorderedHeader heading={'Contactgegevens'} />
+                    <BorderedHeader heading={content.contactHeading} />
 
                     <TextField
                         label="Telefoonnummer:"

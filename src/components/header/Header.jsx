@@ -3,9 +3,42 @@ import { Link } from 'react-router-dom'
 import Logo from '../../images/logo.png'
 import EmailIcon from '../../images/email.png'
 import PhoneIcon from '../../images/mobile-phone.png'
+import { getBackendBaseUrl } from '../../utils/backend'
+
+const BOOTCAMP_NAV_KEY = 'bootcamp-page'
+const PT_RENT_NAV_KEY = 'pt-rent-page'
+const NAV_CACHE_KEY = 'msbc_nav_visibility'
+
+function readNavCache() {
+    try {
+        const raw = sessionStorage.getItem(NAV_CACHE_KEY)
+        if (!raw) return null
+        const parsed = JSON.parse(raw)
+        return parsed && typeof parsed === 'object' ? parsed : null
+    } catch {
+        return null
+    }
+}
+
+function writeNavCache(patch) {
+    try {
+        const prev = readNavCache() || {}
+        sessionStorage.setItem(NAV_CACHE_KEY, JSON.stringify({ ...prev, ...patch }))
+    } catch {
+        /* ignore */
+    }
+}
 
 const Header = () => {
+    const cached = readNavCache()
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    // null = not loaded yet (don't render) — avoids flash of showing then hiding
+    const [bootcampVisible, setBootcampVisible] = useState(
+        () => (typeof cached?.bootcamp === 'boolean' ? cached.bootcamp : null)
+    );
+    const [ptRentVisible, setPtRentVisible] = useState(
+        () => (typeof cached?.ptRent === 'boolean' ? cached.ptRent : null)
+    );
 
     const toggleMenu = () => setIsMenuOpen((prev) => !prev);
     const closeMenu = () => setIsMenuOpen(false);
@@ -16,6 +49,37 @@ const Header = () => {
             document.body.style.overflow = '';
         };
     }, [isMenuOpen]);
+
+    useEffect(() => {
+        let isMounted = true;
+        const base = getBackendBaseUrl();
+
+        const loadVisibility = async (sectionKey, cacheField, setVisible) => {
+            try {
+                const res = await fetch(`${base}/api/fetch-home-section/${sectionKey}`);
+                if (!res.ok) {
+                    if (isMounted) setVisible((prev) => (prev === null ? true : prev));
+                    return;
+                }
+                const data = await res.json();
+                if (!isMounted) return;
+                const visible = data?.success && data.section
+                    ? data.section.isActive !== false
+                    : true;
+                setVisible(visible);
+                writeNavCache({ [cacheField]: visible });
+            } catch {
+                if (isMounted) setVisible((prev) => (prev === null ? true : prev));
+            }
+        };
+
+        loadVisibility(BOOTCAMP_NAV_KEY, 'bootcamp', setBootcampVisible);
+        loadVisibility(PT_RENT_NAV_KEY, 'ptRent', setPtRentVisible);
+
+        return () => {
+            isMounted = false;
+        };
+    }, []);
 
     return (
         <header id="global-header">
@@ -110,12 +174,16 @@ const Header = () => {
                                 <li className="menu-item">
                                     <Link to="/abonnement" onClick={closeMenu}>Abonnementen</Link>
                                 </li>
-                                <li className="menu-item">
-                                    <Link to="/bootcamp" onClick={closeMenu}>Bootcamp</Link>
-                                </li>
-                                <li className="menu-item">
-                                    <Link to="/pt-ruimte-huren" onClick={closeMenu}>PT Ruimte Huren</Link>
-                                </li>
+                                {bootcampVisible === true && (
+                                    <li className="menu-item">
+                                        <Link to="/bootcamp" onClick={closeMenu}>Bootcamp</Link>
+                                    </li>
+                                )}
+                                {ptRentVisible === true && (
+                                    <li className="menu-item">
+                                        <Link to="/pt-ruimte-huren" onClick={closeMenu}>PT Ruimte Huren</Link>
+                                    </li>
+                                )}
                                 <li className="menu-item">
                                     <Link to="/testimonial-uploader" onClick={closeMenu}>Plaats Review</Link>
                                 </li>

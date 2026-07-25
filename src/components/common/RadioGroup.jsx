@@ -1,7 +1,7 @@
 import React from 'react'
 import { Controller } from "react-hook-form";
 
-const RadioGroup = ({ name, control, options, required='Abonnement keuze is vereist', allowDeselect = false }) => {
+const RadioGroup = ({ name, control, options, required='Abonnement keuze is vereist', allowDeselect = false, showPrice = true }) => {
     return (
         <Controller
             name={name}
@@ -28,7 +28,7 @@ const RadioGroup = ({ name, control, options, required='Abonnement keuze is vere
                                 onChange={() => field.onChange(option.amount)} // Correctly trigger field.onChange with the selected value
                                 className="mr-2"
                             />
-                             <span>€ {option.amount}</span> {option.title}
+                             {showPrice ? <span>€ {option.amount}</span> : null} {option.title}
                         </label>
                     ))}
                    

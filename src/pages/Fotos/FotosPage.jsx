@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, A11y } from "swiper/modules";
@@ -41,11 +41,11 @@ function GalleryCard({ gallery, type, onOpen }) {
   );
 }
 
-function GalleryRow({ title, subtitle, galleries, onOpen, type }) {
+function GalleryRow({ id, title, subtitle, galleries, onOpen, type }) {
   if (!galleries?.length) return null;
 
   return (
-    <section className="fotos-section">
+    <section id={id} className="fotos-section">
       <div className="fotos-container">
         <div className="section-title fotos-section__heading">
           <h2>
@@ -81,6 +81,7 @@ function GalleryRow({ title, subtitle, galleries, onOpen, type }) {
 
 export default function FotosPage() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [photos, setPhotos] = useState([]);
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -106,6 +107,31 @@ export default function FotosPage() {
     load();
   }, []);
 
+  // Scroll after galleries render — hash targets are missing during loading
+  useEffect(() => {
+    if (loading) return;
+    const hash = location.hash?.replace(/^#/, "");
+    if (!hash) return;
+
+    const scrollToHash = () => {
+      const el = document.getElementById(hash);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+        return true;
+      }
+      return false;
+    };
+
+    if (scrollToHash()) return;
+
+    const t1 = setTimeout(scrollToHash, 50);
+    const t2 = setTimeout(scrollToHash, 250);
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+    };
+  }, [loading, photos, videos, location.hash]);
+
   const openGallery = (gallery) => navigate(`/fotos/${slugify(gallery.title)}`);
 
   return (
@@ -127,6 +153,7 @@ export default function FotosPage() {
         )}
 
         <GalleryRow
+          id="photos-section"
           title="FOTO'S"
           subtitle="TRAINING MOMENTEN"
           galleries={photos}
@@ -134,6 +161,7 @@ export default function FotosPage() {
           type="photos"
         />
         <GalleryRow
+          id="videos-section"
           title="VIDEO'S"
           subtitle="IN ACTIE"
           galleries={videos}

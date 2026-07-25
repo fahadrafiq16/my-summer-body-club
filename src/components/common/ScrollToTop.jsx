@@ -5,10 +5,12 @@ const ScrollToTop1 = () => {
     const location = useLocation();
 
     useEffect(() => {
+        // Keep hash anchors working (e.g. /fotos#photos-section)
+        if (location.hash) return;
         window.scrollTo(0, 0);
-    }, [location.pathname]); // Trigger on route change
+    }, [location.pathname, location.hash]);
 
-    return null; // No need to render anything
+    return null;
 };
 
 export default ScrollToTop1;
