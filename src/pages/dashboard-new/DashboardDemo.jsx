@@ -8,6 +8,7 @@ import Programs from "../../components/dashboard-new/Programs";
 import Reviews from "../../components/dashboard-new/Reviews";
 import FotosGalleryAdmin from "../../components/dashboard-new/FotosGalleryAdmin";
 import HomeTab from "../../components/dashboard-new/HomeTab";
+import FoodMeal from "../../components/dashboard-new/FoodMeal";
 import { useAuth } from "../../context/AuthContext";
 import { motion } from "framer-motion";
 import {
@@ -36,6 +37,7 @@ import {
   ArrowLeft,
   ExternalLink,
   Trash2,
+  UtensilsCrossed,
 } from "lucide-react";
 import {
   ResponsiveContainer,
@@ -68,6 +70,7 @@ const i18n = {
       invoices: "Facturen",
       automations: "Automations",
       programs: "Programs",
+      foodMeal: "Food Meal",
       reviews: "Reviews",
       home: "Home",
       gallery: "Gallery",
@@ -201,6 +204,7 @@ const i18n = {
       invoices: "Invoices",
       automations: "Automations",
       programs: "Programs",
+      foodMeal: "Food Meal",
       reviews: "Reviews",
       home: "Home",
       gallery: "Gallery",
@@ -460,7 +464,7 @@ function NavButton({ icon, label, active, collapsed, onClick }) {
   );
 }
 
-const CONTENT_TABS = ["home", "programs", "gallery", "reviews"];
+const CONTENT_TABS = ["home", "programs", "food-meal", "gallery", "reviews"];
 
 function NavSubButton({ icon, label, active, onClick }) {
   return (
@@ -2007,6 +2011,7 @@ export default function DashboardDemo() {
   const contentNavItems = [
     { id: "home", label: t.tabs.home, icon: <Home className="w-4 h-4" /> },
     { id: "programs", label: t.tabs.programs, icon: <FileText className="w-4 h-4" /> },
+    { id: "food-meal", label: t.tabs.foodMeal, icon: <UtensilsCrossed className="w-4 h-4" /> },
     { id: "gallery", label: t.tabs.gallery, icon: <Images className="w-4 h-4" /> },
     { id: "reviews", label: t.tabs.reviews, icon: <MessageSquare className="w-4 h-4" /> },
   ];
@@ -2089,6 +2094,7 @@ export default function DashboardDemo() {
           {tab === "invoices" && <InvoicesTab lang={lang} locationId={locationId} />}
           {tab === "automations" && <AutomationsTab lang={lang} />}
           {tab === "programs" && <Programs />}
+          {tab === "food-meal" && <FoodMeal lang={lang} />}
           {tab === "home" && <HomeTab lang={lang} />}
           {tab === "gallery" && <FotosGalleryAdmin />}
           {tab === "reviews" && <Reviews lang={lang} />}

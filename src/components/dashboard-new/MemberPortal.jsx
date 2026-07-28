@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Card, CardContent } from "../ui/card";
 import { Button } from "../ui/button";
-import { LogOut, User, CreditCard, CalendarClock, CheckCircle2, AlertCircle } from "lucide-react";
+import { LogOut, User, CreditCard, CalendarClock, CheckCircle2, AlertCircle, UtensilsCrossed } from "lucide-react";
 import { getBackendBaseUrl } from "../../utils/backend";
+import MemberVoedingsschema from "./MemberVoedingsschema";
 
 function formatEUR(n) {
   return new Intl.NumberFormat("nl-NL", { style: "currency", currency: "EUR", maximumFractionDigits: 2 }).format(Number(n || 0));
@@ -55,6 +56,7 @@ export default function MemberPortal({ onLogout }) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [view, setView] = useState("home"); // home | voedingsschema
 
   useEffect(() => {
     const load = async () => {
@@ -81,6 +83,15 @@ export default function MemberPortal({ onLogout }) {
     load();
   }, []);
 
+  if (view === "voedingsschema") {
+    return (
+      <MemberVoedingsschema
+        onBack={() => setView("home")}
+        onLogout={onLogout}
+      />
+    );
+  }
+
   if (loading) return <SkeletonPortal />;
 
   if (error) {
@@ -96,15 +107,40 @@ export default function MemberPortal({ onLogout }) {
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900">
       <div className="max-w-4xl mx-auto p-6 lg:p-10 space-y-6">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
             <div className="text-2xl font-bold">Welkom, {member?.voornaam || "Member"}</div>
             <div className="text-sm text-gray-500">Jouw persoonlijke dashboard</div>
           </div>
-          <Button variant="outline" className="rounded-xl border-red-200 text-red-600 hover:bg-red-50" onClick={onLogout}>
-            <LogOut className="w-4 h-4 mr-2" /> Uitloggen
-          </Button>
+          <div className="flex flex-wrap items-center gap-2">
+            <Button
+              className="rounded-xl bg-[#ef4d16] hover:bg-[#d94412]"
+              onClick={() => setView("voedingsschema")}
+            >
+              <UtensilsCrossed className="w-4 h-4 mr-2" />
+              Voedingsschema
+            </Button>
+            <Button variant="outline" className="rounded-xl border-red-200 text-red-600 hover:bg-red-50" onClick={onLogout}>
+              <LogOut className="w-4 h-4 mr-2" /> Uitloggen
+            </Button>
+          </div>
         </div>
+
+        <Card
+          className="bg-white shadow-sm border border-orange-100 rounded-2xl cursor-pointer hover:border-[#ef4d16]/40 hover:shadow-md transition-all"
+          onClick={() => setView("voedingsschema")}
+        >
+          <CardContent className="p-5 flex items-center gap-4">
+            <div className="rounded-2xl bg-orange-50 border border-orange-100 p-3">
+              <UtensilsCrossed className="w-6 h-6 text-[#ef4d16]" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="font-semibold text-gray-900">Voedingsschema</div>
+              <div className="text-sm text-gray-500">Bekijk jouw persoonlijke voedingsplan en maaltijden</div>
+            </div>
+            <span className="text-sm font-medium text-[#ef4d16]">Openen →</span>
+          </CardContent>
+        </Card>
 
         {/* Personal Details */}
         <Card className="bg-white shadow-sm border border-gray-200 rounded-2xl">
