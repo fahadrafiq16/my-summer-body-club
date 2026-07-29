@@ -106,16 +106,23 @@ function SchemaInfoBlock({ fields }) {
   const rows = [
     { label: "Doel", value: getField(fields, "doel", "Doel") },
     { label: "Lengte", value: getField(fields, "lengte", "Lengte") },
-    { label: "Gewicht", value: getField(fields, "gewicht", "Gewicht") },
+    { label: "Start gewicht", value: getField(fields, "start gewicht", "start-gewicht", "Start gewicht", "gewicht", "Gewicht") },
+    { label: "Eind gewicht", value: getField(fields, "eind gewicht", "eind-gewicht", "Eind gewicht") },
     { label: "Leeftijd", value: getField(fields, "leeftijd", "Leeftijd") },
     { label: "Training", value: getField(fields, "training", "Training") },
-    { label: "Richtlijn calorieën", value: getField(fields, "richtlijn calorieën", "richtlijn-calorieen", "Richtlijn calorieën") },
+    { label: "Aandachtspunt", value: getField(fields, "aandachtspunt", "Aandachtspunt") },
+    { type: "divider", label: "Richtlijn calorieën" },
     { label: "Start", value: getField(fields, "start", "Start") },
+    { label: "Opbouw", value: getField(fields, "opbouw", "Opbouw") },
+    { label: "Afbouw", value: getField(fields, "afbouw", "Afbouw") },
     { label: "Eiwitten", value: getField(fields, "eiwitten", "Eiwitten") },
   ];
 
   // Also show any custom fields not in the defaults
-  const known = new Set(rows.map((r) => r.label.toLowerCase()));
+  const known = new Set([
+    ...rows.map((r) => r.label.toLowerCase()),
+    "gewicht",
+  ]);
   const extras = (Array.isArray(fields) ? fields : []).filter((f) => {
     if (f.kind === "heading") return false;
     const lab = String(f.label || "").toLowerCase();
@@ -124,12 +131,19 @@ function SchemaInfoBlock({ fields }) {
 
   return (
     <div className="rounded-2xl border border-gray-200 bg-white px-5 py-4 shadow-sm space-y-1.5">
-      {rows.map((r) => (
-        <div key={r.label} className="flex gap-2 text-sm leading-relaxed">
-          <span className="font-semibold text-gray-900 shrink-0">{r.label}:</span>
-          <span className="text-gray-800 whitespace-pre-wrap">{r.value || "—"}</span>
-        </div>
-      ))}
+      {rows.map((r) =>
+        r.type === "divider" ? (
+          <div key={r.label} className="pt-2 pb-1 space-y-2">
+            <div className="text-sm font-semibold text-gray-900">{r.label}:</div>
+            <div className="h-[2px] w-full rounded-full bg-[#ef4d16]" aria-hidden />
+          </div>
+        ) : (
+          <div key={r.label} className="flex gap-2 text-sm leading-relaxed">
+            <span className="font-semibold text-gray-900 shrink-0">{r.label}:</span>
+            <span className="text-gray-800 whitespace-pre-wrap">{r.value || "—"}</span>
+          </div>
+        )
+      )}
       {extras.map((f) => (
         <div key={f.id} className="flex gap-2 text-sm leading-relaxed">
           <span className="font-semibold text-gray-900 shrink-0">{f.label}:</span>

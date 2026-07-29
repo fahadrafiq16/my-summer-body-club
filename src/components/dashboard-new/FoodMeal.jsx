@@ -43,11 +43,15 @@ function defaultSchemaFields() {
   return [
     { id: "doel", kind: "field", label: "Doel", value: "", labelEditable: false, inputType: "text" },
     { id: "lengte", kind: "field", label: "Lengte", value: "", labelEditable: false, inputType: "text" },
-    { id: "gewicht", kind: "field", label: "Gewicht", value: "", labelEditable: false, inputType: "text" },
+    { id: "start-gewicht", kind: "field", label: "Start gewicht", value: "", labelEditable: false, inputType: "text" },
+    { id: "eind-gewicht", kind: "field", label: "Eind gewicht", value: "", labelEditable: false, inputType: "text" },
     { id: "leeftijd", kind: "field", label: "Leeftijd", value: "", labelEditable: false, inputType: "text" },
     { id: "training", kind: "field", label: "Training", value: "", labelEditable: false, inputType: "text" },
-    { id: "richtlijn-calorieen", kind: "field", label: "Richtlijn calorieën", value: "", labelEditable: false, inputType: "text" },
+    { id: "aandachtspunt", kind: "field", label: "Aandachtspunt", value: "", labelEditable: false, inputType: "text" },
+    { id: "richtlijn-calorieen", kind: "heading", label: "Richtlijn calorieën", value: "", labelEditable: false, inputType: "text" },
     { id: "start", kind: "field", label: "Start", value: "", labelEditable: false, inputType: "text" },
+    { id: "opbouw", kind: "field", label: "Opbouw", value: "", labelEditable: false, inputType: "text" },
+    { id: "afbouw", kind: "field", label: "Afbouw", value: "", labelEditable: false, inputType: "text" },
     { id: "eiwitten", kind: "field", label: "Eiwitten", value: "", labelEditable: false, inputType: "text" },
   ];
 }
@@ -63,18 +67,42 @@ function defaultAdviceFields() {
 
 function mapPlanFields(list, fallback) {
   if (!Array.isArray(list) || list.length === 0) return fallback();
-  return list.map((f) => {
+  const mapped = list.map((f) => {
     const id = f.id || newFieldId();
     const isRichtlijn = id === "richtlijn-calorieen" || f.label === "Richtlijn calorieën";
     return {
       id,
-      kind: isRichtlijn ? "field" : f.kind === "heading" ? "heading" : "field",
+      kind: isRichtlijn ? "heading" : f.kind === "heading" ? "heading" : "field",
       label: f.label || "",
-      value: f.value || "",
+      value: isRichtlijn ? "" : f.value || "",
       labelEditable: Boolean(f.labelEditable),
       inputType: f.inputType === "textarea" ? "textarea" : "text",
     };
   });
+  return upgradeSchemaFields(mapped, fallback);
+}
+
+/** Upgrade classic schema (Gewicht) → Start/Eind gewicht + Opbouw/Afbouw/Aandachtspunt */
+function upgradeSchemaFields(fields, fallback = defaultSchemaFields) {
+  if (fallback !== defaultSchemaFields) return fields;
+  const ids = new Set(fields.map((f) => f.id));
+  const alreadyNew =
+    ids.has("start-gewicht") || ids.has("eind-gewicht") || ids.has("opbouw") || ids.has("afbouw") || ids.has("aandachtspunt");
+  if (alreadyNew) return fields;
+
+  const OLD_IDS = new Set(["doel", "lengte", "gewicht", "leeftijd", "training", "richtlijn-calorieen", "start", "eiwitten"]);
+  const byId = Object.fromEntries(fields.map((f) => [f.id, f]));
+  const customs = fields.filter((f) => !OLD_IDS.has(f.id));
+
+  return [
+    ...defaultSchemaFields().map((f) => {
+      if (f.id === "start-gewicht") {
+        return { ...f, value: byId["gewicht"]?.value || "" };
+      }
+      return { ...f, value: byId[f.id]?.value || "" };
+    }),
+    ...customs,
+  ];
 }
 
 const selectInputCls =
@@ -99,20 +127,24 @@ function SchemaFieldRow({
 }) {
   if (isHeading) {
     return (
-      <div className="flex items-center gap-3 pt-1">
-        <div className="flex-1 text-sm font-semibold text-gray-900">{label}</div>
-        {onRemove && (
-          <button
-            type="button"
-            onClick={onRemove}
-            disabled={disabled}
-            className="shrink-0 p-1.5 rounded-md text-gray-400 hover:text-red-600 hover:bg-red-50 disabled:opacity-50"
-            aria-label="Verwijderen"
-            title="Verwijderen"
-          >
-            <Trash2 className="w-3.5 h-3.5" />
-          </button>
-        )}
+      <div className="pt-2 pb-1 space-y-2">
+        <div className="flex items-center gap-3">
+          <div className="flex-4 min-w-[210px] text-sm font-semibold text-gray-900">{label}:</div>
+          <div className="h-[2px] w-full rounded-full bg-[#ef4d16]" aria-hidden />
+          {onRemove && (
+            <button
+              type="button"
+              onClick={onRemove}
+              disabled={disabled}
+              className="shrink-0 p-1.5 rounded-md text-gray-400 hover:text-red-600 hover:bg-red-50 disabled:opacity-50"
+              aria-label="Verwijderen"
+              title="Verwijderen"
+            >
+              <Trash2 className="w-3.5 h-3.5" />
+            </button>
+          )}
+        </div>
+        
       </div>
     );
   }
