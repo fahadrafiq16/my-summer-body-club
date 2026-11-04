@@ -130,7 +130,7 @@ function App() {
             <Route path="/dashboard/*" element={<Navigate to="/dashboard-new" replace />} />
             <Route path="/dashboard-new/login" element={<Login />} />
             <Route
-              path="/dashboard-new"
+              path="/dashboard-new/*"
               element={
                 <ProtectedRoute>
                   <DashboardDemo />

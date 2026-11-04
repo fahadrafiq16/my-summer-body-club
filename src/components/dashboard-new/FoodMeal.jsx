@@ -18,6 +18,7 @@ import { Button } from "../ui/button";
 import { getBackendBaseUrl } from "../../utils/backend";
 import MealPlanSection from "./MealPlanSection";
 import DagelijkseRichtlijnenSection from "./DagelijkseRichtlijnenSection";
+import FoodPlanImages from "./FoodPlanImages";
 import GainProductsSection from "./GainProductsSection";
 
 function authHeaders() {
@@ -433,6 +434,7 @@ function FoodPlanView({ member, lang, onBack }) {
       </div>
 
       <div className="space-y-4">
+        <FoodPlanImages key={memberId} memberId={memberId} lang={lang} />
         <FoodPlanFieldsSection
           memberId={memberId}
           lang={lang}

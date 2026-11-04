@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Card, CardContent } from "../../components/ui/card";
 import { Button } from "../../components/ui/button";
 import Dashboard from "../../components/dashboard-new/Dashboard";
@@ -1116,7 +1116,9 @@ function MemberDetail({ member, role, lang, locationId, provider, setProvider, o
   );
 }
 
-function MembersTab({ lang, role, locationId }) {
+function MembersTab({ lang, role, locationId, memberId: routeMemberId }) {
+  const navigate = useNavigate();
+  const [memberError, setMemberError] = useState('');
   const t = i18n[lang];
   const [query, setQuery] = useState("");
   const [members, setMembers] = useState([]);
@@ -1371,20 +1373,22 @@ function MembersTab({ lang, role, locationId }) {
 
   const selected = selectedMember ?? (members.find((m) => m.id === selectedId) ?? null);
 
-  const openMember = async (memberId) => {
+  const openMember = (memberId) => navigate('/dashboard-new/members/' + encodeURIComponent(memberId));
+
+  const loadMember = async (memberId, isCurrent) => {
     setSelectedId(memberId);
     setLoadingMember(true);
     try {
       const backendBaseUrl = getBackendBaseUrl();
       const raw = localStorage.getItem("msbc_dashboard_auth");
       const token = raw ? JSON.parse(raw)?.token : null;
-      if (!token) return;
+      if (!token) throw new Error("Please sign in again to view this member");
 
       const res = await fetch(`${backendBaseUrl}/api/get-userinfo/${memberId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const doc = await res.json();
-      if (!res.ok || !doc) return;
+      if (!res.ok || !doc) throw new Error(doc?.error || "Member could not be loaded");
 
       let resolvedCustomerId = String(doc?.mollieCustomerId || doc?.customerId || "").trim();
       const rawMolliePaymentId = String(doc?.molliePaymentId || "").trim();
@@ -1416,6 +1420,7 @@ function MembersTab({ lang, role, locationId }) {
       const rent = ["rent", "pt-ruimte"].includes(String(doc?.selectedOption?.programType || "").toLowerCase());
       const category = pt ? "PT" : club ? "CLUB" : rent ? "RENTAL" : "PT";
 
+      if (!isCurrent()) return;
       setSelectedMember({
         id: String(doc?._id ?? memberId),
         category,
@@ -1435,12 +1440,17 @@ function MembersTab({ lang, role, locationId }) {
         manualPaymentStatus: doc?.manualPaymentStatus || "",
         mongo: doc,
       });
-    } catch {
-      // ignore
+    } catch (e) {
+      if (isCurrent()) setMemberError(e.message || 'Member could not be loaded');
     } finally {
-      setLoadingMember(false);
+      if (isCurrent()) setLoadingMember(false);
     }
   };
+  useEffect(() => {
+    let active = true;
+    if (routeMemberId) loadMember(routeMemberId, () => active);
+    return () => { active = false; };
+  }, [routeMemberId]); // eslint-disable-line react-hooks/exhaustive-deps
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     if (!q) return members;
@@ -1556,7 +1566,8 @@ function MembersTab({ lang, role, locationId }) {
       });
       if (res.ok) {
         setMembers((prev) => prev.filter((m) => m.id !== memberId));
-        setSelectedId(null);
+        navigate('/dashboard-new/members');
+          setSelectedId(null);
         setSelectedMember(null);
       } else {
         const err = await res.json().catch(() => ({}));
@@ -1605,6 +1616,12 @@ function MembersTab({ lang, role, locationId }) {
     }
   };
 
+  if (routeMemberId && !selected) {
+    return <div className="space-y-4">
+      <Button variant="outline" onClick={() => navigate('/dashboard-new/members')}>{lang === 'nl' ? 'Terug naar members' : 'Back to members'}</Button>
+      <p role="status">{memberError || (loadingMember || routeMemberId ? 'Loading member...' : '')}</p>
+    </div>;
+  }
   if (selected) {
     return (
       <MemberDetail
@@ -1615,6 +1632,7 @@ function MembersTab({ lang, role, locationId }) {
         provider={provider}
         setProvider={setProvider}
         onBack={() => {
+          navigate('/dashboard-new/members');
           setSelectedId(null);
           setSelectedMember(null);
         }}
@@ -1979,7 +1997,18 @@ export default function DashboardDemo() {
   const { logout, user } = useAuth();
   const [lang, setLang] = useState("nl");
   const [role, setRole] = useState("admin");
-  const [tab, setTab] = useState("dashboard");
+  const { '*': section = '' } = useParams();
+  const sectionKey = section.replace(/\/+$/, '');
+  const validSections = ['dashboard', 'members', 'finance', 'invoices', 'automations', 'portal', ...CONTENT_TABS];
+  const parts = sectionKey.split('/');
+  const memberId = parts[0] === 'members' && parts.length === 2 ? parts[1] : null;
+  const validSection = !sectionKey || validSections.includes(sectionKey) || Boolean(memberId && /^[a-f0-9]{24}$/i.test(memberId));
+  const tab = validSection && sectionKey ? parts[0] : 'dashboard';
+  const setTab = (nextTab) => navigate(nextTab === 'dashboard' ? '/dashboard-new' : '/dashboard-new/' + nextTab);
+
+  useEffect(() => {
+    if (!validSection) navigate('/dashboard-new', { replace: true });
+  }, [validSection, navigate]);
   const [collapsed, setCollapsed] = useState(false);
   const [contentOpen, setContentOpen] = useState(false);
   const [locationId, setLocationId] = useState(LOCATIONS[0].id);
@@ -2095,7 +2124,7 @@ export default function DashboardDemo() {
             <GymMascot lang={lang} />
           </div>
           {tab === "dashboard" && <Dashboard lang={lang} />}
-          {tab === "members" && <MembersTab lang={lang} role={role} locationId={locationId} />}
+          {tab === "members" && <MembersTab key={memberId || "members"} memberId={memberId} lang={lang} role={role} locationId={locationId} />}
           {tab === "finance" && <FinanceGate role={role} lang={lang}><Finance lang={lang} /></FinanceGate>}
           {tab === "invoices" && <InvoicesTab lang={lang} locationId={locationId} />}
           {tab === "automations" && <AutomationsTab lang={lang} />}
