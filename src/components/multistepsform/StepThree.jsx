@@ -131,10 +131,12 @@ const StepThree = ({ trainingDescription, paymentOptions, extraOptions, clubAmou
                 if (response.data.paymentUrl) {
                     window.location.href = response.data.paymentUrl;
                 } else {
-                    alert('Error fetching Mollie API');
+                    throw new Error('Geen betaallink ontvangen. Probeer het opnieuw.');
                 }
             } catch (error) {
                 console.error('Error creating payment:', error);
+                setSubmitError(error?.response?.data?.error || error?.response?.data?.message || error.message || 'Betaling starten mislukt. Probeer het opnieuw.');
+                setFormData((prev) => ({ ...prev, loading: false }));
 
             }
         } else {
@@ -179,7 +181,7 @@ const StepThree = ({ trainingDescription, paymentOptions, extraOptions, clubAmou
 
             } catch (error) {
                 console.error('Error initiating recurring payment:', error);
-                setSubmitError(error?.response?.data?.message || "Er ging iets mis bij het starten van de terugkerende betaling.");
+                setSubmitError(error?.response?.data?.message || error.message || "Er ging iets mis bij het starten van de terugkerende betaling.");
                 setFormData((prev) => ({ ...prev, loading: false }));
             }
         }
