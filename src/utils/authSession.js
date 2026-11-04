@@ -49,6 +49,8 @@ export function isUnauthorizedResponse(status, body) {
  * Clear JWT and send user to login. Safe to call multiple times.
  */
 export function handleUnauthorizedSession() {
+  const currentPath = typeof window !== 'undefined' ? window.location?.pathname || '' : '';
+  if (!/^\/dashboard(?:-new)?(?:\/|$)/.test(currentPath)) return;
   if (redirecting) return;
   redirecting = true;
 
