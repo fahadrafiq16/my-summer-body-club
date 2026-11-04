@@ -1,0 +1,53 @@
+.home-media-gallery { margin: 100px 0 70px; }
+.home-media-container { max-width: 1440px; margin: 0 auto; padding: 0 24px; }
+.home-media-header, .home-media-columns { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 64px; }
+.home-media-header { align-items: center; margin-bottom: 40px; }
+.home-media-heading { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.home-media-heading h2 { margin: 0; border-left: 8px solid #f44e17; padding: 6px 0 6px 20px; font-size: 30px; font-weight: 800; }
+.home-media-cta { border: 2px solid #f44e17; padding: 14px 18px; color: #db3e0b; text-align: center; font-size: 18px; font-weight: 700; line-height: 1.3; }
+.home-media-links { display: flex; justify-content: center; gap: 36px; }
+.home-media-links a { background: #f44e17; color: white; padding: 16px 30px; font-weight: 700; }
+.home-media-video-panel { min-width: 0; scroll-margin-top: 100px; }
+.home-media-video-panel h3 { margin: 0 0 12px; color: #e4420d; font-size: 20px; line-height: 28px; font-weight: 700; }
+.home-media-video, .home-media-empty { display: block; width: 100%; aspect-ratio: 2 / 1; background: #111; border-radius: 8px; object-fit: contain; }
+.home-media-empty { display: flex; align-items: center; justify-content: center; color: #fff; }
+.home-media-photo-panel { padding-top: 40px; min-width: 0; }
+.home-media-collage { display: grid; grid-template-columns: 2fr 1fr 1fr; grid-template-rows: repeat(2, minmax(0, 1fr)); aspect-ratio: 2 / 1; overflow: hidden; }
+.home-media-collage a { display: block; overflow: hidden; min-height: 0; }
+.home-media-photo-main { grid-row: span 2; }
+.home-media-collage img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .3s; }
+.home-media-collage a:hover img { transform: scale(1.05); }
+.home-media-video-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 12px; }
+.home-media-caption { font-size: 13px; color: #555; overflow-wrap: anywhere; }
+.home-media-controls { display: flex; gap: 10px; flex-shrink: 0; }
+.home-media-controls button { display: inline-flex; align-items: center; justify-content: center; width: 46px; height: 46px; border: 1px solid #fed7c5; border-radius: 50%; color: #db3e0b; background: #fff7f2; cursor: pointer; box-shadow: 0 3px 10px rgba(244,78,23,.1); transition: transform .2s ease, background .2s ease, color .2s ease, box-shadow .2s ease; }
+.home-media-controls button:last-child { background: #f44e17; border-color: #f44e17; color: #fff; }
+.home-media-controls button:hover { transform: translateY(-3px); background: #db3e0b; color: #fff; box-shadow: 0 6px 18px rgba(244,78,23,.25); }
+.home-media-controls button:active { transform: scale(.94); }
+.home-media-controls button svg { transition: transform .2s ease; }
+.home-media-controls button:first-child:hover svg { transform: translateX(-2px); }
+.home-media-controls button:last-child:hover svg { transform: translateX(2px); }
+.home-media-video { animation: home-media-reveal .35s ease-out both; }
+@keyframes home-media-reveal {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.home-media-gallery a:focus-visible, .home-media-gallery button:focus-visible { outline: 3px solid #222; outline-offset: 4px; }
+@media (max-width: 900px) {
+  .home-media-header, .home-media-columns { gap: 28px; }
+  .home-media-heading { flex-wrap: wrap; }
+}
+@media (max-width: 640px) {
+  .home-media-gallery { margin: 60px 0 40px; }
+  .home-media-container { padding: 0 16px; }
+  .home-media-header, .home-media-columns { grid-template-columns: 1fr; }
+  .home-media-header { margin-bottom: 28px; }
+  .home-media-heading h2 { font-size: 26px; }
+  .home-media-cta { font-size: 15px; }
+  .home-media-photo-panel { padding-top: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-media-collage img, .home-media-controls button, .home-media-controls button svg { transition: none; }
+  .home-media-video { animation: none; }
+  .home-media-controls button:hover, .home-media-controls button:active, .home-media-controls button:hover svg { transform: none; }
+}

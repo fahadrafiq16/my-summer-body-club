@@ -1,0 +1,68 @@
+.gym-mascot {
+  display: block;
+  width: 112px;
+  flex-shrink: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 20px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.gym-mascot svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.gym-mascot:focus-visible {
+  outline: 2px solid #f44e17;
+  outline-offset: 3px;
+}
+
+.gym-mascot-curl .gym-mascot-lift {
+  animation: gym-mascot-curl 2s ease-in-out infinite;
+}
+
+.gym-mascot-squat .gym-mascot-body {
+  transform-origin: 70px 106px;
+  animation: gym-mascot-squat 2.4s ease-in-out infinite;
+}
+
+.gym-mascot-bend .gym-mascot-body {
+  transform-origin: 70px 100px;
+  animation: gym-mascot-bend 3s ease-in-out infinite;
+}
+
+.gym-mascot-paused .gym-mascot-lift,
+.gym-mascot-paused .gym-mascot-body {
+  animation-play-state: paused;
+}
+
+@keyframes gym-mascot-curl {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes gym-mascot-squat {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(0.75); }
+}
+
+@keyframes gym-mascot-bend {
+  0%, 100% { transform: rotate(-10deg); }
+  50% { transform: rotate(10deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gym-mascot .gym-mascot-lift,
+  .gym-mascot .gym-mascot-body { animation: none; }
+}
+
+@media (max-width: 640px) {
+  .gym-mascot { width: 80px; }
+}
+
+@media print {
+  .gym-mascot { display: none; }
+}

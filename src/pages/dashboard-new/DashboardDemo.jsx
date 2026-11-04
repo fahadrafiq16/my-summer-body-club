@@ -9,6 +9,8 @@ import Reviews from "../../components/dashboard-new/Reviews";
 import FotosGalleryAdmin from "../../components/dashboard-new/FotosGalleryAdmin";
 import HomeTab from "../../components/dashboard-new/HomeTab";
 import FoodMeal from "../../components/dashboard-new/FoodMeal";
+import GymMascot from "../../components/dashboard-new/GymMascot";
+import MemberTotals from "../../components/dashboard-new/MemberTotals";
 import { useAuth } from "../../context/AuthContext";
 import { motion } from "framer-motion";
 import {
@@ -1638,7 +1640,7 @@ function MembersTab({ lang, role, locationId }) {
         <Chip tone="ok">{t.members.paid}: {members.filter((m) => m.paymentStatus === "PAID").length}</Chip>
         <Chip tone="danger">{t.members.open}: {members.filter((m) => m.paymentStatus === "OPEN").length}</Chip>
       </div>
-      <CollapsibleSection title={t.members.clubOverview} subtitle={t.members.clubSub} defaultOpen>
+      <CollapsibleSection title={`${t.members.clubOverview} (${loadingClub ? '…' : clubRows.length})`} subtitle={t.members.clubSub} defaultOpen>
         <MembersTable
           rows={clubRows}
           role={role}
@@ -1651,7 +1653,7 @@ function MembersTab({ lang, role, locationId }) {
           loadingText="Loading Club members from MongoDB..."
         />
       </CollapsibleSection>
-      <CollapsibleSection title={t.members.ptOverview} subtitle={t.members.ptSub} defaultOpen>
+      <CollapsibleSection title={`${t.members.ptOverview} (${loadingPt ? '…' : ptRows.length})`} subtitle={t.members.ptSub} defaultOpen>
         <MembersTable
           rows={ptRows}
           role={role}
@@ -1664,7 +1666,7 @@ function MembersTab({ lang, role, locationId }) {
           loadingText="Loading PT members from MongoDB..."
         />
       </CollapsibleSection>
-      <CollapsibleSection title={t.members.rentalOverview} subtitle={t.members.rentalSub} defaultOpen>
+      <CollapsibleSection title={`${t.members.rentalOverview} (${loadingRental ? '…' : rentalRows.length})`} subtitle={t.members.rentalSub} defaultOpen>
         <MembersTable
           rows={rentalRows}
           role={role}
@@ -2030,6 +2032,7 @@ export default function DashboardDemo() {
             </button>
           </div>
           <div className="flex-1 min-h-0 overflow-y-auto">
+          <MemberTotals collapsed={collapsed} lang={lang} refreshKey={tab} />
           <div className="px-4 pb-4 space-y-2">
             <NavButton icon={<LayoutDashboard className="w-5 h-5" />} label={t.tabs.dashboard} active={tab === "dashboard"} collapsed={collapsed} onClick={() => setTab("dashboard")} />
             <NavButton icon={<Users className="w-5 h-5" />} label={t.tabs.members} active={tab === "members"} collapsed={collapsed} onClick={() => setTab("members")} />
@@ -2088,6 +2091,9 @@ export default function DashboardDemo() {
           </div>
         </aside>
         <main className="flex-1 p-6 lg:p-10">
+          <div className="flex justify-end mb-2">
+            <GymMascot lang={lang} />
+          </div>
           {tab === "dashboard" && <Dashboard lang={lang} />}
           {tab === "members" && <MembersTab lang={lang} role={role} locationId={locationId} />}
           {tab === "finance" && <FinanceGate role={role} lang={lang}><Finance lang={lang} /></FinanceGate>}

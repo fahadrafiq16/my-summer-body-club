@@ -45,8 +45,8 @@ const SECTIONS = [
     key: "gallery",
     labelNl: "Gallery",
     labelEn: "Gallery",
-    descriptionNl: "Photos/Videos knoppen en 5 gallery-afbeeldingen met links.",
-    descriptionEn: "Photos/Videos buttons and 5 gallery images with links.",
+    descriptionNl: "Gallery-afbeeldingen, links en video's uploaden.",
+    descriptionEn: "Gallery images, links and video uploads.",
     render: (lang) => <HomeGallery lang={lang} embedded />,
   },
   {

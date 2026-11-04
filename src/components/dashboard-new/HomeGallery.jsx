@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import axios from "axios";
 import { useDropzone } from "react-dropzone";
 import { Button } from "../ui/button";
@@ -103,17 +103,96 @@ export default function HomeGallery({ lang = "nl", embedded = false }) {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
   const [status, setStatus] = useState(null);
+  const [galleryVideos, setGalleryVideos] = useState([]);
+  const [uploadedVideos, setUploadedVideos] = useState([]);
+  const [videoLibraryError, setVideoLibraryError] = useState('');
+  const [uploadingVideo, setUploadingVideo] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const videoInput = useRef(null);
+  const [deletingVideo, setDeletingVideo] = useState(false);
+
+  const deleteVideo = async (video) => {
+    if (!window.confirm(lang === 'nl'
+      ? 'Deze video definitief verwijderen uit Cloudinary en de website? Dit kan niet ongedaan worden gemaakt.'
+      : 'Permanently delete this video from Cloudinary and the website? This cannot be undone.')) return;
+    setSaving(true);
+    setDeletingVideo(true);
+    setError('');
+    setStatus(null);
+    try {
+      const response = await axios.delete(`${backendBase}/api/gallery-videos`, {
+        headers: authHeaders(), data: { publicId: video.videoPublicId },
+      });
+      if (!response.data?.success) throw new Error('Video deletion failed');
+      const keep = (item) => item.videoPublicId !== video.videoPublicId;
+      setGalleryVideos((previous) => previous.filter(keep));
+      setUploadedVideos((previous) => previous.filter(keep));
+      setStatus({ type: 'ok', text: lang === 'nl' ? 'Video verwijderd uit Cloudinary en de gallery.' : 'Video deleted from Cloudinary and the gallery.' });
+    } catch (e) {
+      setError(e?.response?.data?.error || e.message || 'Video deletion failed');
+    } finally {
+      setDeletingVideo(false);
+      setSaving(false);
+    }
+  };
+
+  const addVideo = async (event) => {
+    const file = event.target.files?.[0];
+    event.target.value = "";
+    if (!file) return;
+    if (!['video/mp4', 'video/webm', 'video/quicktime'].includes(file.type) || file.size > 50 * 1024 * 1024) {
+      setError(lang === 'nl' ? 'Kies een MP4, WebM of MOV video van maximaal 50 MB.' : 'Choose an MP4, WebM or MOV video up to 50 MB.');
+      return;
+    }
+    setUploadingVideo(true);
+    setUploadProgress(0);
+    setError('');
+    setStatus(null);
+    try {
+      const form = new FormData();
+      form.append('video', file);
+      const response = await axios.post(`${backendBase}/api/upload-video?folder=msbc/gallery-videos`, form, {
+        headers: authHeaders(),
+        onUploadProgress: ({ loaded, total }) => setUploadProgress(total ? Math.round(loaded * 100 / total) : 0),
+      });
+      if (!response.data?.success || !response.data.url) throw new Error('Video upload failed');
+      setUploadedVideos((previous) => [...previous, {
+        videoUrl: response.data.url,
+        videoPublicId: response.data.publicId,
+        title: file.name.replace(/\.[^.]+$/, ''),
+      }]);
+      setGalleryVideos((previous) => [...previous, {
+        videoUrl: response.data.url,
+        videoPublicId: response.data.publicId,
+        title: file.name.replace(/\.[^.]+$/, ''),
+      }]);
+      setStatus({ type: 'ok', text: lang === 'nl' ? 'Video geüpload. Klik op Opslaan om te publiceren.' : 'Video uploaded. Click Save to publish.' });
+    } catch (e) {
+      setError(e?.response?.data?.error || e.message || 'Video upload failed');
+    } finally {
+      setUploadingVideo(false);
+    }
+  };
 
   const load = async () => {
     try {
       setLoading(true);
       setError("");
+      setVideoLibraryError('');
+      try {
+        const library = await axios.get(`${backendBase}/api/gallery-videos`, { headers: authHeaders() });
+        if (!library.data?.success || !Array.isArray(library.data.videos)) throw new Error('Invalid video library');
+        setUploadedVideos(library.data.videos);
+      } catch {
+        setVideoLibraryError(lang === 'nl' ? 'Cloudinary-video’s konden niet worden geladen. Klik op Verversen om opnieuw te proberen.' : 'Could not load Cloudinary videos. Click Refresh to try again.');
+      }
       const res = await axios.get(`${backendBase}/api/fetch-home-section/${SECTION_KEY}`);
       if (res.data?.success && res.data.section) {
         const section = res.data.section;
         setPhotosButtonUrl(section.photosButtonUrl || DEFAULT_PHOTOS_URL);
         setVideosButtonUrl(section.videosButtonUrl || DEFAULT_VIDEOS_URL);
         setGalleryItems(padGalleryItems(section.galleryItems));
+        setGalleryVideos(section.galleryVideos || []);
       }
     } catch (e) {
       setError(e?.response?.data?.error || e?.message || "Failed to load gallery");
@@ -174,6 +253,7 @@ export default function HomeGallery({ lang = "nl", embedded = false }) {
           photosButtonUrl: photosButtonUrl.trim(),
           videosButtonUrl: videosButtonUrl.trim(),
           galleryItems: itemsToSave,
+          galleryVideos,
           isActive: true,
         },
         { headers: { "Content-Type": "application/json", ...authHeaders() } }
@@ -213,11 +293,11 @@ export default function HomeGallery({ lang = "nl", embedded = false }) {
           </div>
         )}
         <div className="flex flex-wrap items-center gap-2">
-          <Button variant="outline" className="rounded-xl" onClick={load} disabled={loading || saving}>
+          <Button variant="outline" className="rounded-xl" onClick={load} disabled={loading || saving || uploadingVideo}>
             <RefreshCw className={`w-4 h-4 mr-2 ${loading ? "animate-spin" : ""}`} />
             {lang === "nl" ? "Verversen" : "Refresh"}
           </Button>
-          <Button className="rounded-xl bg-[#ef4d16] hover:bg-[#d94412]" onClick={save} disabled={loading || saving}>
+          <Button className="rounded-xl bg-[#ef4d16] hover:bg-[#d94412]" onClick={save} disabled={loading || saving || uploadingVideo}>
             <Save className="w-4 h-4 mr-2" />
             {saving ? "…" : lang === "nl" ? "Opslaan" : "Save"}
           </Button>
@@ -262,6 +342,42 @@ export default function HomeGallery({ lang = "nl", embedded = false }) {
             disabled={loading}
           />
         </label>
+      </div>
+
+      <div className="rounded-xl border border-gray-200 p-4 space-y-4">
+        <div className="flex items-center justify-between gap-3 flex-wrap">
+          <h3 className="font-semibold">Videos</h3>
+          <Button type="button" variant="outline" onClick={() => videoInput.current?.click()} disabled={loading || saving || uploadingVideo}>
+            {lang === 'nl' ? 'Nieuwe video toevoegen' : 'Add new video'}
+          </Button>
+          <input ref={videoInput} type="file" accept="video/mp4,video/webm,video/quicktime,.mp4,.webm,.mov" onChange={addVideo} className="hidden" />
+        </div>
+        <p className="text-xs text-gray-500">MP4 / WebM / MOV · Max. 50 MB. {lang === 'nl' ? 'Klik na het uploaden op Opslaan.' : 'Click Save after uploading.'}</p>
+        {uploadingVideo && <p role="status" className="text-sm text-orange-700">{uploadProgress < 100 ? `Upload: ${uploadProgress}%` : lang === 'nl' ? 'Video verwerken…' : 'Processing video…'}</p>}
+        {deletingVideo && <p role="status" className="text-sm text-orange-700">{lang === 'nl' ? 'Video verwijderen…' : 'Deleting video…'}</p>}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {galleryVideos.map((video, index) => (
+            <div key={video.videoPublicId || video.videoUrl} className="space-y-2">
+              <video src={video.videoUrl} controls playsInline preload="metadata" className="w-full aspect-video rounded-lg bg-black" aria-label={video.title || `Video ${index + 1}`} />
+              <input className={inputCls} aria-label={lang === 'nl' ? 'Videotitel' : 'Video title'} value={video.title} disabled={saving || uploadingVideo} onChange={(event) => setGalleryVideos((previous) => previous.map((item, i) => i === index ? { ...item, title: event.target.value } : item))} />
+              <Button type="button" variant="outline" disabled={saving || uploadingVideo} onClick={() => setGalleryVideos((previous) => previous.filter((_, i) => i !== index))}>{lang === 'nl' ? 'Verwijderen' : 'Remove'}</Button>
+              <Button type="button" variant="outline" className="text-red-600 border-red-200" disabled={loading || saving || uploadingVideo || !video.videoPublicId} onClick={() => deleteVideo(video)}>{lang === 'nl' ? 'Definitief verwijderen' : 'Delete permanently'}</Button>
+            </div>
+          ))}
+        </div>
+        <h4 className="font-semibold text-sm">{lang === 'nl' ? 'Overige uploads in Cloudinary' : 'Other Cloudinary uploads'}</h4>
+        <p className="text-xs text-gray-500">{lang === 'nl' ? 'Deze video’s zijn al geüpload. Voeg ze toe aan de gallery en klik op Opslaan om ze te publiceren.' : 'These videos are already uploaded. Add them to the gallery and click Save to publish.'}</p>
+        {videoLibraryError && <p role="alert" className="text-sm text-red-700">{videoLibraryError}</p>}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {uploadedVideos.filter((video) => !galleryVideos.some((item) => item.videoUrl === video.videoUrl || (item.videoPublicId && item.videoPublicId === video.videoPublicId))).map((video) => (
+            <div key={video.videoPublicId || video.videoUrl} className="space-y-2">
+              <video src={video.videoUrl} controls playsInline preload="metadata" className="w-full aspect-video rounded-lg bg-black" aria-label={video.title || 'Uploaded video'} />
+              <p className="text-sm break-words">{video.title}</p>
+              <Button type="button" variant="outline" disabled={loading || saving || uploadingVideo} onClick={() => setGalleryVideos((previous) => [...previous, video])}>{lang === 'nl' ? 'Toevoegen aan gallery' : 'Add to gallery'}</Button>
+              <Button type="button" variant="outline" className="text-red-600 border-red-200" disabled={loading || saving || uploadingVideo || !video.videoPublicId} onClick={() => deleteVideo(video)}>{lang === 'nl' ? 'Definitief verwijderen' : 'Delete permanently'}</Button>
+            </div>
+          ))}
+        </div>
       </div>
 
       <div className="space-y-4">
